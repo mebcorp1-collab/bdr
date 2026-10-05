@@ -46,18 +46,17 @@ class BDR_EB_Shortcodes {
 	 * [bdr_eb_bouton texte="..."]
 	 */
 	public static function button( $atts ) {
-		$url = BDR_EB_Settings::get( 'portal_url' );
-		if ( '' === $url ) {
+		// The button leads to the client space page of this site.
+		if ( ! class_exists( 'BDR_EC_Admin' ) || ! (int) BDR_EC_Admin::get( 'page_id' ) ) {
 			return '';
 		}
-		$atts = shortcode_atts( array( 'texte' => BDR_EB_Settings::get( 'button_label' ) ), $atts, 'bdr_eb_bouton' );
+		$url  = BDR_EC_Front::space_url();
+		$atts = shortcode_atts( array( 'texte' => BDR_EB_Settings::text( 'button_label' ) ), $atts, 'bdr_eb_bouton' );
 		wp_enqueue_style( 'bdr-banque-en-ligne' );
 
-		$target = BDR_EB_Settings::get( 'new_tab' ) ? ' target="_blank" rel="noopener noreferrer"' : '';
-		$lock   = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9z"/></svg>';
+		$lock = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 8V7a3 3 0 1 1 6 0v3H9z"/></svg>';
 
-		return '<a class="bdr-eb-btn" href="' . esc_url( $url, array( 'https' ) ) . '"' . $target . '>' . $lock . '<span>' . esc_html( $atts['texte'] ) . '</span></a>'
-			. '<p class="bdr-eb-portal-url">' . esc_html__( 'Adresse officielle :', 'bdr-banque-en-ligne' ) . ' <strong>' . esc_html( wp_parse_url( $url, PHP_URL_HOST ) ) . '</strong></p>';
+		return '<a class="bdr-eb-btn" href="' . esc_url( $url ) . '">' . $lock . '<span>' . esc_html( $atts['texte'] ) . '</span></a>';
 	}
 
 	/**
@@ -86,7 +85,7 @@ class BDR_EB_Shortcodes {
 	 * [bdr_eb_securite]
 	 */
 	public static function security() {
-		$tips = array_filter( array_map( 'trim', explode( "\n", (string) BDR_EB_Settings::get( 'security_tips' ) ) ) );
+		$tips = array_filter( array_map( 'trim', explode( "\n", (string) BDR_EB_Settings::text( 'security_tips' ) ) ) );
 		if ( ! $tips ) {
 			return '';
 		}
@@ -105,7 +104,7 @@ class BDR_EB_Shortcodes {
 	public static function support() {
 		$phone = BDR_EB_Settings::get( 'support_phone' );
 		$email = BDR_EB_Settings::get( 'support_email' );
-		$hours = BDR_EB_Settings::get( 'support_hours' );
+		$hours = BDR_EB_Settings::text( 'support_hours' );
 
 		$items = '';
 		if ( $phone ) {

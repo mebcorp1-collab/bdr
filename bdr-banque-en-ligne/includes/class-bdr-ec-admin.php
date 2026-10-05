@@ -12,7 +12,6 @@ class BDR_EC_Admin {
 	const OPTION = 'bdr_ec_options';
 
 	public static function init() {
-		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'setup_notices' ) );
 		add_action( 'add_meta_boxes_' . BDR_EC_Data::POST_TYPE, array( __CLASS__, 'meta_boxes' ) );
@@ -38,18 +37,6 @@ class BDR_EC_Admin {
 	/* ---------------------------------------------------------------------
 	 * Settings
 	 * ------------------------------------------------------------------- */
-
-	public static function add_menu() {
-		add_submenu_page(
-			'edit.php?post_type=' . BDR_EC_Data::POST_TYPE,
-			/* translators: %s: name of the client space, e.g. BDR-NET */
-			sprintf( __( 'Réglages %s', 'bdr-net' ), self::get( 'space_name' ) ),
-			__( 'Réglages', 'bdr-net' ),
-			'manage_options',
-			'bdr-ec-settings',
-			array( __CLASS__, 'render_settings' )
-		);
-	}
 
 	public static function register_settings() {
 		register_setting(
@@ -77,28 +64,26 @@ class BDR_EC_Admin {
 		);
 	}
 
-	public static function render_settings() {
+	/**
+	 * Client space settings, displayed as a section of the Banque en ligne settings page.
+	 */
+	public static function render_settings_section() {
 		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 		$opt = self::OPTION;
 		?>
-		<div class="wrap">
-			<h1>
-				<?php
-				/* translators: %s: name of the client space, e.g. BDR-NET */
-				echo esc_html( sprintf( __( 'Réglages %s', 'bdr-net' ), self::get( 'space_name' ) ) );
-				?>
-			</h1>
+		<div id="bdr-ec">
+			<h2 class="title"><?php esc_html_e( 'Espace client', 'bdr-banque-en-ligne' ); ?></h2>
 			<form action="options.php" method="post">
 				<?php settings_fields( 'bdr_ec' ); ?>
 				<table class="form-table" role="presentation">
 					<tr>
-						<th scope="row"><label for="bdr_ec_space_name"><?php esc_html_e( 'Nom de l\'espace', 'bdr-net' ); ?></label></th>
+						<th scope="row"><label for="bdr_ec_space_name"><?php esc_html_e( 'Nom de l\'espace', 'bdr-banque-en-ligne' ); ?></label></th>
 						<td><input type="text" id="bdr_ec_space_name" name="<?php echo esc_attr( $opt ); ?>[space_name]" value="<?php echo esc_attr( self::get( 'space_name' ) ); ?>" class="regular-text" /></td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="bdr_ec_page_id"><?php esc_html_e( 'Page de l\'espace client', 'bdr-net' ); ?></label></th>
+						<th scope="row"><label for="bdr_ec_page_id"><?php esc_html_e( 'Page de l\'espace client', 'bdr-banque-en-ligne' ); ?></label></th>
 						<td>
 							<?php
 							wp_dropdown_pages(
@@ -106,66 +91,71 @@ class BDR_EC_Admin {
 									'name'              => esc_attr( $opt ) . '[page_id]',
 									'id'                => 'bdr_ec_page_id',
 									'selected'          => (int) self::get( 'page_id' ),
-									'show_option_none'  => esc_html__( '— Choisir une page —', 'bdr-net' ),
+									'show_option_none'  => esc_html__( '— Choisir une page —', 'bdr-banque-en-ligne' ),
 									'option_none_value' => 0,
 								)
 							);
 							?>
-							<p class="description"><?php esc_html_e( 'La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion.', 'bdr-net' ); ?></p>
+							<p class="description"><?php esc_html_e( 'La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion.', 'bdr-banque-en-ligne' ); ?></p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="bdr_ec_max"><?php esc_html_e( 'Taille maximale des documents (Mo)', 'bdr-net' ); ?></label></th>
+						<th scope="row"><label for="bdr_ec_max"><?php esc_html_e( 'Taille maximale des documents (Mo)', 'bdr-banque-en-ligne' ); ?></label></th>
 						<td>
 							<input type="number" min="1" max="50" id="bdr_ec_max" name="<?php echo esc_attr( $opt ); ?>[max_size_mb]" value="<?php echo esc_attr( self::get( 'max_size_mb' ) ); ?>" class="small-text" />
 							<p class="description">
 								<?php
 								/* translators: %s: server upload limit */
-								echo esc_html( sprintf( __( 'Limite du serveur : %s.', 'bdr-net' ), size_format( wp_max_upload_size() ) ) );
+								echo esc_html( sprintf( __( 'Limite du serveur : %s.', 'bdr-banque-en-ligne' ), size_format( wp_max_upload_size() ) ) );
 								?>
 							</p>
 						</td>
 					</tr>
 					<tr>
-						<th scope="row"><label for="bdr_ec_notify"><?php esc_html_e( 'E-mail de notification par défaut', 'bdr-net' ); ?></label></th>
+						<th scope="row"><label for="bdr_ec_notify"><?php esc_html_e( 'E-mail de notification par défaut', 'bdr-banque-en-ligne' ); ?></label></th>
 						<td>
 							<input type="email" id="bdr_ec_notify" name="<?php echo esc_attr( $opt ); ?>[notify_email]" value="<?php echo esc_attr( self::get( 'notify_email' ) ); ?>" class="regular-text" />
-							<p class="description"><?php esc_html_e( 'Utilisé quand aucun conseiller n\'est attribué au dossier.', 'bdr-net' ); ?></p>
+							<p class="description"><?php esc_html_e( 'Utilisé quand aucun conseiller n\'est attribué au dossier.', 'bdr-banque-en-ligne' ); ?></p>
 						</td>
 					</tr>
 				</table>
 				<?php submit_button(); ?>
 			</form>
 
-			<h2><?php esc_html_e( 'Stockage des documents', 'bdr-net' ); ?></h2>
+			<h2><?php esc_html_e( 'Stockage des documents', 'bdr-banque-en-ligne' ); ?></h2>
 			<?php if ( BDR_EC_Storage::is_outside_webroot() ) : ?>
-				<p><span class="dashicons dashicons-yes" style="color:#008a20"></span> <?php esc_html_e( 'Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR).', 'bdr-net' ); ?></p>
+				<p><span class="dashicons dashicons-yes" style="color:#008a20"></span> <?php esc_html_e( 'Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR).', 'bdr-banque-en-ligne' ); ?></p>
 			<?php else : ?>
 				<p><span class="dashicons dashicons-warning" style="color:#dba617"></span>
-					<?php esc_html_e( 'Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :', 'bdr-net' ); ?>
+					<?php esc_html_e( 'Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :', 'bdr-banque-en-ligne' ); ?>
 				</p>
 				<pre style="background:#fff;padding:8px;max-width:760px">define( 'BDR_EC_STORAGE_DIR', '/chemin/hors/du/site/bdr-documents' );</pre>
-				<p><?php esc_html_e( 'Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable.', 'bdr-net' ); ?></p>
+				<p><?php esc_html_e( 'Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable.', 'bdr-banque-en-ligne' ); ?></p>
 			<?php endif; ?>
 		</div>
 		<?php
+	}
+
+	public static function settings_url() {
+		return admin_url( 'admin.php?page=' . BDR_EB_Settings::MENU . '#bdr-ec' );
 	}
 
 	public static function setup_notices() {
 		if ( ! current_user_can( 'manage_options' ) || (int) self::get( 'page_id' ) ) {
 			return;
 		}
-		// Only on BDR-NET screens and the plugins list, not on every admin page.
-		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-		if ( ! $screen || ( BDR_EC_Data::POST_TYPE !== $screen->post_type && 'plugins' !== $screen->id ) ) {
+		// Only on the Banque en ligne screens and the plugins list, not on every admin page.
+		$screen  = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		$screens = array( BDR_EC_Data::POST_TYPE, BDR_EB_FAQ::POST_TYPE, BDR_EB_Signup::POST_TYPE );
+		if ( ! $screen || ( ! in_array( $screen->post_type, $screens, true ) && 'plugins' !== $screen->id && 'toplevel_page_' . BDR_EB_Settings::MENU !== $screen->id ) ) {
 			return;
 		}
 		printf(
 			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
 			/* translators: %s: name of the client space, e.g. BDR-NET */
-			esc_html( sprintf( __( '%s : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages.', 'bdr-net' ), self::get( 'space_name' ) ) ),
-			esc_url( admin_url( 'edit.php?post_type=' . BDR_EC_Data::POST_TYPE . '&page=bdr-ec-settings' ) ),
-			esc_html__( 'Ouvrir les réglages', 'bdr-net' )
+			esc_html( sprintf( __( '%s : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages.', 'bdr-banque-en-ligne' ), self::get( 'space_name' ) ) ),
+			esc_url( self::settings_url() ),
+			esc_html__( 'Ouvrir les réglages', 'bdr-banque-en-ligne' )
 		);
 	}
 
@@ -174,8 +164,8 @@ class BDR_EC_Admin {
 	 * ------------------------------------------------------------------- */
 
 	public static function meta_boxes() {
-		add_meta_box( 'bdr_ec_follow', __( 'Suivi du dossier', 'bdr-net' ), array( __CLASS__, 'render_follow_box' ), BDR_EC_Data::POST_TYPE, 'side', 'high' );
-		add_meta_box( 'bdr_ec_history', __( 'Échanges et documents', 'bdr-net' ), array( __CLASS__, 'render_history_box' ), BDR_EC_Data::POST_TYPE, 'normal', 'high' );
+		add_meta_box( 'bdr_ec_follow', __( 'Suivi du dossier', 'bdr-banque-en-ligne' ), array( __CLASS__, 'render_follow_box' ), BDR_EC_Data::POST_TYPE, 'side', 'high' );
+		add_meta_box( 'bdr_ec_history', __( 'Échanges et documents', 'bdr-banque-en-ligne' ), array( __CLASS__, 'render_history_box' ), BDR_EC_Data::POST_TYPE, 'normal', 'high' );
 	}
 
 	private static function user_select( $name, $users, $selected, $empty_label ) {
@@ -192,16 +182,16 @@ class BDR_EC_Admin {
 		$clients  = get_users( array( 'role' => 'bdr_client', 'orderby' => 'display_name', 'number' => 2000, 'fields' => array( 'ID', 'display_name', 'user_email' ) ) );
 		$advisors = get_users( array( 'role__in' => array( 'administrator', 'bdr_conseiller' ), 'orderby' => 'display_name', 'fields' => array( 'ID', 'display_name', 'user_email' ) ) );
 		?>
-		<p><label for="bdr_ec_client"><strong><?php esc_html_e( 'Client', 'bdr-net' ); ?></strong></label><br />
-			<?php echo self::user_select( 'bdr_ec_client', $clients, BDR_EC_Data::client_id( $post->ID ), __( '— Choisir —', 'bdr-net' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in user_select(). ?>
+		<p><label for="bdr_ec_client"><strong><?php esc_html_e( 'Client', 'bdr-banque-en-ligne' ); ?></strong></label><br />
+			<?php echo self::user_select( 'bdr_ec_client', $clients, BDR_EC_Data::client_id( $post->ID ), __( '— Choisir —', 'bdr-banque-en-ligne' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in user_select(). ?>
 			<?php if ( ! $clients ) : ?>
-				<span class="description"><?php esc_html_e( 'Aucun client : créez d\'abord un utilisateur avec le rôle « Client BDR ».', 'bdr-net' ); ?></span>
+				<span class="description"><?php esc_html_e( 'Aucun client : créez d\'abord un utilisateur avec le rôle « Client BDR ».', 'bdr-banque-en-ligne' ); ?></span>
 			<?php endif; ?>
 		</p>
-		<p><label for="bdr_ec_conseiller"><strong><?php esc_html_e( 'Conseiller', 'bdr-net' ); ?></strong></label><br />
-			<?php echo self::user_select( 'bdr_ec_conseiller', $advisors, BDR_EC_Data::advisor_id( $post->ID ), __( '— Aucun —', 'bdr-net' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in user_select(). ?>
+		<p><label for="bdr_ec_conseiller"><strong><?php esc_html_e( 'Conseiller', 'bdr-banque-en-ligne' ); ?></strong></label><br />
+			<?php echo self::user_select( 'bdr_ec_conseiller', $advisors, BDR_EC_Data::advisor_id( $post->ID ), __( '— Aucun —', 'bdr-banque-en-ligne' ) ); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in user_select(). ?>
 		</p>
-		<p><label for="bdr_ec_status"><strong><?php esc_html_e( 'Statut', 'bdr-net' ); ?></strong></label><br />
+		<p><label for="bdr_ec_status"><strong><?php esc_html_e( 'Statut', 'bdr-banque-en-ligne' ); ?></strong></label><br />
 			<select name="bdr_ec_status" id="bdr_ec_status" style="width:100%">
 				<?php foreach ( BDR_EC_Data::statuses() as $key => $label ) : ?>
 					<option value="<?php echo esc_attr( $key ); ?>" <?php selected( BDR_EC_Data::status( $post->ID ), $key ); ?>><?php echo esc_html( $label ); ?></option>
@@ -235,7 +225,7 @@ class BDR_EC_Admin {
 
 	public static function render_history_box( $post ) {
 		if ( 'publish' !== $post->post_status ) {
-			echo '<p>' . esc_html__( 'Publiez le dossier pour que le client puisse le voir et échanger avec vous.', 'bdr-net' ) . '</p>';
+			echo '<p>' . esc_html__( 'Publiez le dossier pour que le client puisse le voir et échanger avec vous.', 'bdr-banque-en-ligne' ) . '</p>';
 			return;
 		}
 
@@ -245,12 +235,12 @@ class BDR_EC_Admin {
 		printf(
 			'<p><a class="button button-primary" href="%s" target="_blank" rel="noopener">%s</a></p>',
 			esc_url( BDR_EC_Front::space_url( $post->ID ) ),
-			esc_html__( 'Répondre / déposer un document dans l\'espace client', 'bdr-net' )
+			esc_html__( 'Répondre / déposer un document dans l\'espace client', 'bdr-banque-en-ligne' )
 		);
 
-		echo '<h4>' . esc_html__( 'Messages', 'bdr-net' ) . '</h4>';
+		echo '<h4>' . esc_html__( 'Messages', 'bdr-banque-en-ligne' ) . '</h4>';
 		if ( ! $messages ) {
-			echo '<p>' . esc_html__( 'Aucun message.', 'bdr-net' ) . '</p>';
+			echo '<p>' . esc_html__( 'Aucun message.', 'bdr-banque-en-ligne' ) . '</p>';
 		}
 		foreach ( $messages as $message ) {
 			printf(
@@ -261,9 +251,9 @@ class BDR_EC_Admin {
 			);
 		}
 
-		echo '<h4>' . esc_html__( 'Documents', 'bdr-net' ) . '</h4>';
+		echo '<h4>' . esc_html__( 'Documents', 'bdr-banque-en-ligne' ) . '</h4>';
 		if ( ! $docs ) {
-			echo '<p>' . esc_html__( 'Aucun document.', 'bdr-net' ) . '</p>';
+			echo '<p>' . esc_html__( 'Aucun document.', 'bdr-banque-en-ligne' ) . '</p>';
 			return;
 		}
 		echo '<ul>';
@@ -283,11 +273,11 @@ class BDR_EC_Admin {
 	public static function columns( $columns ) {
 		return array(
 			'cb'            => $columns['cb'],
-			'title'         => __( 'Dossier', 'bdr-net' ),
-			'bdr_client'    => __( 'Client', 'bdr-net' ),
-			'bdr_advisor'   => __( 'Conseiller', 'bdr-net' ),
-			'bdr_status'    => __( 'Statut', 'bdr-net' ),
-			'bdr_unread'    => __( 'Non lus', 'bdr-net' ),
+			'title'         => __( 'Dossier', 'bdr-banque-en-ligne' ),
+			'bdr_client'    => __( 'Client', 'bdr-banque-en-ligne' ),
+			'bdr_advisor'   => __( 'Conseiller', 'bdr-banque-en-ligne' ),
+			'bdr_status'    => __( 'Statut', 'bdr-banque-en-ligne' ),
+			'bdr_unread'    => __( 'Non lus', 'bdr-banque-en-ligne' ),
 			'date'          => $columns['date'],
 		);
 	}

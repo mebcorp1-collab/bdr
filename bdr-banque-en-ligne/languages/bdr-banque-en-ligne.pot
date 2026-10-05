@@ -1,0 +1,872 @@
+# Copyright (C) 2026 BDR
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: BDR Banque en ligne 2.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bdr-banque-en-ligne\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-05T20:00:26+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: bdr-banque-en-ligne\n"
+
+#. Plugin Name of the plugin
+#: bdr-banque-en-ligne.php
+msgid "BDR Banque en ligne"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: bdr-banque-en-ligne.php
+msgid "https://www.bdr-dz.com/fr/banque-en-ligne/"
+msgstr ""
+
+#. Description of the plugin
+#: bdr-banque-en-ligne.php
+msgid "Banque en ligne et espace client BDR-NET : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire."
+msgstr ""
+
+#. Author of the plugin
+#: bdr-banque-en-ligne.php
+msgid "BDR"
+msgstr ""
+
+#. Author URI of the plugin
+#: bdr-banque-en-ligne.php
+msgid "https://www.bdr-dz.com"
+msgstr ""
+
+#: bdr-banque-en-ligne.php:85
+msgid "BDR Banque en ligne contient désormais l'espace client. Désactivez puis supprimez l'ancienne extension « BDR Espace Client » ou « BDR-NET » : ses dossiers, messages et documents sont repris automatiquement."
+msgstr ""
+
+#: bdr-banque-en-ligne.php:107
+#: includes/class-bdr-eb-settings.php:100
+msgid "Réglages"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:32
+msgid "FAQ banque en ligne"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:33
+msgid "Question"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:34
+#: includes/class-bdr-eb-faq.php:35
+msgid "FAQ"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:36
+msgid "Ajouter une question"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:37
+msgid "Nouvelle question"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:38
+msgid "Modifier la question"
+msgstr ""
+
+#: includes/class-bdr-eb-faq.php:39
+msgid "Aucune question."
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:92
+#: includes/class-bdr-eb-settings.php:93
+#: includes/class-bdr-eb-settings.php:210
+msgid "Banque en ligne"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:114
+msgid "Bouton d'accès à l'espace client"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:115
+msgid "Texte du bouton"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:117
+#: includes/class-bdr-eb-shortcodes.php:35
+msgid "Applications mobiles"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:118
+msgid "Lien Google Play"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:119
+msgid "Lien App Store"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:121
+msgid "Assistance banque en ligne"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:122
+#: includes/class-bdr-eb-signup.php:290
+msgid "Téléphone"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:123
+#: includes/class-bdr-eb-signup.php:62
+msgid "E-mail"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:124
+msgid "Horaires"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:126
+msgid "Sécurité"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:127
+#: includes/class-bdr-eb-settings.php:233
+msgid "Conseils de sécurité"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:127
+msgid "Un conseil par ligne."
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:129
+#: includes/class-bdr-eb-signup.php:38
+#: includes/class-bdr-eb-signup.php:40
+#: includes/class-bdr-eb-signup.php:41
+msgid "Demandes d'adhésion"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:130
+msgid "Activer le formulaire"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:131
+msgid "E-mail de notification"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:132
+msgid "Message de confirmation"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:201
+msgid "Le bouton mène à la page de l'espace client (choisie plus bas, section « Espace client »), où les clients se connectent pour suivre leurs dossiers, déposer leurs documents et écrire à leur conseiller."
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:226
+msgid "Shortcodes"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:229
+msgid "Espace client : connexion, dossiers, messagerie et documents"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:230
+msgid "Page complète : accès, applications, sécurité, FAQ, adhésion, assistance"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:231
+msgid "Bouton d'accès à l'espace client (option : texte=\"...\")"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:232
+msgid "Liens vers les applications mobiles"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:234
+msgid "Questions fréquentes (menu Banque en ligne > FAQ)"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:235
+msgid "Formulaire de demande d'adhésion"
+msgstr ""
+
+#: includes/class-bdr-eb-settings.php:236
+msgid "Coordonnées de l'assistance"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:34
+msgid "Accéder à votre espace client"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:36
+msgid "Votre sécurité"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:37
+msgid "Questions fréquentes"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:38
+msgid "Demander l'accès à la banque en ligne"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:39
+msgid "Besoin d'aide ?"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:67
+msgid "Disponible sur Google Play"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:68
+msgid "Télécharger dans l'App Store"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:112
+msgid "Téléphone :"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:115
+msgid "E-mail :"
+msgstr ""
+
+#: includes/class-bdr-eb-shortcodes.php:118
+msgid "Horaires :"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:39
+msgid "Demande"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:42
+msgid "Traiter la demande"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:43
+msgid "Rechercher"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:44
+msgid "Aucune demande pour le moment."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:59
+msgid "Type de client"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:60
+msgid "Nom et prénom / Raison sociale"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:61
+msgid "Téléphone mobile"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:63
+msgid "Agence de domiciliation"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:64
+msgid "Message"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:70
+msgid "Particulier"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:71
+msgid "Professionnel"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:72
+msgid "Entreprise"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:78
+msgid "Nouvelle"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:79
+msgid "En cours"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:80
+msgid "Traitée"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:81
+msgid "Refusée"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:109
+msgid "La session a expiré. Veuillez recharger la page et réessayer."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:114
+msgid "Une demande vient déjà d'être envoyée. Veuillez patienter quelques minutes."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:118
+msgid "Veuillez choisir le type de client."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:121
+msgid "Veuillez indiquer votre nom ou votre raison sociale."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:124
+msgid "Veuillez indiquer un numéro de mobile algérien valide (ex. : 0555 12 34 56)."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:127
+msgid "Veuillez indiquer une adresse e-mail valide."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:130
+msgid "Veuillez indiquer votre agence."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:133
+msgid "Veuillez accepter d'être contacté par la banque."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:137
+msgid "Pour votre sécurité, n'indiquez aucun numéro de compte ou de carte dans le message."
+msgstr ""
+
+#. translators: %s: agency name
+#: includes/class-bdr-eb-signup.php:200
+msgid "[Banque en ligne] Nouvelle demande d'adhésion — %s"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:201
+msgid "Une nouvelle demande d'adhésion à la banque en ligne a été déposée."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:204
+msgid "Consulter la demande :"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:236
+msgid "Ce formulaire ne vous demandera jamais vos identifiants, mots de passe, numéro de compte ou de carte."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:275
+msgid "J'accepte que la banque utilise ces informations pour me recontacter au sujet de ma demande."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:277
+msgid "Envoyer ma demande"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:288
+msgid "Demandeur"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:289
+msgid "Type"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:291
+#: includes/class-bdr-eb-signup.php:312
+#: includes/class-bdr-ec-admin.php:194
+#: includes/class-bdr-ec-admin.php:279
+#: includes/class-bdr-ec-front.php:140
+msgid "Statut"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:311
+msgid "Détails de la demande"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:351
+#: includes/class-bdr-ec-admin.php:77
+msgid "Espace client"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:356
+msgid "Accès créé."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:357
+msgid "Voir le compte client"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:359
+msgid "Voir le dossier"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:365
+msgid "Un administrateur peut créer l'accès à l'espace client pour ce demandeur."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:372
+msgid "Créer l'accès espace client"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:373
+msgid "Crée le compte du client et son premier dossier, puis lui envoie un e-mail pour choisir son mot de passe."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:389
+msgid "Action non autorisée."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:395
+msgid "Demande introuvable."
+msgstr ""
+
+#. translators: %s: agency name
+#: includes/class-bdr-eb-signup.php:445
+msgid "Adhésion banque en ligne — %s"
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:463
+msgid "Accès créé : le client va recevoir un e-mail pour choisir son mot de passe. Un premier dossier a été ouvert."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:464
+msgid "Ce client avait déjà un compte : un nouveau dossier lui a été ouvert."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:465
+msgid "L'accès a déjà été créé pour cette demande."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:466
+msgid "L'adresse e-mail de la demande n'est pas valide."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:467
+msgid "Cette adresse e-mail appartient déjà à un compte qui n'est pas un compte client. Vérifiez la demande."
+msgstr ""
+
+#: includes/class-bdr-eb-signup.php:468
+msgid "Le compte n'a pas pu être créé. Veuillez réessayer."
+msgstr ""
+
+#. translators: %d: minutes
+#: includes/class-bdr-ec-actions.php:58
+msgid "Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence."
+msgstr ""
+
+#: includes/class-bdr-ec-actions.php:206
+msgid "Lien expiré. Retournez dans votre espace client et réessayez."
+msgstr ""
+
+#: includes/class-bdr-ec-actions.php:211
+#: includes/class-bdr-ec-actions.php:215
+msgid "Document introuvable."
+msgstr ""
+
+#. translators: %s: dossier title
+#: includes/class-bdr-ec-actions.php:258
+msgid "[Espace client] Nouveau document — %s"
+msgstr ""
+
+#. translators: %s: dossier title
+#: includes/class-bdr-ec-actions.php:260
+msgid "[Espace client] Nouveau message — %s"
+msgstr ""
+
+#. translators: 1: client name, 2: dossier title, 3: link
+#: includes/class-bdr-ec-actions.php:263
+msgid ""
+"%1$s a ajouté un élément au dossier « %2$s ».\n"
+"\n"
+"Consulter le dossier : %3$s"
+msgstr ""
+
+#. translators: %s: name of the client space, e.g. BDR-NET
+#: includes/class-bdr-ec-actions.php:270
+msgid "%s — Nouvelle notification dans votre espace client"
+msgstr ""
+
+#. translators: 1: client name, 2: dossier title, 3: link
+#: includes/class-bdr-ec-actions.php:273
+msgid ""
+"Bonjour %1$s,\n"
+"\n"
+"Votre conseiller a ajouté un nouvel élément à votre dossier « %2$s ».\n"
+"\n"
+"Pour le consulter, connectez-vous à votre espace client : %3$s\n"
+"\n"
+"Pour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:82
+msgid "Nom de l'espace"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:86
+msgid "Page de l'espace client"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:94
+msgid "— Choisir une page —"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:99
+msgid "La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:103
+msgid "Taille maximale des documents (Mo)"
+msgstr ""
+
+#. translators: %s: server upload limit
+#: includes/class-bdr-ec-admin.php:109
+msgid "Limite du serveur : %s."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:115
+msgid "E-mail de notification par défaut"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:118
+msgid "Utilisé quand aucun conseiller n'est attribué au dossier."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:125
+msgid "Stockage des documents"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:127
+msgid "Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR)."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:130
+msgid "Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:133
+msgid "Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable."
+msgstr ""
+
+#. translators: %s: name of the client space, e.g. BDR-NET
+#: includes/class-bdr-ec-admin.php:156
+msgid "%s : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:158
+msgid "Ouvrir les réglages"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:167
+msgid "Suivi du dossier"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:168
+msgid "Échanges et documents"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:185
+#: includes/class-bdr-ec-admin.php:277
+#: includes/class-bdr-ec-front.php:138
+msgid "Client"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:186
+msgid "— Choisir —"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:188
+msgid "Aucun client : créez d'abord un utilisateur avec le rôle « Client BDR »."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:191
+#: includes/class-bdr-ec-admin.php:278
+msgid "Conseiller"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:192
+msgid "— Aucun —"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:228
+msgid "Publiez le dossier pour que le client puisse le voir et échanger avec vous."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:238
+msgid "Répondre / déposer un document dans l'espace client"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:241
+#: includes/class-bdr-ec-front.php:181
+msgid "Messages"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:243
+msgid "Aucun message."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:254
+#: includes/class-bdr-ec-front.php:206
+msgid "Documents"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:256
+msgid "Aucun document."
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:276
+#: includes/class-bdr-ec-front.php:136
+msgid "Dossier"
+msgstr ""
+
+#: includes/class-bdr-ec-admin.php:280
+msgid "Non lus"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:26
+#: includes/class-bdr-ec-data.php:28
+#: includes/class-bdr-ec-data.php:29
+msgid "Dossiers clients"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:27
+#: includes/class-bdr-ec-data.php:32
+msgid "Dossier client"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:30
+msgid "Nouveau dossier"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:31
+msgid "Nouveau dossier client"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:33
+msgid "Rechercher un dossier"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:34
+msgid "Aucun dossier."
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:53
+msgid "Ouvert"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:54
+msgid "En cours de traitement"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:55
+msgid "En attente de documents"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:56
+msgid "Clôturé"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:266
+msgid "Votre conseiller BDR"
+msgstr ""
+
+#: includes/class-bdr-ec-data.php:269
+msgid "Utilisateur supprimé"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:46
+msgid "Votre message a été envoyé."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:47
+msgid "Votre document a été déposé."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:48
+msgid "La session a expiré. Veuillez réessayer."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:49
+#: includes/class-bdr-ec-front.php:88
+msgid "Ce dossier n'est pas accessible."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:50
+msgid "Ce dossier est clôturé : vous ne pouvez plus y ajouter de message ou de document."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:51
+msgid "Le message est vide."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:52
+msgid "Le message est trop long (5 000 caractères maximum)."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:53
+msgid "Trop d'envois en peu de temps. Veuillez patienter quelques minutes."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:54
+#: includes/class-bdr-ec-storage.php:91
+#: includes/class-bdr-ec-storage.php:97
+msgid "Le fichier est trop volumineux."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:55
+msgid "Type de fichier non autorisé. Formats acceptés : PDF, JPG, PNG."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:56
+msgid "Le fichier n'a pas pu être déposé. Veuillez réessayer."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:57
+msgid "Une erreur est survenue. Veuillez réessayer."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:80
+msgid "Votre compte n'a pas accès à l'espace client."
+msgstr ""
+
+#. translators: %s: name of the client space, e.g. BDR-NET
+#: includes/class-bdr-ec-front.php:99
+msgid "Connexion à %s"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:100
+msgid "Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:101
+msgid "Votre sécurité :"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:102
+msgid "connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:107
+msgid "Identifiant ou e-mail"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:108
+msgid "Mot de passe"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:109
+msgid "Rester connecté"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:110
+msgid "Se connecter"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:114
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:115
+msgid "Pas encore d'accès ? Demandez-le à votre agence."
+msgstr ""
+
+#. translators: %s: user display name
+#: includes/class-bdr-ec-front.php:122
+msgid "Bonjour %s"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:124
+msgid "Se déconnecter"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:129
+#: includes/class-bdr-ec-front.php:176
+msgid "Mes dossiers"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:132
+msgid "Vous n'avez aucun dossier pour le moment. Votre conseiller en ouvrira un si nécessaire."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:140
+msgid "Dernière activité"
+msgstr ""
+
+#. translators: %d: number of unread messages
+#: includes/class-bdr-ec-front.php:147
+msgid "%d nouveau"
+msgid_plural "%d nouveaux"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/class-bdr-ec-front.php:183
+msgid "Aucun message pour le moment."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:198
+msgid "Votre message"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:200
+msgid "Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:201
+msgid "Envoyer"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:208
+msgid "Fichier"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:208
+msgid "Déposé par"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:208
+msgid "Date"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:208
+msgid "Taille"
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:217
+msgid "Aucun document pour le moment."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:228
+msgid "Déposer un document"
+msgstr ""
+
+#. translators: %s: max file size
+#: includes/class-bdr-ec-front.php:233
+msgid "Formats acceptés : PDF, JPG, PNG. Taille maximale : %s."
+msgstr ""
+
+#: includes/class-bdr-ec-front.php:237
+msgid "Déposer"
+msgstr ""
+
+#: includes/class-bdr-ec-install.php:95
+msgid "Client BDR"
+msgstr ""
+
+#: includes/class-bdr-ec-install.php:98
+msgid "Conseiller BDR"
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:88
+msgid "Aucun fichier reçu."
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:94
+msgid "Le fichier n'a pas pu être reçu. Veuillez réessayer."
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:104
+msgid "Type de fichier non autorisé."
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:114
+msgid "Le contenu du fichier ne correspond pas à son type."
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:118
+msgid "Le stockage des documents n'est pas disponible. Contactez la banque."
+msgstr ""
+
+#: includes/class-bdr-ec-storage.php:124
+msgid "Le fichier n'a pas pu être enregistré."
+msgstr ""

@@ -14,6 +14,14 @@ class BDR_EB_FAQ {
 	public static function init() {
 		add_action( 'init', array( __CLASS__, 'register_post_type' ) );
 		add_shortcode( 'bdr_eb_faq', array( __CLASS__, 'render' ) );
+		// Let Polylang translate FAQ entries (WPML: see wpml-config.xml).
+		add_filter(
+			'pll_get_post_types',
+			function ( $types ) {
+				$types[ self::POST_TYPE ] = self::POST_TYPE;
+				return $types;
+			}
+		);
 	}
 
 	public static function register_post_type() {
@@ -48,6 +56,7 @@ class BDR_EB_FAQ {
 				'post_type'      => self::POST_TYPE,
 				'post_status'    => 'publish',
 				'posts_per_page' => 100,
+				'suppress_filters' => false, // Lets WPML / Polylang return the questions of the current language.
 				'orderby'        => array(
 					'menu_order' => 'ASC',
 					'title'      => 'ASC',

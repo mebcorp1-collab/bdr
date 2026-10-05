@@ -55,7 +55,7 @@ class BDR_EC_Actions {
 					'bdr_ec_locked',
 					sprintf(
 						/* translators: %d: minutes */
-						__( 'Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence.', 'bdr-net' ),
+						__( 'Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence.', 'bdr-banque-en-ligne' ),
 						self::LOCK_MINUTES
 					)
 				);
@@ -203,16 +203,16 @@ class BDR_EC_Actions {
 			auth_redirect();
 		}
 		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( wp_unslash( $_GET['_wpnonce'] ) ), 'bdr_ec_download_' . $doc_id ) ) {
-			wp_die( esc_html__( 'Lien expiré. Retournez dans votre espace client et réessayez.', 'bdr-net' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'Lien expiré. Retournez dans votre espace client et réessayez.', 'bdr-banque-en-ligne' ), '', array( 'response' => 403 ) );
 		}
 
 		$doc = BDR_EC_Data::get_document( $doc_id );
 		if ( ! $doc || ! BDR_EC_Data::get_dossier( $doc->dossier_id ) ) {
-			wp_die( esc_html__( 'Document introuvable.', 'bdr-net' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'Document introuvable.', 'bdr-banque-en-ligne' ), '', array( 'response' => 404 ) );
 		}
 		$path = BDR_EC_Storage::path( $doc->stored_name );
 		if ( '' === $path || ! is_readable( $path ) ) {
-			wp_die( esc_html__( 'Document introuvable.', 'bdr-net' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'Document introuvable.', 'bdr-banque-en-ligne' ), '', array( 'response' => 404 ) );
 		}
 
 		$name  = sanitize_file_name( $doc->original_name );
@@ -255,22 +255,22 @@ class BDR_EC_Actions {
 		if ( $to_bank ) {
 			$subject = 'document' === $what
 				/* translators: %s: dossier title */
-				? sprintf( __( '[Espace client] Nouveau document — %s', 'bdr-net' ), $dossier->post_title )
+				? sprintf( __( '[Espace client] Nouveau document — %s', 'bdr-banque-en-ligne' ), $dossier->post_title )
 				/* translators: %s: dossier title */
-				: sprintf( __( '[Espace client] Nouveau message — %s', 'bdr-net' ), $dossier->post_title );
+				: sprintf( __( '[Espace client] Nouveau message — %s', 'bdr-banque-en-ligne' ), $dossier->post_title );
 			$body    = sprintf(
 				/* translators: 1: client name, 2: dossier title, 3: link */
-				__( "%1\$s a ajouté un élément au dossier « %2\$s ».\n\nConsulter le dossier : %3\$s", 'bdr-net' ),
+				__( "%1\$s a ajouté un élément au dossier « %2\$s ».\n\nConsulter le dossier : %3\$s", 'bdr-banque-en-ligne' ),
 				get_userdata( $client ) ? get_userdata( $client )->display_name : '',
 				$dossier->post_title,
 				BDR_EC_Front::space_url( $dossier_id )
 			);
 		} else {
 			/* translators: %s: name of the client space, e.g. BDR-NET */
-			$subject = sprintf( __( '%s — Nouvelle notification dans votre espace client', 'bdr-net' ), BDR_EC_Admin::get( 'space_name' ) );
+			$subject = sprintf( __( '%s — Nouvelle notification dans votre espace client', 'bdr-banque-en-ligne' ), BDR_EC_Admin::get( 'space_name' ) );
 			$body    = sprintf(
 				/* translators: 1: client name, 2: dossier title, 3: link */
-				__( "Bonjour %1\$s,\n\nVotre conseiller a ajouté un nouvel élément à votre dossier « %2\$s ».\n\nPour le consulter, connectez-vous à votre espace client : %3\$s\n\nPour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail.", 'bdr-net' ),
+				__( "Bonjour %1\$s,\n\nVotre conseiller a ajouté un nouvel élément à votre dossier « %2\$s ».\n\nPour le consulter, connectez-vous à votre espace client : %3\$s\n\nPour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail.", 'bdr-banque-en-ligne' ),
 				$recipient->display_name,
 				$dossier->post_title,
 				BDR_EC_Front::space_url()

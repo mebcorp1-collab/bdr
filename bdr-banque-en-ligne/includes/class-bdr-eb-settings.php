@@ -15,14 +15,12 @@ class BDR_EB_Settings {
 	public static function init() {
 		add_action( 'admin_menu', array( __CLASS__, 'add_menu' ) );
 		add_action( 'admin_init', array( __CLASS__, 'register' ) );
-		add_action( 'admin_notices', array( __CLASS__, 'missing_portal_notice' ) );
+		add_action( 'admin_init', array( __CLASS__, 'register_translatable_texts' ) );
 	}
 
 	public static function defaults() {
 		return array(
-			'portal_url'      => '',
 			'button_label'    => 'Accéder à mon espace client',
-			'new_tab'         => 1,
 			'android_url'     => '',
 			'ios_url'         => '',
 			'support_phone'   => '',
@@ -46,6 +44,39 @@ class BDR_EB_Settings {
 		);
 	}
 
+	/**
+	 * Texts typed in the settings that visitors read, translatable per language
+	 * with Polylang (Languages > Translations) or WPML (String Translation, see wpml-config.xml).
+	 */
+	public static function translatable_texts() {
+		return array(
+			'button_label'   => false,
+			'support_hours'  => false,
+			'security_tips'  => true,
+			'signup_success' => true,
+		);
+	}
+
+	public static function register_translatable_texts() {
+		if ( ! function_exists( 'pll_register_string' ) ) {
+			return;
+		}
+		foreach ( self::translatable_texts() as $key => $multiline ) {
+			$value = self::get( $key );
+			if ( '' !== $value ) {
+				pll_register_string( 'bdr_eb_' . $key, $value, 'BDR Banque en ligne', $multiline );
+			}
+		}
+	}
+
+	/**
+	 * A setting text in the visitor's language (falls back to the saved text).
+	 */
+	public static function text( $key ) {
+		$value = self::get( $key );
+		return function_exists( 'pll__' ) ? pll__( $value ) : $value;
+	}
+
 	public static function get( $key = null ) {
 		$options = wp_parse_args( (array) get_option( self::OPTION, array() ), self::defaults() );
 		if ( null === $key ) {
@@ -55,10 +86,12 @@ class BDR_EB_Settings {
 	}
 
 	public static function add_menu() {
+		// Advisors (no manage_options) must still reach "Dossiers clients" under this menu:
+		// WordPress denies a submenu page when the user cannot open its parent menu.
 		add_menu_page(
 			__( 'Banque en ligne', 'bdr-banque-en-ligne' ),
 			__( 'Banque en ligne', 'bdr-banque-en-ligne' ),
-			'manage_options',
+			BDR_EB_CLIENT_SPACE ? 'edit_bdr_dossiers' : 'manage_options',
 			self::MENU,
 			array( __CLASS__, 'render_page' ),
 			'dashicons-bank',
@@ -78,10 +111,8 @@ class BDR_EB_Settings {
 			)
 		);
 
-		add_settings_section( 'bdr_eb_portal', __( 'Portail e-banking', 'bdr-banque-en-ligne' ), array( __CLASS__, 'portal_help' ), self::MENU );
-		self::field( 'portal_url', __( 'Adresse du portail officiel', 'bdr-banque-en-ligne' ), 'url', 'bdr_eb_portal', __( 'Doit commencer par https://', 'bdr-banque-en-ligne' ) );
+		add_settings_section( 'bdr_eb_portal', __( 'Bouton d\'accès à l\'espace client', 'bdr-banque-en-ligne' ), array( __CLASS__, 'portal_help' ), self::MENU );
 		self::field( 'button_label', __( 'Texte du bouton', 'bdr-banque-en-ligne' ), 'text', 'bdr_eb_portal' );
-		self::field( 'new_tab', __( 'Ouvrir dans un nouvel onglet', 'bdr-banque-en-ligne' ), 'checkbox', 'bdr_eb_portal' );
 
 		add_settings_section( 'bdr_eb_apps', __( 'Applications mobiles', 'bdr-banque-en-ligne' ), '__return_false', self::MENU );
 		self::field( 'android_url', __( 'Lien Google Play', 'bdr-banque-en-ligne' ), 'url', 'bdr_eb_apps' );
@@ -148,11 +179,8 @@ class BDR_EB_Settings {
 		$input = (array) $input;
 		$clean = array();
 
-		foreach ( array( 'portal_url', 'android_url', 'ios_url' ) as $key ) {
+		foreach ( array( 'android_url', 'ios_url' ) as $key ) {
 			$clean[ $key ] = isset( $input[ $key ] ) ? self::https_url( $input[ $key ] ) : '';
-		}
-		if ( ! empty( $input['portal_url'] ) && '' === $clean['portal_url'] ) {
-			add_settings_error( self::OPTION, 'bdr_eb_portal_url', __( 'L\'adresse du portail doit être une adresse https:// valide.', 'bdr-banque-en-ligne' ) );
 		}
 
 		foreach ( array( 'button_label', 'support_phone', 'support_hours' ) as $key ) {
@@ -164,26 +192,13 @@ class BDR_EB_Settings {
 		foreach ( array( 'support_email', 'signup_recipient' ) as $key ) {
 			$clean[ $key ] = isset( $input[ $key ] ) ? sanitize_email( $input[ $key ] ) : '';
 		}
-		$clean['new_tab']        = empty( $input['new_tab'] ) ? 0 : 1;
 		$clean['signup_enabled'] = empty( $input['signup_enabled'] ) ? 0 : 1;
 
 		return $clean;
 	}
 
 	public static function portal_help() {
-		echo '<p>' . esc_html__( 'Cette extension ne gère pas la connexion des clients : le bouton redirige vers le portail e-banking officiel de la banque, qui reste seul à recevoir les identifiants.', 'bdr-banque-en-ligne' ) . '</p>';
-	}
-
-	public static function missing_portal_notice() {
-		if ( ! current_user_can( 'manage_options' ) || '' !== self::get( 'portal_url' ) ) {
-			return;
-		}
-		printf(
-			'<div class="notice notice-warning"><p>%s <a href="%s">%s</a></p></div>',
-			esc_html__( 'BDR Banque en ligne : l\'adresse du portail e-banking n\'est pas renseignée, le bouton d\'accès est masqué.', 'bdr-banque-en-ligne' ),
-			esc_url( admin_url( 'admin.php?page=' . self::MENU ) ),
-			esc_html__( 'Renseigner l\'adresse', 'bdr-banque-en-ligne' )
-		);
+		echo '<p>' . esc_html__( 'Le bouton mène à la page de l\'espace client (choisie plus bas, section « Espace client »), où les clients se connectent pour suivre leurs dossiers, déposer leurs documents et écrire à leur conseiller.', 'bdr-banque-en-ligne' ) . '</p>';
 	}
 
 	public static function render_page() {
@@ -193,7 +208,7 @@ class BDR_EB_Settings {
 		?>
 		<div class="wrap">
 			<h1><?php esc_html_e( 'Banque en ligne', 'bdr-banque-en-ligne' ); ?></h1>
-			<?php settings_errors( self::OPTION ); ?>
+			<?php settings_errors(); ?>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'bdr_eb' );
@@ -202,11 +217,18 @@ class BDR_EB_Settings {
 				?>
 			</form>
 
+			<?php
+			if ( class_exists( 'BDR_EC_Admin' ) ) {
+				BDR_EC_Admin::render_settings_section();
+			}
+			?>
+
 			<h2><?php esc_html_e( 'Shortcodes', 'bdr-banque-en-ligne' ); ?></h2>
 			<table class="widefat striped" style="max-width:860px">
 				<tbody>
+					<tr><td><code>[bdr_espace_client]</code></td><td><?php esc_html_e( 'Espace client : connexion, dossiers, messagerie et documents', 'bdr-banque-en-ligne' ); ?></td></tr>
 					<tr><td><code>[bdr_banque_en_ligne]</code></td><td><?php esc_html_e( 'Page complète : accès, applications, sécurité, FAQ, adhésion, assistance', 'bdr-banque-en-ligne' ); ?></td></tr>
-					<tr><td><code>[bdr_eb_bouton]</code></td><td><?php esc_html_e( 'Bouton d\'accès au portail (option : texte="...")', 'bdr-banque-en-ligne' ); ?></td></tr>
+					<tr><td><code>[bdr_eb_bouton]</code></td><td><?php esc_html_e( 'Bouton d\'accès à l\'espace client (option : texte="...")', 'bdr-banque-en-ligne' ); ?></td></tr>
 					<tr><td><code>[bdr_eb_applications]</code></td><td><?php esc_html_e( 'Liens vers les applications mobiles', 'bdr-banque-en-ligne' ); ?></td></tr>
 					<tr><td><code>[bdr_eb_securite]</code></td><td><?php esc_html_e( 'Conseils de sécurité', 'bdr-banque-en-ligne' ); ?></td></tr>
 					<tr><td><code>[bdr_eb_faq]</code></td><td><?php esc_html_e( 'Questions fréquentes (menu Banque en ligne > FAQ)', 'bdr-banque-en-ligne' ); ?></td></tr>

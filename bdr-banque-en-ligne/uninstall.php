@@ -1,6 +1,9 @@
 <?php
 /**
- * Remove plugin settings on uninstall. FAQ entries and subscription requests are kept on purpose.
+ * Uninstall: only settings are removed.
+ *
+ * FAQ entries, subscription requests, client dossiers, messages, documents and client accounts
+ * are deliberately KEPT: they are client records the bank may be required to retain.
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
@@ -8,3 +11,5 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 delete_option( 'bdr_eb_options' );
+delete_option( 'bdr_ec_options' );
+delete_option( 'bdr_ec_db_version' );

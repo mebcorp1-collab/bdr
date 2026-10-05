@@ -1,0 +1,15 @@
+<wpml-config>
+	<custom-types>
+		<custom-type translate="1">bdr_eb_faq</custom-type>
+		<custom-type translate="0">bdr_eb_demande</custom-type>
+		<custom-type translate="0">bdr_dossier</custom-type>
+	</custom-types>
+	<admin-texts>
+		<key name="bdr_eb_options">
+			<key name="button_label" />
+			<key name="support_hours" />
+			<key name="security_tips" />
+			<key name="signup_success" />
+		</key>
+	</admin-texts>
+</wpml-config>

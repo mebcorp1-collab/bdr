@@ -23,20 +23,19 @@ class BDR_EC_Data {
 			self::POST_TYPE,
 			array(
 				'labels'          => array(
-					'name'          => __( 'Dossiers clients', 'bdr-net' ),
-					'singular_name' => __( 'Dossier client', 'bdr-net' ),
-					'menu_name'     => BDR_EC_Admin::get( 'space_name' ),
-					'all_items'     => __( 'Dossiers', 'bdr-net' ),
-					'add_new'       => __( 'Nouveau dossier', 'bdr-net' ),
-					'add_new_item'  => __( 'Nouveau dossier client', 'bdr-net' ),
-					'edit_item'     => __( 'Dossier client', 'bdr-net' ),
-					'search_items'  => __( 'Rechercher un dossier', 'bdr-net' ),
-					'not_found'     => __( 'Aucun dossier.', 'bdr-net' ),
+					'name'          => __( 'Dossiers clients', 'bdr-banque-en-ligne' ),
+					'singular_name' => __( 'Dossier client', 'bdr-banque-en-ligne' ),
+					'menu_name'     => __( 'Dossiers clients', 'bdr-banque-en-ligne' ),
+					'all_items'     => __( 'Dossiers clients', 'bdr-banque-en-ligne' ),
+					'add_new'       => __( 'Nouveau dossier', 'bdr-banque-en-ligne' ),
+					'add_new_item'  => __( 'Nouveau dossier client', 'bdr-banque-en-ligne' ),
+					'edit_item'     => __( 'Dossier client', 'bdr-banque-en-ligne' ),
+					'search_items'  => __( 'Rechercher un dossier', 'bdr-banque-en-ligne' ),
+					'not_found'     => __( 'Aucun dossier.', 'bdr-banque-en-ligne' ),
 				),
 				'public'          => false,
 				'show_ui'         => true,
-				'menu_icon'       => 'dashicons-portfolio',
-				'menu_position'   => 26,
+				'show_in_menu'    => BDR_EB_Settings::MENU,
 				'supports'        => array( 'title' ),
 				'capability_type' => array( 'bdr_dossier', 'bdr_dossiers' ),
 				'map_meta_cap'    => true,
@@ -51,10 +50,10 @@ class BDR_EC_Data {
 
 	public static function statuses() {
 		return array(
-			'ouvert'       => __( 'Ouvert', 'bdr-net' ),
-			'en_cours'     => __( 'En cours de traitement', 'bdr-net' ),
-			'attente_docs' => __( 'En attente de documents', 'bdr-net' ),
-			'cloture'      => __( 'Clôturé', 'bdr-net' ),
+			'ouvert'       => __( 'Ouvert', 'bdr-banque-en-ligne' ),
+			'en_cours'     => __( 'En cours de traitement', 'bdr-banque-en-ligne' ),
+			'attente_docs' => __( 'En attente de documents', 'bdr-banque-en-ligne' ),
+			'cloture'      => __( 'Clôturé', 'bdr-banque-en-ligne' ),
 		);
 	}
 
@@ -264,10 +263,10 @@ class BDR_EC_Data {
 		$is_client = self::client_id( $dossier_id ) === (int) $author_id;
 
 		if ( ! $is_client && ! self::is_staff( $viewer_id ) ) {
-			return __( 'Votre conseiller BDR', 'bdr-net' );
+			return __( 'Votre conseiller BDR', 'bdr-banque-en-ligne' );
 		}
 		$user = get_userdata( $author_id );
-		$name = $user ? $user->display_name : __( 'Utilisateur supprimé', 'bdr-net' );
+		$name = $user ? $user->display_name : __( 'Utilisateur supprimé', 'bdr-banque-en-ligne' );
 		return $is_client ? $name : $name . ' (BDR)';
 	}
 }

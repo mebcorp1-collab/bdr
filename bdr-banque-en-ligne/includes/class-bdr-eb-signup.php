@@ -26,6 +26,8 @@ class BDR_EB_Signup {
 		add_action( 'manage_' . self::POST_TYPE . '_posts_custom_column', array( __CLASS__, 'column_content' ), 10, 2 );
 		add_action( 'add_meta_boxes', array( __CLASS__, 'meta_boxes' ) );
 		add_action( 'save_post_' . self::POST_TYPE, array( __CLASS__, 'save_status' ) );
+		add_action( 'admin_post_bdr_eb_create_client', array( __CLASS__, 'create_client_access' ) );
+		add_action( 'admin_notices', array( __CLASS__, 'create_client_notice' ) );
 	}
 
 	public static function register_post_type() {
@@ -221,7 +223,7 @@ class BDR_EB_Signup {
 		?>
 		<div class="bdr-eb-form-wrap" id="bdr-eb-adhesion">
 			<?php if ( $result && 'success' === $result['status'] ) : ?>
-				<div class="bdr-eb-notice bdr-eb-notice--success" role="status"><?php echo esc_html( BDR_EB_Settings::get( 'signup_success' ) ); ?></div>
+				<div class="bdr-eb-notice bdr-eb-notice--success" role="status"><?php echo esc_html( BDR_EB_Settings::text( 'signup_success' ) ); ?></div>
 			<?php else : ?>
 				<?php if ( $result && $result['errors'] ) : ?>
 					<div class="bdr-eb-notice bdr-eb-notice--error" role="alert"><ul>
@@ -334,6 +336,140 @@ class BDR_EB_Signup {
 			printf( '<option value="%s" %s>%s</option>', esc_attr( $status ), selected( $current, $status, false ), esc_html( $label ) );
 		}
 		echo '</select>';
+
+		self::render_client_access( $post );
+	}
+
+	/* ---------------------------------------------------------------------
+	 * Request -> client space account
+	 * ------------------------------------------------------------------- */
+
+	private static function render_client_access( $post ) {
+		if ( ! class_exists( 'BDR_EC_Data' ) ) {
+			return;
+		}
+		echo '<hr /><p><strong>' . esc_html__( 'Espace client', 'bdr-banque-en-ligne' ) . '</strong></p>';
+
+		$user_id    = (int) get_post_meta( $post->ID, '_bdr_eb_user_id', true );
+		$dossier_id = (int) get_post_meta( $post->ID, '_bdr_eb_dossier_id', true );
+		if ( $user_id && get_userdata( $user_id ) ) {
+			echo '<p>' . esc_html__( 'Accès créé.', 'bdr-banque-en-ligne' ) . '</p><ul>';
+			printf( '<li><a href="%s">%s</a></li>', esc_url( get_edit_user_link( $user_id ) ), esc_html__( 'Voir le compte client', 'bdr-banque-en-ligne' ) );
+			if ( $dossier_id && get_post( $dossier_id ) ) {
+				printf( '<li><a href="%s">%s</a></li>', esc_url( get_edit_post_link( $dossier_id ) ), esc_html__( 'Voir le dossier', 'bdr-banque-en-ligne' ) );
+			}
+			echo '</ul>';
+			return;
+		}
+		if ( ! current_user_can( 'create_users' ) ) {
+			echo '<p class="description">' . esc_html__( 'Un administrateur peut créer l\'accès à l\'espace client pour ce demandeur.', 'bdr-banque-en-ligne' ) . '</p>';
+			return;
+		}
+		$url = wp_nonce_url( admin_url( 'admin-post.php?action=bdr_eb_create_client&demande=' . (int) $post->ID ), 'bdr_eb_create_client_' . (int) $post->ID );
+		printf(
+			'<p><a class="button button-primary" href="%s">%s</a></p><p class="description">%s</p>',
+			esc_url( $url ),
+			esc_html__( 'Créer l\'accès espace client', 'bdr-banque-en-ligne' ),
+			esc_html__( 'Crée le compte du client et son premier dossier, puis lui envoie un e-mail pour choisir son mot de passe.', 'bdr-banque-en-ligne' )
+		);
+	}
+
+	private static function back_to_request( $request_id, $code ) {
+		wp_safe_redirect( add_query_arg( 'bdr_eb_access', $code, get_edit_post_link( $request_id, 'url' ) ) );
+		exit;
+	}
+
+	/**
+	 * Create (or reuse) the client's account from a subscription request, open a first dossier
+	 * and send the "set your password" e-mail. Never touches a non-client account.
+	 */
+	public static function create_client_access() {
+		$request_id = isset( $_GET['demande'] ) ? absint( $_GET['demande'] ) : 0;
+		if ( ! current_user_can( 'create_users' ) || ! class_exists( 'BDR_EC_Data' ) ) {
+			wp_die( esc_html__( 'Action non autorisée.', 'bdr-banque-en-ligne' ), '', array( 'response' => 403 ) );
+		}
+		check_admin_referer( 'bdr_eb_create_client_' . $request_id );
+
+		$request = get_post( $request_id );
+		if ( ! $request || self::POST_TYPE !== $request->post_type ) {
+			wp_die( esc_html__( 'Demande introuvable.', 'bdr-banque-en-ligne' ), '', array( 'response' => 404 ) );
+		}
+		if ( (int) get_post_meta( $request_id, '_bdr_eb_user_id', true ) ) {
+			self::back_to_request( $request_id, 'exists' );
+		}
+
+		$email  = sanitize_email( get_post_meta( $request_id, '_bdr_eb_email', true ) );
+		$name   = sanitize_text_field( get_post_meta( $request_id, '_bdr_eb_name', true ) );
+		$agency = sanitize_text_field( get_post_meta( $request_id, '_bdr_eb_agency', true ) );
+		if ( ! is_email( $email ) ) {
+			self::back_to_request( $request_id, 'bad_email' );
+		}
+
+		$user = get_user_by( 'email', $email );
+		if ( $user ) {
+			// Reuse only an existing client account, never a staff or other account.
+			if ( ! in_array( 'bdr_client', (array) $user->roles, true ) || user_can( $user, 'bdr_ec_manage' ) ) {
+				self::back_to_request( $request_id, 'email_taken' );
+			}
+			$user_id = $user->ID;
+		} else {
+			$base  = sanitize_user( strtolower( strstr( $email, '@', true ) ), true );
+			$base  = '' !== $base ? $base : 'client';
+			$login = $base;
+			for ( $i = 2; username_exists( $login ); $i++ ) {
+				$login = $base . $i;
+			}
+			$user_id = wp_insert_user(
+				array(
+					'user_login'   => $login,
+					'user_email'   => $email,
+					'user_pass'    => wp_generate_password( 32, true, true ),
+					'display_name' => $name,
+					'first_name'   => $name,
+					'role'         => 'bdr_client',
+				)
+			);
+			if ( is_wp_error( $user_id ) ) {
+				self::back_to_request( $request_id, 'error' );
+			}
+			update_user_meta( $user_id, 'bdr_eb_phone', sanitize_text_field( get_post_meta( $request_id, '_bdr_eb_phone', true ) ) );
+			update_user_meta( $user_id, 'bdr_eb_agency', $agency );
+			wp_new_user_notification( $user_id, null, 'user' );
+		}
+
+		$dossier_id = wp_insert_post(
+			array(
+				'post_type'   => BDR_EC_Data::POST_TYPE,
+				'post_status' => 'publish',
+				/* translators: %s: agency name */
+				'post_title'  => sprintf( __( 'Adhésion banque en ligne — %s', 'bdr-banque-en-ligne' ), $agency ),
+			)
+		);
+		if ( $dossier_id && ! is_wp_error( $dossier_id ) ) {
+			update_post_meta( $dossier_id, '_bdr_ec_client', (int) $user_id );
+			update_post_meta( $dossier_id, '_bdr_ec_conseiller', user_can( get_current_user_id(), 'bdr_ec_manage' ) ? get_current_user_id() : 0 );
+			update_post_meta( $dossier_id, '_bdr_ec_status', 'ouvert' );
+			update_post_meta( $request_id, '_bdr_eb_dossier_id', (int) $dossier_id );
+		}
+
+		update_post_meta( $request_id, '_bdr_eb_user_id', (int) $user_id );
+		update_post_meta( $request_id, '_bdr_eb_status', 'traitee' );
+		self::back_to_request( $request_id, $user ? 'linked' : 'created' );
+	}
+
+	public static function create_client_notice() {
+		$code     = isset( $_GET['bdr_eb_access'] ) ? sanitize_key( wp_unslash( $_GET['bdr_eb_access'] ) ) : '';
+		$messages = array(
+			'created'     => array( 'success', __( 'Accès créé : le client va recevoir un e-mail pour choisir son mot de passe. Un premier dossier a été ouvert.', 'bdr-banque-en-ligne' ) ),
+			'linked'      => array( 'success', __( 'Ce client avait déjà un compte : un nouveau dossier lui a été ouvert.', 'bdr-banque-en-ligne' ) ),
+			'exists'      => array( 'info', __( 'L\'accès a déjà été créé pour cette demande.', 'bdr-banque-en-ligne' ) ),
+			'bad_email'   => array( 'error', __( 'L\'adresse e-mail de la demande n\'est pas valide.', 'bdr-banque-en-ligne' ) ),
+			'email_taken' => array( 'error', __( 'Cette adresse e-mail appartient déjà à un compte qui n\'est pas un compte client. Vérifiez la demande.', 'bdr-banque-en-ligne' ) ),
+			'error'       => array( 'error', __( 'Le compte n\'a pas pu être créé. Veuillez réessayer.', 'bdr-banque-en-ligne' ) ),
+		);
+		if ( isset( $messages[ $code ] ) ) {
+			printf( '<div class="notice notice-%s is-dismissible"><p>%s</p></div>', esc_attr( $messages[ $code ][0] ), esc_html( $messages[ $code ][1] ) );
+		}
 	}
 
 	public static function save_status( $post_id ) {
