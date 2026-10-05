@@ -13,3 +13,4 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 delete_option( 'bdr_eb_options' );
 delete_option( 'bdr_ec_options' );
 delete_option( 'bdr_ec_db_version' );
+delete_option( 'bdr_ec_page_checked' );

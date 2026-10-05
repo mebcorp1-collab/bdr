@@ -3,7 +3,7 @@
  * Plugin Name:       BDR-NET Banque en ligne
  * Plugin URI:        https://www.bdr-dz.com/fr/banque-en-ligne/
  * Description:       Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire.
- * Version:           3.0.0
+ * Version:           3.0.1
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            BDR
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BDR_EB_VERSION', '3.0.0' );
+define( 'BDR_EB_VERSION', '3.0.1' );
 define( 'BDR_EB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BDR_EB_URL', plugin_dir_url( __FILE__ ) );
 

@@ -4,7 +4,7 @@ Tags: banque en ligne, espace client, messagerie, documents, dossiers, faq, adh�
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 
 Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client de www.bdr-dz.com : suivi des dossiers, dépôt de documents, messagerie sécurisée
@@ -96,8 +96,10 @@ L'extension est traduite en français (langue d'origine), en anglais (en_US) et 
    Ses dossiers, messages, documents et réglages sont repris automatiquement.
    (Tant qu'elle reste active, l'espace client de Banque en ligne reste éteint et un message s'affiche, pour éviter tout conflit.)
 2. Extensions > Ajouter > Téléverser une extension : bdr-banque-en-ligne.zip, puis « Remplacer la version installée » et Activer.
-3. Créez une page (ex. « BDR-NET » ou « Espace client ») contenant [bdr_espace_client].
-4. Banque en ligne > Réglages, section « Espace client » : sélectionnez cette page.
+3. La page de l'espace client est créée automatiquement : « BDR-NET » (/fr/bdr-net/, /en/bdr-net/, /ar/bdr-net/),
+   contenant [bdr_espace_client], et sélectionnée dans Banque en ligne > Réglages, section « Espace client ».
+   Si une page contenant déjà [bdr_espace_client] existe, c'est elle qui est utilisée.
+4. Réglages > Permaliens > Enregistrer, puis vider le cache LiteSpeed.
 5. Utilisateurs > Ajouter : créez vos conseillers avec le rôle « Conseiller BDR ».
    Les clients sont créés depuis les demandes d'adhésion, ou à la main avec le rôle « Client BDR ».
 6. Banque en ligne > Dossiers clients > Nouveau dossier client : titre, client, conseiller, puis Publier.
@@ -109,6 +111,9 @@ Le conseiller répond aux clients depuis la page de l'espace client (bouton « R
 Seuls les réglages sont supprimés. FAQ, demandes, dossiers, messages, documents et comptes clients sont conservés.
 
 == Changelog ==
+
+= 3.0.1 =
+* La page de l'espace client « BDR-NET » est créée et sélectionnée automatiquement (activation ou mise à jour).
 
 = 3.0.0 =
 * Connexion BDR-NET : identifiant, mot de passe et code de sécurité vérifié côté serveur, intégrée au thème bdr-modern.

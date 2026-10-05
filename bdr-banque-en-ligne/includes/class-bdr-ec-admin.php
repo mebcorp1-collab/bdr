@@ -13,6 +13,7 @@ class BDR_EC_Admin {
 
 	public static function init() {
 		add_action( 'admin_init', array( __CLASS__, 'register_settings' ) );
+		add_action( 'admin_init', array( 'BDR_EC_Install', 'maybe_ensure_page' ) );
 		add_action( 'admin_notices', array( __CLASS__, 'setup_notices' ) );
 		add_action( 'add_meta_boxes_' . BDR_EC_Data::POST_TYPE, array( __CLASS__, 'meta_boxes' ) );
 		add_action( 'save_post_' . BDR_EC_Data::POST_TYPE, array( __CLASS__, 'save_dossier' ) );

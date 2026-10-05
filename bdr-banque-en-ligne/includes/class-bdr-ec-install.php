@@ -12,10 +12,67 @@ class BDR_EC_Install {
 	const DB_VERSION        = '1';
 	const DB_VERSION_OPTION = 'bdr_ec_db_version';
 
+	const PAGE_CHECKED_OPTION = 'bdr_ec_page_checked';
+
 	public static function activate() {
 		self::install();
 		BDR_EC_Data::register_post_type();
+		self::ensure_page();
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * Make sure the client space page exists and is selected in the settings:
+	 * reuse a published page that already contains [bdr_espace_client], otherwise create « BDR-NET ».
+	 * Runs on activation and once after an update (the activation hook does not run on updates).
+	 */
+	public static function ensure_page() {
+		update_option( self::PAGE_CHECKED_OPTION, 1, false );
+
+		$page_id = (int) BDR_EC_Admin::get( 'page_id' );
+		if ( $page_id && 'publish' === get_post_status( $page_id ) ) {
+			return $page_id;
+		}
+
+		global $wpdb;
+		$page_id = (int) $wpdb->get_var(
+			$wpdb->prepare(
+				"SELECT ID FROM {$wpdb->posts} WHERE post_type = 'page' AND post_status = 'publish' AND post_content LIKE %s ORDER BY ID ASC LIMIT 1",
+				'%' . $wpdb->esc_like( '[bdr_espace_client' ) . '%'
+			)
+		);
+
+		if ( ! $page_id ) {
+			$page_id = wp_insert_post(
+				array(
+					'post_type'      => 'page',
+					'post_status'    => 'publish',
+					'post_title'     => 'BDR-NET',
+					'post_name'      => 'bdr-net',
+					'post_content'   => '[bdr_espace_client]',
+					'comment_status' => 'closed',
+					'ping_status'    => 'closed',
+				)
+			);
+			if ( ! $page_id || is_wp_error( $page_id ) ) {
+				return 0;
+			}
+		}
+
+		$options            = (array) get_option( BDR_EC_Admin::OPTION, array() );
+		$options['page_id'] = (int) $page_id;
+		update_option( BDR_EC_Admin::OPTION, $options );
+		return (int) $page_id;
+	}
+
+	/**
+	 * After an update by « Remplacer la version installée », create or select the page once.
+	 */
+	public static function maybe_ensure_page() {
+		if ( ! get_option( self::PAGE_CHECKED_OPTION ) && current_user_can( 'manage_options' ) ) {
+			self::ensure_page();
+			flush_rewrite_rules();
+		}
 	}
 
 	public static function maybe_upgrade() {
