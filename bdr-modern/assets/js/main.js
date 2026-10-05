@@ -253,24 +253,6 @@
     loadCaptcha();
   }
 
-  /* ---------- Taux de change : date du jour (heure d'Alger), juste même si la page vient du cache ---------- */
-  var fxLine = $('.fx-dateline');
-  if (fxLine && window.Intl && Intl.DateTimeFormat) {
-    try {
-      var now = new Date();
-      var ymd = new Intl.DateTimeFormat('en-CA', { timeZone: 'Africa/Algiers', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-      $$('[data-bdr-today]', fxLine).forEach(function (el) {
-        var l = el.getAttribute('data-bdr-today');
-        var loc = l === 'ar' ? 'ar-DZ' : (l === 'en' ? 'en-GB' : 'fr-FR');
-        var opts = { timeZone: 'Africa/Algiers', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        if (l === 'ar') opts.numberingSystem = 'latn';
-        el.textContent = new Intl.DateTimeFormat(loc, opts).format(now);
-      });
-      var rates = fxLine.getAttribute('data-fx-rates'), older = $('.fx-older', fxLine);
-      if (older && rates) older.hidden = !(rates < ymd);
-    } catch (e) {}
-  }
-
   /* ---------- Simulateur de mensualité (indicatif) ---------- */
   var a = $('#bdr-sim-amount'), t = $('#bdr-sim-term'), r = $('#bdr-sim-rate'), o = $('#bdr-sim-result');
   function calc() {

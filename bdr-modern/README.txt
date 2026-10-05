@@ -1,4 +1,4 @@
-BDR Modern 17.3 — thème WordPress de la Banque de Développement Régional
+BDR Modern 17.4 — thème WordPress de la Banque de Développement Régional
 =====================================================================
 
 INSTALLATION (toujours sur un site de test d'abord)
@@ -40,9 +40,10 @@ TAUX DE CHANGE (mise à jour quotidienne)
 - En cas d'échec (site indisponible, page modifiée ou chargée par JavaScript) : derniers cours valides conservés ; état et bouton
   « Mettre à jour maintenant » dans Administration > Taux de change. Mode « manuel » disponible.
 - Recommandé sur o2switch : une vraie tâche cron toutes les 15 min vers wp-cron.php (voir la page d'administration).
-- v17.3 : ligne de dates au-dessus du tableau : « Aujourd'hui : … » (date du jour à Alger, actualisée dans le navigateur,
-  donc juste même si la page vient du cache), « Cours du … » (date publiée par la Banque d'Algérie ; mention « dernière
-  publication » les jours sans nouveaux cours) et « Vérifiés le … à … » (dernière récupération réussie, heure d'Alger).
+- v17.4 : lecture du tableau de la Banque d'Algérie « une colonne par jour » (05-10-2026 | 02-10-2026 | …) : seule la colonne
+  la plus récente est retenue, avec sa date. Yen publié pour 100 unités : valeur conservée, libellé « Yen (100) ».
+  Légende : « Cours indicatifs du dinar algérien — <date des cours> — dernière publication de la Banque d'Algérie ».
+  Si le site source refuse la requête (403, 406, 429, 503), seconde tentative avec un navigateur standard.
 - v17.3 : la date des cours est cherchée d'abord autour du tableau (et non plus dans toute la page, où une date d'actualité
   pouvait être prise par erreur) ; cours « pour 100 unités » (ex. « Yen (100) ») ramenés à 1 unité ; heure de dernière
   actualisation en heure d'Alger (et non UTC) ; cache LiteSpeed vidé automatiquement après chaque mise à jour réussie.

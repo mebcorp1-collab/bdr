@@ -3,7 +3,7 @@ Theme Name: BDR Modern
 Theme URI: https://www.bdr-dz.com/
 Author: BDR
 Description: Thème institutionnel de la Banque de Développement Régional (BDR) — identité « Abysse & Émeraude » : en-tête en deux niveaux avec tuile logo et bloc Espace client, héros en deux volets avec coin en arche, mosaïque d'univers, galerie panoramique, cours de change automatiques. Trilingue (arabe RTL, français, anglais).
-Version: 17.3.0
+Version: 17.4.0
 Requires at least: 6.0
 Requires PHP: 7.4
 Text Domain: bdr-modern
@@ -429,10 +429,6 @@ a.product-card:hover .pc-icon { background: var(--abyss); color: #fff; }
 .fx-table tbody th { font-weight: 600; }
 .fx-table tbody tr:hover { background: var(--azure-tint); }
 .fx-table .num { text-align: end; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--abyss); white-space: nowrap; }
-.fx-dateline { display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline; margin: 0 0 14px; padding: 14px 18px; border-inline-start: 4px solid var(--gold); border-radius: 10px; background: var(--white); box-shadow: var(--shadow); color: var(--muted); font-size: 15px; }
-.fx-dateline strong { color: var(--abyss); }
-.fx-dateline .fx-today strong { color: var(--emerald-d); }
-.fx-dateline em { font-style: normal; }
 .fx-note { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 14px; color: var(--muted); font-size: 14px; }
 
 /* connexion client */

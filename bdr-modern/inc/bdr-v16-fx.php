@@ -129,9 +129,10 @@ function bdr_v16_fx_parse($html) {
   $xp = new DOMXPath($dom);
   foreach ($xp->query('//script|//style|//noscript') as $n) $n->parentNode->removeChild($n);
   $page_text = $dom->documentElement ? $dom->documentElement->textContent : '';
-  $best = array(); $best_table = null;
+  $best = array(); $best_table = null; $best_day = '';
   foreach ($xp->query('//table') as $table) {
     $rows = array(); $cols = array('buy' => -1, 'sell' => -1, 'value' => -1, 'unit' => -1);
+    $day_col = -1; $day_date = ''; // présentation « une colonne par jour » : colonne et date les plus récentes
     foreach ($xp->query('.//tr', $table) as $tr) {
       $cells = array();
       foreach ($xp->query('./th|./td', $tr) as $c) $cells[] = trim(preg_replace('/\s+/u', ' ', $c->textContent));
@@ -146,6 +147,10 @@ function bdr_v16_fx_parse($html) {
         elseif (preg_match('/^(unite|unit|nominal|وحدة|الوحدة)/u', $n)) { $tmp['unit'] = $i; $hdr++; }
       }
       if ($hdr >= 1 && bdr_v16_fx_num(end($cells)) === null && !preg_match('/\d/', implode('', $cells))) { $cols = $tmp; continue; }
+      // En-tête de dates (Banque d'Algérie : « | 05-10-2026 | 02-10-2026 | 01-10-2026 | … ») : on retient le jour le plus récent.
+      $dates = array();
+      foreach ($cells as $i => $cell) { if (bdr_v16_fx_num($cell) === null && ($d = bdr_v16_fx_find_date($cell)) !== '') $dates[$i] = $d; }
+      if (count($dates) >= 2) { arsort($dates); $day_col = key($dates); $day_date = current($dates); continue; }
       $code = ''; $name_unit = 1.0;
       foreach ($cells as $cell) {
         if (bdr_v16_fx_num($cell) !== null) continue;
@@ -165,6 +170,7 @@ function bdr_v16_fx_parse($html) {
       if ($cols['sell'] >= 0 && isset($nums[$cols['sell']])) $sell = $nums[$cols['sell']];
       if ($cols['value'] >= 0 && isset($nums[$cols['value']])) $val = $nums[$cols['value']];
       if ($cols['unit'] >= 0 && isset($nums[$cols['unit']])) $unit = $nums[$cols['unit']];
+      if ($day_col >= 0) { if (!isset($nums[$day_col])) continue; $val = $nums[$day_col]; } // cours du jour le plus récent uniquement
       if ($buy === null && $sell === null && $val === null) {
         $vals = array_values($nums);
         // On écarte une éventuelle colonne « unité » (1, 10, 100…) placée avant les cours.
@@ -174,8 +180,10 @@ function bdr_v16_fx_parse($html) {
       // Cours par 100 (ou 10, 1000) unités → ramenés à 1 unité pour un affichage homogène.
       if ($unit > 1) { foreach (array('buy', 'sell', 'val') as $k) if ($$k !== null) $$k = $$k / $unit; }
       $rows[$code] = array('code' => $code, 'buy' => $buy, 'sell' => $sell, 'value' => $val !== null ? $val : ($sell !== null ? $sell : $buy));
+      // Yen publié pour 100 unités (≈ 85 DA) : la valeur publiée est conservée, le libellé l'indiquera.
+      if ($code === 'JPY' && $rows[$code]['value'] !== null && $rows[$code]['value'] >= 5) $rows[$code]['per'] = 100;
     }
-    if (count($rows) > count($best)) { $best = $rows; $best_table = $table; }
+    if (count($rows) > count($best)) { $best = $rows; $best_table = $table; $best_day = $day_date; }
   }
   if (count($best) < 2) { $out['error'] = 'no_table'; return $out; }
   // Cours plausibles : 1 devise = entre 0,01 et 100 000 DZD (filtre les colonnes qui ne sont pas des cours).
@@ -188,7 +196,7 @@ function bdr_v16_fx_parse($html) {
   });
   $rows = array();
   foreach (array_slice(array_values($best), 0, 24) as $r) {
-    $rows[] = array('code' => $r['code'],
+    $rows[] = array('code' => $r['code'], 'per' => isset($r['per']) ? (int)$r['per'] : 1,
       'buy' => $r['buy'] !== null ? bdr_v16_fx_fmt($r['buy']) : '', 'sell' => $r['sell'] !== null ? bdr_v16_fx_fmt($r['sell']) : '',
       'value' => bdr_v16_fx_fmt($r['value']));
   }
@@ -206,7 +214,7 @@ function bdr_v16_fx_parse($html) {
       }
     }
   }
-  $out['date'] = bdr_v16_fx_find_date(mb_substr($near, 0, 8000, 'UTF-8'));
+  $out['date'] = $best_day !== '' ? $best_day : bdr_v16_fx_find_date(mb_substr($near, 0, 8000, 'UTF-8'));
   if ($out['date'] === '') $out['date'] = bdr_v16_fx_find_date(mb_substr($page_text, 0, 20000, 'UTF-8'));
   return $out;
 }
@@ -226,11 +234,17 @@ function bdr_v16_fx_set_status($ok, $message, $count = 0) {
 function bdr_v16_fx_update($html = null) {
   if ($html === null) {
     $url = bdr_v16_fx_source();
-    $res = wp_safe_remote_get($url, array(
-      'timeout' => 20, 'redirection' => 3, 'sslverify' => true,
-      'user-agent' => 'BDR-site/16 (+' . home_url('/') . '; mise a jour quotidienne des cours)',
+    $args = array(
+      'timeout' => 25, 'redirection' => 5, 'sslverify' => true,
+      'user-agent' => 'BDR-site/17 (+' . home_url('/') . '; mise a jour quotidienne des cours)',
       'headers' => array('Accept' => 'text/html,application/xhtml+xml', 'Accept-Language' => 'fr,ar;q=0.8,en;q=0.5'),
-    ));
+    );
+    $res = wp_safe_remote_get($url, $args);
+    // Certains pare-feu refusent les robots déclarés : seconde tentative avec un navigateur standard.
+    if (is_wp_error($res) || in_array((int)wp_remote_retrieve_response_code($res), array(403, 406, 429, 503), true)) {
+      $args['user-agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
+      $res = wp_safe_remote_get($url, $args);
+    }
     if (is_wp_error($res)) { $st = bdr_v16_fx_set_status(false, 'Connexion impossible : ' . $res->get_error_message()); return array('ok' => false, 'message' => $st['message'], 'count' => 0); }
     $code = (int)wp_remote_retrieve_response_code($res);
     if ($code !== 200) { $st = bdr_v16_fx_set_status(false, 'Réponse HTTP ' . $code . ' de la source.'); return array('ok' => false, 'message' => $st['message'], 'count' => 0); }

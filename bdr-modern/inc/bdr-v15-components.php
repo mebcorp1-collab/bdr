@@ -134,26 +134,12 @@ function bdr_v15_render_fx_table($lang) {
   $two = true; foreach ($rows as $r) if ($r['buy'] === '' || $r['sell'] === '') $two = false;
   $T = function ($fr, $en, $ar) use ($lang) { return bdr_v15_t($fr, $en, $ar, $lang); };
 
-  // Ligne de dates : date du jour (rafraîchie dans le navigateur, donc juste même si la page vient du cache),
-  // date des cours, et date/heure (Alger) de la dernière vérification réussie de la source.
-  $tz = new DateTimeZone('Africa/Algiers');
-  $today = bdr_v17_today_algiers();
-  $rates_ymd = (isset($set['date']) && preg_match('/^\d{4}-\d{2}-\d{2}$/', (string)$set['date'])) ? $set['date'] : '';
-  $st = get_option('bdr_fx_status', array());
-  $checked = !empty($set['auto']) && !empty($st['last_ok']) ? (int)$st['last_ok'] : 0;
-  echo '<div class="fx-dateline" data-fx-rates="' . esc_attr($rates_ymd) . '">';
-  echo '<span class="fx-today">' . esc_html($T('Aujourd’hui : ', 'Today: ', 'اليوم: ')) . '<strong data-bdr-today="' . esc_attr($lang) . '">' . esc_html(bdr_v17_long_date($today, $lang)) . '</strong></span>';
-  if ($rates_ymd) {
-    echo '<span class="fx-rates">' . esc_html($T('Cours du ', 'Rates of ', 'أسعار يوم ')) . '<strong>' . esc_html(bdr_v17_long_date($rates_ymd, $lang)) . '</strong>'
-      . '<em class="fx-older"' . ($rates_ymd < $today ? '' : ' hidden') . '>' . esc_html($T(' — dernière publication de la Banque d’Algérie', ' — latest publication by the Bank of Algeria', ' — آخر نشر لبنك الجزائر')) . '</em></span>';
-  }
-  if ($checked) {
-    echo '<span class="fx-checked">' . esc_html($T('Vérifiés le ', 'Checked on ', 'تم التحقق يوم ')) . '<strong>' . esc_html(bdr_v17_long_date(wp_date('Y-m-d', $checked, $tz), $lang)) . '</strong>'
-      . esc_html($T(' à ', ' at ', ' على الساعة ')) . '<strong dir="ltr">' . esc_html(wp_date('H:i', $checked, $tz)) . '</strong></span>';
-  }
-  echo '</div>';
 
-  echo '<div class="fx-table-wrap"><table class="fx-table"><caption>' . esc_html($T('Cours indicatifs du dinar algérien', 'Indicative Algerian dinar exchange rates', 'أسعار صرف الدينار الجزائري (للإعلام)')) . ($date ? ' — ' . esc_html($date) : '') . '</caption>';
+  // « Cours indicatifs du dinar algérien — 5 octobre 2026 — dernière publication de la Banque d’Algérie »
+  // (la mention de la Banque d’Algérie n’apparaît que pour les cours récupérés automatiquement chez elle).
+  echo '<div class="fx-table-wrap"><table class="fx-table"><caption>' . esc_html($T('Cours indicatifs du dinar algérien', 'Indicative Algerian dinar exchange rates', 'أسعار صرف الدينار الجزائري (للإعلام)'))
+    . ($date ? ' — ' . esc_html($date) : '')
+    . (!empty($set['auto']) ? ' — ' . esc_html($T('dernière publication de la Banque d’Algérie', 'latest publication by the Bank of Algeria', 'آخر نشر لبنك الجزائر')) : '') . '</caption>';
   echo '<thead><tr><th scope="col">' . esc_html($T('Devise', 'Currency', 'العملة')) . '</th><th scope="col">' . esc_html($T('Code', 'Code', 'الرمز')) . '</th>';
   if ($two) echo '<th scope="col" class="num">' . esc_html($T('Achat (DA)', 'Buy (DZD)', 'شراء (دج)')) . '</th><th scope="col" class="num">' . esc_html($T('Vente (DA)', 'Sell (DZD)', 'بيع (دج)')) . '</th>';
   else echo '<th scope="col" class="num">' . esc_html($T('Cours en DZD', 'Rate in DZD', 'السعر بالدينار')) . '</th>';

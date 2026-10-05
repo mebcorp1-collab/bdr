@@ -352,6 +352,8 @@ function bdr_v15_fx_rows() {
     $rows[$i]['names'] = isset($cat[$r['code']]) ? array('fr' => $cat[$r['code']]['fr'], 'en' => $cat[$r['code']]['en'], 'ar' => $cat[$r['code']]['ar']) : array('fr' => $r['code'], 'en' => $r['code'], 'ar' => $r['code']);
     if (!isset($rows[$i]['buy'])) $rows[$i]['buy'] = '';
     if (!isset($rows[$i]['sell'])) $rows[$i]['sell'] = '';
+    // Cours publié pour 100 unités (yen) : « Yen (100) ».
+    if (!empty($r['per']) && (int)$r['per'] > 1) foreach ($rows[$i]['names'] as $l => $n) $rows[$i]['names'][$l] = $n . ' (' . (int)$r['per'] . ')';
   }
   return $rows;
 }
@@ -367,29 +369,6 @@ function bdr_v15_fx_date($lang) {
   $m = $months[$lang][(int)date('n', $ts)];
   return $lang === 'en' ? $m . ' ' . date('j, Y', $ts) : date('j', $ts) . ' ' . $m . ' ' . date('Y', $ts);
 }
-
-/** Date longue avec le jour de la semaine, ex. « lundi 5 octobre 2026 », « Monday, October 5, 2026 », « الاثنين 5 أكتوبر 2026 ». */
-function bdr_v17_long_date($ymd, $lang) {
-  $ts = strtotime($ymd . ' 12:00:00');
-  if (!$ts) return '';
-  $days = array(
-    'fr' => array('dimanche', 'lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi'),
-    'en' => array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
-    'ar' => array('الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'),
-  );
-  $months = array(
-    'fr' => array('', 'janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'),
-    'en' => array('', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
-    'ar' => array('', 'جانفي', 'فيفري', 'مارس', 'أفريل', 'ماي', 'جوان', 'جويلية', 'أوت', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'),
-  );
-  if (!isset($days[$lang])) $lang = 'fr';
-  $d = $days[$lang][(int)date('w', $ts)]; $m = $months[$lang][(int)date('n', $ts)];
-  if ($lang === 'en') return $d . ', ' . $m . ' ' . date('j, Y', $ts);
-  return $d . ' ' . date('j', $ts) . ' ' . $m . ' ' . date('Y', $ts);
-}
-
-/** Date du jour (AAAA-MM-JJ) à Alger. */
-function bdr_v17_today_algiers() { return wp_date('Y-m-d', null, new DateTimeZone('Africa/Algiers')); }
 
 /* ------------------------------------------------------------------ *
  *  Statistiques réseau réelles (calculées sur la base des agences)
