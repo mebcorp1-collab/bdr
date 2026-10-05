@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name:       BDR Banque en ligne
+ * Plugin Name:       BDR-NET Banque en ligne
  * Plugin URI:        https://www.bdr-dz.com/fr/banque-en-ligne/
- * Description:       Banque en ligne et espace client BDR-NET : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire.
- * Version:           2.0.0
+ * Description:       Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire.
+ * Version:           3.0.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            BDR
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BDR_EB_VERSION', '2.0.0' );
+define( 'BDR_EB_VERSION', '3.0.0' );
 define( 'BDR_EB_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BDR_EB_URL', plugin_dir_url( __FILE__ ) );
 
@@ -56,6 +56,8 @@ if ( BDR_EB_CLIENT_SPACE ) {
 	require_once BDR_EB_DIR . 'includes/class-bdr-ec-actions.php';
 	require_once BDR_EB_DIR . 'includes/class-bdr-ec-front.php';
 	require_once BDR_EB_DIR . 'includes/class-bdr-ec-admin.php';
+	require_once BDR_EB_DIR . 'includes/class-bdr-net-captcha.php';
+	require_once BDR_EB_DIR . 'includes/class-bdr-net-login.php';
 }
 
 function bdr_eb_init() {
@@ -72,6 +74,7 @@ function bdr_eb_init() {
 		BDR_EC_Actions::init();
 		BDR_EC_Front::init();
 		BDR_EC_Admin::init();
+		BDR_NET_Login::init();
 	} else {
 		add_action( 'admin_notices', 'bdr_eb_legacy_notice' );
 	}

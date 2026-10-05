@@ -1,4 +1,4 @@
-BDR Modern 16 — thème WordPress de la Banque de Développement Régional
+BDR Modern 17.1 — thème WordPress de la Banque de Développement Régional
 =====================================================================
 
 INSTALLATION (toujours sur un site de test d'abord)
@@ -22,7 +22,16 @@ CONNEXION CLIENT (page « Banque en ligne »)
 - Le CAPTCHA est généré par le serveur (tracés SVG signés, 10 min, usage unique, limitation par IP). Il protège cette page ;
   BDR-NET doit garder ses propres contrôles (verrouillage, double authentification).
 
-TAUX DE CHANGE (mise à jour quotidienne)
+CONNEXION À L'ESPACE CLIENT AVEC L'EXTENSION « BDR-NET BANQUE EN LIGNE » (v17.1)
+- Quand l'extension « BDR-NET Banque en ligne » (3.0 ou plus) est active, la carte « Connexion à BDR-NET » de la page
+  Banque en ligne est fournie par l'extension : identifiant, mot de passe et code de sécurité, puis accès à l'espace
+  client du site (dossiers, documents, messagerie avec le conseiller). Les réglages BDR-NET du Personnaliseur ne sont
+  alors plus utilisés.
+- Modification limitée au fichier inc/bdr-v16-login.php (textes de la page + appel de bdr_net_login_card()).
+  Extension désactivée : la page revient exactement au fonctionnement « portail » décrit ci-dessus.
+- Après mise à jour : Réglages > Permaliens > Enregistrer, puis vider le cache LiteSpeed.
+
+
 - Tâche WP-Cron quotidienne (≈ 9 h 05, heure d'Alger) : télécharge la page de la Banque d'Algérie et lit le tableau (codes ISO ou noms FR/AR,
   achat/vente ou cours unique, virgule ou point, unités ×100 ramenées à 1).
 - En cas d'échec (site indisponible, page modifiée ou chargée par JavaScript) : derniers cours valides conservés ; état et bouton

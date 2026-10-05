@@ -216,3 +216,127 @@
 		display: none;
 	}
 }
+
+/* ------------------------------------------------------------------
+ * BDR-NET login card
+ * With the bdr-modern theme, the theme's own .login-card styles apply.
+ * The rules below only style it when that theme is not active.
+ * ------------------------------------------------------------------ */
+.bdr-net-standalone {
+	max-width: 520px;
+	margin: 0 auto;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .login-card {
+	padding: 2rem;
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field {
+	margin-bottom: 1.1rem;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field > label {
+	display: block;
+	margin-bottom: 0.4em;
+	font-weight: 600;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field-in {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0 0.8rem;
+	border: 1px solid #d6dde3;
+	border-radius: 8px;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field-in input {
+	flex: 1;
+	min-width: 0;
+	padding: 0.75em 0;
+	border: 0;
+	outline: 0;
+	background: transparent;
+	font: inherit;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field-toggle,
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .icon-btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0.4rem;
+	border: 0;
+	background: none;
+	color: inherit;
+	cursor: pointer;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .captcha-box {
+	display: flex;
+	align-items: stretch;
+	gap: 0.5rem;
+	margin-bottom: 0.5rem;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .captcha-view {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 76px;
+	border: 1px solid #d6dde3;
+	border-radius: 8px;
+	background: #eaf3f2;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .captcha-view img {
+	max-width: 100%;
+	height: auto;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .captcha-refresh {
+	border: 1px solid #d6dde3;
+	border-radius: 8px;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .captcha-input {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.75em 0.9em;
+	border: 1px solid #d6dde3;
+	border-radius: 8px;
+	font: inherit;
+	letter-spacing: 0.15em;
+	text-transform: uppercase;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .field-help,
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .login-foot {
+	font-size: 0.88em;
+	opacity: 0.8;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .btn-block {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5em;
+	width: 100%;
+	padding: 0.85em 1rem;
+	border: 0;
+	border-radius: 8px;
+	background: #0b6e3f;
+	color: #fff;
+	font: inherit;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .login-msg {
+	padding: 0.8em 1em;
+	border-radius: 8px;
+	background: #fee2e2;
+	color: #7f1d1d;
+}
+body:not([class*="bdr-lang-"]) .bdr-net-standalone .login-msg.is-ok {
+	background: #dcfce7;
+	color: #14532d;
+}
+.bdr-net-standalone .bdr-hp {
+	position: absolute !important;
+	left: -9999px !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}

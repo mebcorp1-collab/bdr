@@ -13,20 +13,10 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Domain: bdr-banque-en-ligne\n"
 
-#. Plugin Name of the plugin
-#: bdr-banque-en-ligne.php
-msgid "BDR Banque en ligne"
-msgstr "BDR Online Banking"
-
 #. Plugin URI of the plugin
 #: bdr-banque-en-ligne.php
 msgid "https://www.bdr-dz.com/fr/banque-en-ligne/"
 msgstr "https://www.bdr-dz.com/fr/banque-en-ligne/"
-
-#. Description of the plugin
-#: bdr-banque-en-ligne.php
-msgid "Banque en ligne et espace client BDR-NET : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire."
-msgstr "Online banking and BDR-NET client space: case tracking, document upload and secure messaging between clients and their advisor, FAQ, security tips and subscription requests. No banking transactions."
 
 #. Author of the plugin
 #: bdr-banque-en-ligne.php
@@ -38,11 +28,11 @@ msgstr "BDR"
 msgid "https://www.bdr-dz.com"
 msgstr "https://www.bdr-dz.com"
 
-#: bdr-banque-en-ligne.php:85
+#: bdr-banque-en-ligne.php:88
 msgid "BDR Banque en ligne contient désormais l'espace client. Désactivez puis supprimez l'ancienne extension « BDR Espace Client » ou « BDR-NET » : ses dossiers, messages et documents sont repris automatiquement."
 msgstr "BDR Online Banking now includes the client space. Deactivate and delete the former “BDR Espace Client” or “BDR-NET” plugin: its cases, messages and documents are taken over automatically."
 
-#: bdr-banque-en-ligne.php:107
+#: bdr-banque-en-ligne.php:110
 #: includes/class-bdr-eb-settings.php:100
 msgid "Réglages"
 msgstr "Settings"
@@ -366,7 +356,7 @@ msgstr "Type"
 #: includes/class-bdr-eb-signup.php:312
 #: includes/class-bdr-ec-admin.php:194
 #: includes/class-bdr-ec-admin.php:279
-#: includes/class-bdr-ec-front.php:140
+#: includes/class-bdr-ec-front.php:134
 msgid "Statut"
 msgstr "Status"
 
@@ -567,7 +557,7 @@ msgstr "Messages and documents"
 
 #: includes/class-bdr-ec-admin.php:185
 #: includes/class-bdr-ec-admin.php:277
-#: includes/class-bdr-ec-front.php:138
+#: includes/class-bdr-ec-front.php:132
 msgid "Client"
 msgstr "Client"
 
@@ -597,7 +587,7 @@ msgid "Répondre / déposer un document dans l'espace client"
 msgstr "Reply / upload a document in the client space"
 
 #: includes/class-bdr-ec-admin.php:241
-#: includes/class-bdr-ec-front.php:181
+#: includes/class-bdr-ec-front.php:175
 msgid "Messages"
 msgstr "Messages"
 
@@ -606,7 +596,7 @@ msgid "Aucun message."
 msgstr "No messages."
 
 #: includes/class-bdr-ec-admin.php:254
-#: includes/class-bdr-ec-front.php:206
+#: includes/class-bdr-ec-front.php:201
 msgid "Documents"
 msgstr "Documents"
 
@@ -615,7 +605,7 @@ msgid "Aucun document."
 msgstr "No documents."
 
 #: includes/class-bdr-ec-admin.php:276
-#: includes/class-bdr-ec-front.php:136
+#: includes/class-bdr-ec-front.php:130
 msgid "Dossier"
 msgstr "Case"
 
@@ -674,177 +664,158 @@ msgstr "Your BDR advisor"
 msgid "Utilisateur supprimé"
 msgstr "Deleted user"
 
-#: includes/class-bdr-ec-front.php:46
+#: includes/class-bdr-ec-front.php:59
 msgid "Votre message a été envoyé."
 msgstr "Your message has been sent."
 
-#: includes/class-bdr-ec-front.php:47
+#: includes/class-bdr-ec-front.php:60
 msgid "Votre document a été déposé."
 msgstr "Your document has been uploaded."
 
-#: includes/class-bdr-ec-front.php:48
+#: includes/class-bdr-ec-front.php:61
 msgid "La session a expiré. Veuillez réessayer."
 msgstr "Your session has expired. Please try again."
 
-#: includes/class-bdr-ec-front.php:49
-#: includes/class-bdr-ec-front.php:88
+#: includes/class-bdr-ec-front.php:62
+#: includes/class-bdr-ec-front.php:102
 msgid "Ce dossier n'est pas accessible."
 msgstr "This case is not accessible."
 
-#: includes/class-bdr-ec-front.php:50
+#: includes/class-bdr-ec-front.php:63
 msgid "Ce dossier est clôturé : vous ne pouvez plus y ajouter de message ou de document."
 msgstr "This case is closed: you can no longer add messages or documents to it."
 
-#: includes/class-bdr-ec-front.php:51
+#: includes/class-bdr-ec-front.php:64
 msgid "Le message est vide."
 msgstr "The message is empty."
 
-#: includes/class-bdr-ec-front.php:52
+#: includes/class-bdr-ec-front.php:65
 msgid "Le message est trop long (5 000 caractères maximum)."
 msgstr "The message is too long (5,000 characters maximum)."
 
-#: includes/class-bdr-ec-front.php:53
+#: includes/class-bdr-ec-front.php:66
 msgid "Trop d'envois en peu de temps. Veuillez patienter quelques minutes."
 msgstr "Too many submissions in a short time. Please wait a few minutes."
 
-#: includes/class-bdr-ec-front.php:54
+#: includes/class-bdr-ec-front.php:67
 #: includes/class-bdr-ec-storage.php:91
 #: includes/class-bdr-ec-storage.php:97
 msgid "Le fichier est trop volumineux."
 msgstr "The file is too large."
 
-#: includes/class-bdr-ec-front.php:55
+#: includes/class-bdr-ec-front.php:68
 msgid "Type de fichier non autorisé. Formats acceptés : PDF, JPG, PNG."
 msgstr "File type not allowed. Accepted formats: PDF, JPG, PNG."
 
-#: includes/class-bdr-ec-front.php:56
+#: includes/class-bdr-ec-front.php:69
 msgid "Le fichier n'a pas pu être déposé. Veuillez réessayer."
 msgstr "The file could not be uploaded. Please try again."
 
-#: includes/class-bdr-ec-front.php:57
+#: includes/class-bdr-ec-front.php:70
 msgid "Une erreur est survenue. Veuillez réessayer."
 msgstr "An error occurred. Please try again."
 
-#: includes/class-bdr-ec-front.php:80
+#: includes/class-bdr-ec-front.php:94
 msgid "Votre compte n'a pas accès à l'espace client."
 msgstr "Your account does not have access to the client space."
 
 #. translators: %s: name of the client space, e.g. BDR-NET
-#: includes/class-bdr-ec-front.php:99
+#: includes/class-bdr-net-login.php:144
 msgid "Connexion à %s"
 msgstr "Log in to %s"
 
-#: includes/class-bdr-ec-front.php:100
-msgid "Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité."
-msgstr "Track your cases, upload your documents and communicate with your advisor in complete confidentiality."
-
-#: includes/class-bdr-ec-front.php:101
-msgid "Votre sécurité :"
-msgstr "Your security:"
-
-#: includes/class-bdr-ec-front.php:102
-msgid "connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte."
-msgstr "only log in from the official BDR website (check the address and the padlock). BDR will never ask for your password by e-mail, SMS or phone. Never share your card codes."
-
-#: includes/class-bdr-ec-front.php:107
-msgid "Identifiant ou e-mail"
-msgstr "Username or e-mail"
-
-#: includes/class-bdr-ec-front.php:108
+#: includes/class-bdr-net-login.php:183
 msgid "Mot de passe"
 msgstr "Password"
 
-#: includes/class-bdr-ec-front.php:109
-msgid "Rester connecté"
-msgstr "Stay logged in"
-
-#: includes/class-bdr-ec-front.php:110
+#: includes/class-bdr-net-login.php:199
 msgid "Se connecter"
 msgstr "Log in"
 
-#: includes/class-bdr-ec-front.php:114
+#: includes/class-bdr-net-login.php:200
 msgid "Mot de passe oublié ?"
 msgstr "Forgot your password?"
 
-#: includes/class-bdr-ec-front.php:115
+#: includes/class-bdr-net-login.php:200
 msgid "Pas encore d'accès ? Demandez-le à votre agence."
 msgstr "No access yet? Ask your branch."
 
 #. translators: %s: user display name
-#: includes/class-bdr-ec-front.php:122
+#: includes/class-bdr-ec-front.php:116
 msgid "Bonjour %s"
 msgstr "Hello %s"
 
-#: includes/class-bdr-ec-front.php:124
+#: includes/class-bdr-ec-front.php:118
+#: includes/class-bdr-net-login.php:157
 msgid "Se déconnecter"
 msgstr "Log out"
 
-#: includes/class-bdr-ec-front.php:129
-#: includes/class-bdr-ec-front.php:176
+#: includes/class-bdr-ec-front.php:123
+#: includes/class-bdr-ec-front.php:170
 msgid "Mes dossiers"
 msgstr "My cases"
 
-#: includes/class-bdr-ec-front.php:132
+#: includes/class-bdr-ec-front.php:126
 msgid "Vous n'avez aucun dossier pour le moment. Votre conseiller en ouvrira un si nécessaire."
 msgstr "You don't have any cases yet. Your advisor will open one if needed."
 
-#: includes/class-bdr-ec-front.php:140
+#: includes/class-bdr-ec-front.php:134
 msgid "Dernière activité"
 msgstr "Last activity"
 
 #. translators: %d: number of unread messages
-#: includes/class-bdr-ec-front.php:147
+#: includes/class-bdr-ec-front.php:141
 msgid "%d nouveau"
 msgid_plural "%d nouveaux"
 msgstr[0] "%d new"
 msgstr[1] "%d new"
 
-#: includes/class-bdr-ec-front.php:183
+#: includes/class-bdr-ec-front.php:177
 msgid "Aucun message pour le moment."
 msgstr "No messages yet."
 
-#: includes/class-bdr-ec-front.php:198
+#: includes/class-bdr-ec-front.php:193
 msgid "Votre message"
 msgstr "Your message"
 
-#: includes/class-bdr-ec-front.php:200
+#: includes/class-bdr-ec-front.php:195
 msgid "Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller."
 msgstr "Never share your passwords or card codes, not even with your advisor."
 
-#: includes/class-bdr-ec-front.php:201
+#: includes/class-bdr-ec-front.php:196
 msgid "Envoyer"
 msgstr "Send"
 
-#: includes/class-bdr-ec-front.php:208
+#: includes/class-bdr-ec-front.php:203
 msgid "Fichier"
 msgstr "File"
 
-#: includes/class-bdr-ec-front.php:208
+#: includes/class-bdr-ec-front.php:203
 msgid "Déposé par"
 msgstr "Uploaded by"
 
-#: includes/class-bdr-ec-front.php:208
+#: includes/class-bdr-ec-front.php:203
 msgid "Date"
 msgstr "Date"
 
-#: includes/class-bdr-ec-front.php:208
+#: includes/class-bdr-ec-front.php:203
 msgid "Taille"
 msgstr "Size"
 
-#: includes/class-bdr-ec-front.php:217
+#: includes/class-bdr-ec-front.php:212
 msgid "Aucun document pour le moment."
 msgstr "No documents yet."
 
-#: includes/class-bdr-ec-front.php:228
+#: includes/class-bdr-ec-front.php:224
 msgid "Déposer un document"
 msgstr "Upload a document"
 
 #. translators: %s: max file size
-#: includes/class-bdr-ec-front.php:233
+#: includes/class-bdr-ec-front.php:229
 msgid "Formats acceptés : PDF, JPG, PNG. Taille maximale : %s."
 msgstr "Accepted formats: PDF, JPG, PNG. Maximum size: %s."
 
-#: includes/class-bdr-ec-front.php:237
+#: includes/class-bdr-ec-front.php:233
 msgid "Déposer"
 msgstr "Upload"
 
@@ -879,3 +850,100 @@ msgstr "Document storage is unavailable. Please contact the bank."
 #: includes/class-bdr-ec-storage.php:124
 msgid "Le fichier n'a pas pu être enregistré."
 msgstr "The file could not be saved."
+
+#. Plugin Name of the plugin
+#: bdr-banque-en-ligne.php
+msgid "BDR-NET Banque en ligne"
+msgstr "BDR-NET Online Banking"
+
+#. Description of the plugin
+#: bdr-banque-en-ligne.php
+msgid "Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire."
+msgstr "BDR-NET login (username, password and security code) and client space: case tracking, document upload and secure messaging between clients and their advisor, FAQ, security tips and subscription requests. No banking transactions."
+
+#. translators: 1: first number, 2: + or −, 3: second number
+#: includes/class-bdr-net-captcha.php:129
+msgid "Combien font %1$d %2$s %3$d ? (saisissez le nombre)"
+msgstr "What is %1$d %2$s %3$d? (type the number)"
+
+#: includes/class-bdr-net-login.php:124
+msgid "Renseignez votre identifiant, votre mot de passe et le code de sécurité."
+msgstr "Enter your username, password and security code."
+
+#: includes/class-bdr-net-login.php:125
+msgid "Code de sécurité incorrect ou expiré. Un nouveau code a été généré."
+msgstr "Incorrect or expired security code. A new code has been generated."
+
+#: includes/class-bdr-net-login.php:126
+msgid "Identifiant ou mot de passe incorrect."
+msgstr "Incorrect username or password."
+
+#: includes/class-bdr-net-login.php:127
+msgid "Trop de tentatives de connexion. Pour votre sécurité, réessayez dans 15 minutes ou contactez votre agence."
+msgstr "Too many login attempts. For your security, please try again in 15 minutes or contact your branch."
+
+#: includes/class-bdr-net-login.php:128
+msgid "Trop de tentatives. Patientez quelques minutes avant de réessayer."
+msgstr "Too many attempts. Please wait a few minutes before trying again."
+
+#: includes/class-bdr-net-login.php:129
+msgid "La page a expiré. Veuillez réessayer."
+msgstr "The page has expired. Please try again."
+
+#: includes/class-bdr-net-login.php:130
+msgid "Ce compte n'a pas accès à l'espace client."
+msgstr "This account does not have access to the client space."
+
+#: includes/class-bdr-net-login.php:131
+msgid "Vous êtes déconnecté. À bientôt."
+msgstr "You are logged out. See you soon."
+
+#. translators: 1: user name, 2: name of the client space
+#: includes/class-bdr-net-login.php:151
+msgid "Bonjour %1$s, vous êtes connecté à %2$s."
+msgstr "Hello %1$s, you are logged in to %2$s."
+
+#: includes/class-bdr-net-login.php:156
+msgid "Accéder à mon espace client"
+msgstr "Go to my client space"
+
+#: includes/class-bdr-net-login.php:180
+msgid "Identifiant"
+msgstr "Username"
+
+#: includes/class-bdr-net-login.php:185
+msgid "Afficher le mot de passe"
+msgstr "Show password"
+
+#: includes/class-bdr-net-login.php:185
+msgid "Masquer le mot de passe"
+msgstr "Hide password"
+
+#: includes/class-bdr-net-login.php:187
+msgid "Code de sécurité"
+msgstr "Security code"
+
+#: includes/class-bdr-net-login.php:191
+msgid "Code de sécurité : recopiez les 5 caractères de l'image"
+msgstr "Security code: copy the 5 characters shown in the image"
+
+#: includes/class-bdr-net-login.php:193
+msgid "Nouveau code"
+msgstr "New code"
+
+#: includes/class-bdr-net-login.php:196
+msgid "Revenir au code en image"
+msgstr "Back to the image code"
+
+#: includes/class-bdr-net-login.php:196
+msgid "Code illisible ? Utiliser une question simple"
+msgstr "Can’t read it? Use a simple question instead"
+
+#: includes/class-bdr-net-login.php:202
+msgid "Connexion chiffrée. La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone."
+msgstr "Encrypted connection. BDR will never ask for your password by e-mail, SMS or phone."
+
+#. translators: %s: link to the client space login page
+#: includes/class-bdr-net-login.php:296
+msgid "Pour votre sécurité, connectez-vous depuis la page %s, avec le code de sécurité."
+msgstr "For your security, please log in from the %s page, with the security code."

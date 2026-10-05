@@ -17,6 +17,14 @@ class BDR_EC_Front {
 
 	public static function register_assets() {
 		wp_register_style( 'bdr-espace-client', BDR_EC_URL . 'assets/css/bdr-espace-client.css', array(), BDR_EC_VERSION );
+		// External file, no inline script: the bdr-modern theme's Content-Security-Policy blocks inline scripts.
+		wp_register_script( 'bdr-net', BDR_EC_URL . 'assets/js/bdr-net.js', array(), BDR_EC_VERSION, true );
+
+		// The theme's online banking page shows the BDR-NET login card.
+		if ( BDR_NET_Login::is_login_page() ) {
+			wp_enqueue_style( 'bdr-espace-client' );
+			wp_enqueue_script( 'bdr-net' );
+		}
 	}
 
 	/**
@@ -32,9 +40,14 @@ class BDR_EC_Front {
 		}
 	}
 
-	public static function space_url( $dossier_id = 0, $args = array() ) {
+	public static function space_url( $dossier_id = 0, $args = array(), $lang = null ) {
 		$page_id = (int) BDR_EC_Admin::get( 'page_id' );
-		$url     = $page_id ? get_permalink( $page_id ) : home_url( '/' );
+		if ( $page_id && function_exists( 'bdr_v11_url' ) ) {
+			// bdr-modern theme: keep the visitor's language route (/fr/, /en/, /ar/).
+			$url = bdr_v11_url( get_post_field( 'post_name', $page_id ), $lang ? $lang : BDR_NET_Login::lang() );
+		} else {
+			$url = $page_id ? get_permalink( $page_id ) : home_url( '/' );
+		}
 		if ( $dossier_id ) {
 			$args['dossier'] = (int) $dossier_id;
 		}
@@ -70,6 +83,7 @@ class BDR_EC_Front {
 
 	public static function render() {
 		wp_enqueue_style( 'bdr-espace-client' );
+		wp_enqueue_script( 'bdr-net' );
 
 		if ( ! is_user_logged_in() ) {
 			return '<div class="bdr-ec">' . self::login() . '</div>';
@@ -93,27 +107,7 @@ class BDR_EC_Front {
 	}
 
 	private static function login() {
-		$name  = BDR_EC_Admin::get( 'space_name' );
-		$html  = '<div class="bdr-ec-login">';
-		/* translators: %s: name of the client space, e.g. BDR-NET */
-		$html .= '<h2>' . esc_html( sprintf( __( 'Connexion à %s', 'bdr-banque-en-ligne' ), $name ) ) . '</h2>';
-		$html .= '<p>' . esc_html__( 'Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité.', 'bdr-banque-en-ligne' ) . '</p>';
-		$html .= '<div class="bdr-ec-warning"><strong>' . esc_html__( 'Votre sécurité :', 'bdr-banque-en-ligne' ) . '</strong> '
-			. esc_html__( 'connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l\'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte.', 'bdr-banque-en-ligne' ) . '</div>';
-		$html .= wp_login_form(
-			array(
-				'echo'           => false,
-				'redirect'       => self::space_url(),
-				'label_username' => __( 'Identifiant ou e-mail', 'bdr-banque-en-ligne' ),
-				'label_password' => __( 'Mot de passe', 'bdr-banque-en-ligne' ),
-				'label_remember' => __( 'Rester connecté', 'bdr-banque-en-ligne' ),
-				'label_log_in'   => __( 'Se connecter', 'bdr-banque-en-ligne' ),
-				'remember'       => false,
-			)
-		);
-		$html .= '<p class="bdr-ec-small"><a href="' . esc_url( wp_lostpassword_url( self::space_url() ) ) . '">' . esc_html__( 'Mot de passe oublié ?', 'bdr-banque-en-ligne' ) . '</a> · '
-			. esc_html__( 'Pas encore d\'accès ? Demandez-le à votre agence.', 'bdr-banque-en-ligne' ) . '</p>';
-		return $html . '</div>';
+		return '<div class="bdr-net-standalone"><div class="login-card">' . BDR_NET_Login::render_card() . '</div></div>';
 	}
 
 	private static function topbar( $user ) {
@@ -193,6 +187,7 @@ class BDR_EC_Front {
 		if ( $writable ) {
 			$html .= '<form class="bdr-ec-form" method="post" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">'
 				. '<input type="hidden" name="action" value="bdr_ec_message" />'
+				. '<input type="hidden" name="bdr_net_lang" value="' . esc_attr( BDR_NET_Login::lang() ) . '" />'
 				. '<input type="hidden" name="dossier" value="' . esc_attr( $id ) . '" />'
 				. wp_nonce_field( 'bdr_ec_message_' . $id, '_bdr_ec_nonce', false, false )
 				. '<label for="bdr-ec-message">' . esc_html__( 'Votre message', 'bdr-banque-en-ligne' ) . '</label>'
@@ -223,6 +218,7 @@ class BDR_EC_Front {
 			}, array_keys( BDR_EC_Storage::allowed_types() ) ) );
 			$html .= '<form class="bdr-ec-form" method="post" enctype="multipart/form-data" action="' . esc_url( admin_url( 'admin-post.php' ) ) . '">'
 				. '<input type="hidden" name="action" value="bdr_ec_upload" />'
+				. '<input type="hidden" name="bdr_net_lang" value="' . esc_attr( BDR_NET_Login::lang() ) . '" />'
 				. '<input type="hidden" name="dossier" value="' . esc_attr( $id ) . '" />'
 				. wp_nonce_field( 'bdr_ec_upload_' . $id, '_bdr_ec_nonce', false, false )
 				. '<label for="bdr-ec-document">' . esc_html__( 'Déposer un document', 'bdr-banque-en-ligne' ) . '</label>'
@@ -239,7 +235,7 @@ class BDR_EC_Front {
 		$html .= '</section>';
 
 		// Show the latest messages first when the thread is scrollable.
-		$html .= '<script>document.querySelectorAll(".bdr-ec-thread").forEach(function(t){t.scrollTop=t.scrollHeight;});</script>';
+
 
 		return $html;
 	}

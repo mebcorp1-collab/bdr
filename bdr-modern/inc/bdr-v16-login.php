@@ -180,6 +180,7 @@ add_action('wp_ajax_nopriv_bdr_captcha_check', 'bdr_v16_ajax_check'); add_action
 /** Configuration transmise au JS (bloc JSON). */
 function bdr_v16_login_js_config($lang) {
   if (!bdr_v16_is_online_route()) return null;
+  if (function_exists('bdr_net_login_card')) return null; // extension BDR-NET : connexion gérée par l'extension
   $c = bdr_v16_login_cfg();
   return array(
     'mode' => $c['mode'], 'post' => $c['post'], 'portal' => $c['portal'], 'user' => $c['user'], 'pass' => $c['pass'],
@@ -206,13 +207,16 @@ function bdr_v16_login_js_config($lang) {
  * ------------------------------------------------------------------ */
 function bdr_v15_render_online_page($lang) {
   $u = bdr_v11_ui($lang); $c = bdr_v16_login_cfg(); $T = function ($fr, $en, $ar) use ($lang) { return bdr_v15_t($fr, $en, $ar, $lang); };
+  $bdr_net = function_exists('bdr_net_login_card'); // extension « BDR-NET Banque en ligne » active
   bdr_page_hero($T('Espace client', 'Customer area', 'فضاء العميل'), $T('Banque en ligne', 'Online banking', 'الخدمات المصرفية عبر الإنترنت'),
-    $T('Connectez-vous à BDR-NET pour consulter vos comptes et effectuer vos opérations à distance, en toute sécurité.', 'Sign in to BDR-NET to view your accounts and carry out remote operations securely.', 'سجّل الدخول إلى BDR-NET للاطلاع على حساباتك وإجراء عملياتك عن بعد بأمان.'));
+    $bdr_net
+      ? $T('Connectez-vous à BDR-NET pour suivre vos dossiers, déposer vos documents et échanger avec votre conseiller, en toute sécurité.', 'Sign in to BDR-NET to track your cases, upload your documents and talk to your advisor securely.', 'سجّل الدخول إلى BDR-NET لمتابعة ملفاتك وإيداع وثائقك والتواصل مع مستشارك بأمان.')
+      : $T('Connectez-vous à BDR-NET pour consulter vos comptes et effectuer vos opérations à distance, en toute sécurité.', 'Sign in to BDR-NET to view your accounts and carry out remote operations securely.', 'سجّل الدخول إلى BDR-NET للاطلاع على حساباتك وإجراء عملياتك عن بعد بأمان.'));
   echo '<section class="section login-section"><div class="container"><div class="login-shell">';
 
   // Colonne d'information (sombre)
   echo '<aside class="login-side"><span class="login-side-ic">' . bdr_v15_icon('lock', 'ic ic-lg') . '</span>';
-  echo '<h2>' . esc_html($T('Un accès protégé, sur le portail officiel', 'Protected access, on the official portal', 'دخول محمي عبر البوابة الرسمية')) . '</h2>';
+  echo '<h2>' . esc_html($bdr_net ? $T('Un accès protégé à votre espace client', 'Protected access to your customer area', 'دخول محمي إلى فضاء العميل') : $T('Un accès protégé, sur le portail officiel', 'Protected access, on the official portal', 'دخول محمي عبر البوابة الرسمية')) . '</h2>';
   echo '<ul class="login-tips">';
   foreach (array(
     array($T('Vérifiez l’adresse', 'Check the address', 'تحقق من العنوان'), $T('Cadenas fermé et nom de domaine officiel dans la barre du navigateur.', 'Closed padlock and official domain name in the browser bar.', 'قفل مغلق واسم النطاق الرسمي في شريط المتصفح.')),
@@ -224,6 +228,10 @@ function bdr_v15_render_online_page($lang) {
 
   // Formulaire
   echo '<div class="login-card">';
+  if ($bdr_net) {
+    // Extension BDR-NET : identifiant + mot de passe + code de sécurité, connexion à l'espace client du site.
+    echo bdr_net_login_card($lang);
+  } else {
   echo '<h2>' . esc_html($T('Connexion à BDR-NET', 'Sign in to BDR-NET', 'الدخول إلى BDR-NET')) . '</h2>';
   if ($c['mode'] === 'off' && current_user_can('manage_options')) echo '<p class="admin-hint">Administrateur : le portail BDR-NET n’est pas encore relié. Renseignez « BDR-NET — adresse du portail » (ou l’adresse d’envoi du formulaire + les noms des champs) dans Apparence › Personnaliser › BDR – Coordonnées &amp; liens. Le formulaire et le code de sécurité fonctionnent déjà.</p>';
   echo '<form id="bdr-login" class="login-form" method="post" novalidate data-mode="' . esc_attr($c['mode']) . '" autocomplete="off">';
@@ -246,6 +254,7 @@ function bdr_v15_render_online_page($lang) {
   echo '</form>';
   $host = parse_url($c['mode'] === 'direct' ? $c['post'] : $c['portal'], PHP_URL_HOST);
   if ($c['mode'] !== 'off') echo '<p class="login-foot">' . bdr_v15_icon('shield') . ' <span>' . esc_html($T('Vos identifiants sont envoyés directement au portail sécurisé', 'Your credentials are sent directly to the secure portal', 'تُرسل بياناتك مباشرة إلى البوابة الآمنة')) . ($host ? ' <bdi dir="ltr">(' . esc_html($host) . ')</bdi>' : '') . ' ' . esc_html($T('et ne passent jamais par ce site.', 'and never pass through this site.', 'ولا تمر أبداً عبر هذا الموقع.')) . '</span></p>';
+  }
   echo '</div></div></div></section>';
   bdr_v16_login_after($lang, $u);
 }

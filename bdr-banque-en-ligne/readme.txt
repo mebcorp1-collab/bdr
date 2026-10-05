@@ -1,16 +1,30 @@
-=== BDR Banque en ligne ===
+=== BDR-NET Banque en ligne ===
 Contributors: bdr
 Tags: banque en ligne, espace client, messagerie, documents, dossiers, faq, adhésion
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 3.0.0
 License: GPLv2 or later
 
-Banque en ligne et espace client BDR-NET de www.bdr-dz.com : suivi des dossiers, dépôt de documents, messagerie sécurisée
+Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client de www.bdr-dz.com : suivi des dossiers, dépôt de documents, messagerie sécurisée
 avec le conseiller, FAQ, conseils de sécurité et demandes d'adhésion. Aucune opération bancaire.
 
 == Description ==
+
+Connexion BDR-NET :
+* Formulaire « Connexion à BDR-NET » : identifiant, mot de passe et code de sécurité (image, ou question simple
+  pour les personnes qui ne lisent pas l'image). Après connexion, le client arrive dans son espace client.
+* Avec le thème bdr-modern (17.1 ou plus), il remplace la carte de connexion de la page « Banque en ligne »
+  (/fr/, /en/ et /ar/banque-en-ligne/) et reprend exactement son design. Sans ce thème, il s'affiche sur la page
+  de l'espace client.
+* Le code de sécurité est vérifié par le serveur AVANT le mot de passe ; il est signé, valable 10 minutes et
+  utilisable une seule fois (bonne ou mauvaise réponse). La réponse n'apparaît jamais dans la page.
+* Les comptes clients ne peuvent se connecter QUE par ce formulaire : la page wp-login.php les refuse,
+  le code de sécurité ne peut donc pas être contourné. Les administrateurs et conseillers gardent wp-login.php.
+* Pause de 10 minutes après 30 échecs depuis une même adresse IP, blocage de 15 minutes après 5 mauvais
+  mots de passe sur un même identifiant.
+
 
 Tout se gère depuis le menu « Banque en ligne » de l'administration :
 
@@ -52,6 +66,11 @@ Recommandations indispensables pour un site bancaire :
 5. Sauvegardes régulières chiffrées de la base de données et du dossier de documents.
 6. Faire valider le dispositif par le responsable sécurité / conformité (loi 18-07 sur les données personnelles).
 
+== Thème bdr-modern ==
+
+La version 17.1 du thème contient la petite modification qui affiche cette connexion sur la page « Banque en ligne »
+(fichier inc/bdr-v16-login.php). Si l'extension est désactivée, le thème revient à son fonctionnement précédent.
+
 == Shortcodes ==
 
 * `[bdr_espace_client]` : espace client (connexion, dossiers, messagerie, documents).
@@ -90,6 +109,13 @@ Le conseiller répond aux clients depuis la page de l'espace client (bouton « R
 Seuls les réglages sont supprimés. FAQ, demandes, dossiers, messages, documents et comptes clients sont conservés.
 
 == Changelog ==
+
+= 3.0.0 =
+* Connexion BDR-NET : identifiant, mot de passe et code de sécurité vérifié côté serveur, intégrée au thème bdr-modern.
+* Les clients ne peuvent plus se connecter par wp-login.php (code de sécurité obligatoire).
+* Langue des adresses /fr/, /en/, /ar/ du thème respectée (connexion, espace client, redirections).
+* Plus aucun script en ligne (compatible avec la Content-Security-Policy du thème).
+* Vocabulaire arabe aligné sur le thème (فضاء العميل).
 
 = 2.0.0 =
 * L'espace client (dossiers, messagerie, documents) est intégré à Banque en ligne : plus besoin d'extension séparée.
