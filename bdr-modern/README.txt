@@ -1,4 +1,4 @@
-BDR Modern 17.2 — thème WordPress de la Banque de Développement Régional
+BDR Modern 17.3 — thème WordPress de la Banque de Développement Régional
 =====================================================================
 
 INSTALLATION (toujours sur un site de test d'abord)
@@ -34,12 +34,18 @@ CONNEXION À L'ESPACE CLIENT AVEC L'EXTENSION « BDR-NET BANQUE EN LIGNE » (v17
   une fois connecté, le client y voit son espace. Fil d'Ariane : Accueil › Particuliers › Banque en ligne › BDR-NET.
 - Après mise à jour : Réglages > Permaliens > Enregistrer, puis vider le cache LiteSpeed.
 
-
+TAUX DE CHANGE (mise à jour quotidienne)
 - Tâche WP-Cron quotidienne (≈ 9 h 05, heure d'Alger) : télécharge la page de la Banque d'Algérie et lit le tableau (codes ISO ou noms FR/AR,
   achat/vente ou cours unique, virgule ou point, unités ×100 ramenées à 1).
 - En cas d'échec (site indisponible, page modifiée ou chargée par JavaScript) : derniers cours valides conservés ; état et bouton
   « Mettre à jour maintenant » dans Administration > Taux de change. Mode « manuel » disponible.
 - Recommandé sur o2switch : une vraie tâche cron toutes les 15 min vers wp-cron.php (voir la page d'administration).
+- v17.3 : ligne de dates au-dessus du tableau : « Aujourd'hui : … » (date du jour à Alger, actualisée dans le navigateur,
+  donc juste même si la page vient du cache), « Cours du … » (date publiée par la Banque d'Algérie ; mention « dernière
+  publication » les jours sans nouveaux cours) et « Vérifiés le … à … » (dernière récupération réussie, heure d'Alger).
+- v17.3 : la date des cours est cherchée d'abord autour du tableau (et non plus dans toute la page, où une date d'actualité
+  pouvait être prise par erreur) ; cours « pour 100 unités » (ex. « Yen (100) ») ramenés à 1 unité ; heure de dernière
+  actualisation en heure d'Alger (et non UTC) ; cache LiteSpeed vidé automatiquement après chaque mise à jour réussie.
 
 IMAGES
 - assets/images/pages/<slug>.webp : une illustration originale par page (72) ; déposer un fichier du même nom (webp/jpg/png, 1600x900) la remplace par une photo.
