@@ -1,0 +1,150 @@
+/* BDR Toolkit — front-end styles */
+
+.bdr-btn {
+	display: inline-block;
+	padding: 0.75em 1.5em;
+	border: 0;
+	border-radius: 6px;
+	background: #1d4ed8;
+	color: #fff;
+	font-weight: 600;
+	text-decoration: none;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+.bdr-btn:hover,
+.bdr-btn:focus {
+	color: #fff;
+	opacity: 0.9;
+}
+.bdr-btn--whatsapp {
+	background: #25d366;
+}
+
+/* Contact form */
+.bdr-form-wrap {
+	max-width: 760px;
+}
+.bdr-form__row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 0 1rem;
+}
+.bdr-form__field {
+	margin: 0 0 1rem;
+}
+.bdr-form__field label {
+	display: block;
+	margin-bottom: 0.35em;
+	font-weight: 600;
+}
+.bdr-form__field input,
+.bdr-form__field textarea {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.65em 0.8em;
+	border: 1px solid #cbd5e1;
+	border-radius: 6px;
+	font: inherit;
+}
+.bdr-form__field input:focus,
+.bdr-form__field textarea:focus {
+	border-color: #1d4ed8;
+	outline: 2px solid rgba(29, 78, 216, 0.2);
+}
+.bdr-form__hp {
+	position: absolute !important;
+	left: -9999px !important;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
+.bdr-notice {
+	margin-bottom: 1rem;
+	padding: 0.85em 1em;
+	border-radius: 6px;
+}
+.bdr-notice ul {
+	margin: 0;
+	padding-left: 1.2em;
+}
+.bdr-notice--success {
+	background: #dcfce7;
+	color: #14532d;
+}
+.bdr-notice--error {
+	background: #fee2e2;
+	color: #7f1d1d;
+}
+@media (max-width: 600px) {
+	.bdr-form__row {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Contact info & social */
+.bdr-contact-info {
+	margin: 0 0 1rem;
+	padding: 0;
+	list-style: none;
+}
+.bdr-contact-info li {
+	margin-bottom: 0.4em;
+}
+.bdr-social {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+}
+.bdr-social__link {
+	padding: 0.35em 0.9em;
+	border: 1px solid currentColor;
+	border-radius: 999px;
+	text-decoration: none;
+}
+
+/* Floating button */
+.bdr-float {
+	--bdr-color: #25d366;
+	position: fixed;
+	bottom: 20px;
+	z-index: 9999;
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+.bdr-float--right {
+	right: 20px;
+}
+.bdr-float--left {
+	left: 20px;
+}
+.bdr-float__btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	background: var(--bdr-color);
+	color: #fff;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	transition: transform 0.2s;
+}
+.bdr-float__btn--phone {
+	background: #1d4ed8;
+}
+.bdr-float__btn:hover,
+.bdr-float__btn:focus {
+	color: #fff;
+	transform: scale(1.08);
+}
+.bdr-float__btn svg {
+	width: 28px;
+	height: 28px;
+}
+@media print {
+	.bdr-float {
+		display: none;
+	}
+}
