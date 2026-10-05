@@ -230,8 +230,90 @@ function bdr_v16_fx_set_status($ok, $message, $count = 0) {
   return $st;
 }
 
+/* ------------------------------------------------------------------ *
+ *  Chaîne de certificats incomplète chez la source (cURL error 60)
+ *
+ *  Le serveur de la Banque d'Algérie n'envoie pas son certificat intermédiaire. Les navigateurs le
+ *  téléchargent eux-mêmes (adresse « CA Issuers » inscrite dans le certificat) ; on fait de même.
+ *  La vérification TLS reste complète : l'intermédiaire téléchargé doit être signé par une autorité
+ *  racine de confiance (liste de WordPress + celle du serveur), sinon la connexion échoue.
+ * ------------------------------------------------------------------ */
+function bdr_v17_fx_is_chain_error($err) {
+  $m = $err->get_error_message();
+  return stripos($m, 'error 60') !== false || stripos($m, 'local issuer certificate') !== false || stripos($m, 'unable to verify the first certificate') !== false;
+}
+
+function bdr_v17_fx_bundle_file() {
+  $up = wp_upload_dir(null, false);
+  return trailingslashit($up['basedir']) . 'bdr-fx/ca-bundle.pem';
+}
+
+/** Fichier de chaîne complétée encore valable (30 jours), ou ''. */
+function bdr_v17_fx_saved_bundle() {
+  $saved = get_option('bdr_fx_cabundle', array());
+  if (empty($saved['time']) || time() - (int)$saved['time'] > 30 * DAY_IN_SECONDS) return '';
+  $file = bdr_v17_fx_bundle_file();
+  return is_readable($file) ? $file : '';
+}
+
+function bdr_v17_fx_der_to_pem($data) {
+  if (strpos($data, '-----BEGIN CERTIFICATE-----') !== false) return $data;
+  return "-----BEGIN CERTIFICATE-----\n" . chunk_split(base64_encode($data), 64, "\n") . "-----END CERTIFICATE-----\n";
+}
+
+function bdr_v17_fx_aia_url($pem) {
+  $p = openssl_x509_parse($pem);
+  $aia = isset($p['extensions']['authorityInfoAccess']) ? (string)$p['extensions']['authorityInfoAccess'] : '';
+  return preg_match('#CA Issuers - URI:(https?://\S+)#i', $aia, $m) ? $m[1] : '';
+}
+
+/** Certificats intermédiaires : ceux envoyés par le serveur + ceux téléchargés via « CA Issuers » (3 niveaux max). */
+function bdr_v17_fx_intermediates($url) {
+  if (!function_exists('openssl_x509_parse') || !function_exists('stream_socket_client')) return array();
+  $host = parse_url($url, PHP_URL_HOST); $port = parse_url($url, PHP_URL_PORT); $port = $port ? (int)$port : 443;
+  if (!$host) return array();
+  // Connexion de lecture seule pour récupérer les certificats présentés (aucune donnée n'est envoyée).
+  $ctx = stream_context_create(array('ssl' => array('capture_peer_cert_chain' => true, 'verify_peer' => false, 'verify_peer_name' => false, 'SNI_enabled' => true, 'peer_name' => $host)));
+  $fp = @stream_socket_client('ssl://' . $host . ':' . $port, $errno, $errstr, 15, STREAM_CLIENT_CONNECT, $ctx);
+  if (!$fp) return array();
+  $params = stream_context_get_params($fp); fclose($fp);
+  $chain = isset($params['options']['ssl']['peer_certificate_chain']) ? $params['options']['ssl']['peer_certificate_chain'] : array();
+  $pems = array();
+  foreach ($chain as $c) { $pem = ''; if (openssl_x509_export($c, $pem)) $pems[] = $pem; }
+  if (!$pems) return array();
+  $out = array_slice($pems, 1); $cur = end($pems);
+  for ($i = 0; $i < 3; $i++) {
+    $aia = bdr_v17_fx_aia_url($cur);
+    if ($aia === '') break;
+    $r = wp_safe_remote_get($aia, array('timeout' => 15, 'redirection' => 3));
+    if (is_wp_error($r) || 200 !== (int)wp_remote_retrieve_response_code($r)) break;
+    $pem = bdr_v17_fx_der_to_pem(wp_remote_retrieve_body($r));
+    if (!@openssl_x509_read($pem)) break;
+    $out[] = $pem; $cur = $pem;
+    $p = openssl_x509_parse($pem);
+    if (isset($p['subject'], $p['issuer']) && $p['subject'] == $p['issuer']) break; // racine atteinte
+  }
+  return $out;
+}
+
+/** Construit wp-content/uploads/bdr-fx/ca-bundle.pem (racines WordPress + serveur + intermédiaires). Retourne le chemin ou ''. */
+function bdr_v17_fx_ca_bundle($url) {
+  $inter = bdr_v17_fx_intermediates($url);
+  if (!$inter) return '';
+  $roots = (string)@file_get_contents(ABSPATH . WPINC . '/certificates/ca-bundle.crt');
+  $loc = function_exists('openssl_get_cert_locations') ? openssl_get_cert_locations() : array();
+  if (!empty($loc['default_cert_file']) && is_readable($loc['default_cert_file'])) $roots .= "\n" . (string)@file_get_contents($loc['default_cert_file']);
+  if ($roots === '') return '';
+  $file = bdr_v17_fx_bundle_file();
+  if (!wp_mkdir_p(dirname($file))) return '';
+  if (false === @file_put_contents($file, $roots . "\n" . implode("\n", $inter))) return '';
+  update_option('bdr_fx_cabundle', array('time' => time(), 'count' => count($inter)), false);
+  return $file;
+}
+
 /** Télécharge et enregistre. Retourne array('ok'=>bool,'message'=>string,'count'=>int). Les anciens cours sont conservés en cas d'échec. */
 function bdr_v16_fx_update($html = null) {
+  $chain_note = '';
   if ($html === null) {
     $url = bdr_v16_fx_source();
     $args = array(
@@ -239,7 +321,15 @@ function bdr_v16_fx_update($html = null) {
       'user-agent' => 'BDR-site/17 (+' . home_url('/') . '; mise a jour quotidienne des cours)',
       'headers' => array('Accept' => 'text/html,application/xhtml+xml', 'Accept-Language' => 'fr,ar;q=0.8,en;q=0.5'),
     );
+    // Chaîne de certificats déjà complétée lors d'un passage précédent (voir bdr_v17_fx_ca_bundle()).
+    $bundle = bdr_v17_fx_saved_bundle();
+    if ($bundle) $args['sslcertificates'] = $bundle;
     $res = wp_safe_remote_get($url, $args);
+    // Serveur source qui n'envoie pas son certificat intermédiaire (cURL error 60) : on complète la chaîne, comme un navigateur.
+    if (is_wp_error($res) && bdr_v17_fx_is_chain_error($res)) {
+      $bundle = bdr_v17_fx_ca_bundle($url);
+      if ($bundle) { $args['sslcertificates'] = $bundle; $res = wp_safe_remote_get($url, $args); }
+    }
     // Certains pare-feu refusent les robots déclarés : seconde tentative avec un navigateur standard.
     if (is_wp_error($res) || in_array((int)wp_remote_retrieve_response_code($res), array(403, 406, 429, 503), true)) {
       $args['user-agent'] = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36';
@@ -249,6 +339,7 @@ function bdr_v16_fx_update($html = null) {
     $code = (int)wp_remote_retrieve_response_code($res);
     if ($code !== 200) { $st = bdr_v16_fx_set_status(false, 'Réponse HTTP ' . $code . ' de la source.'); return array('ok' => false, 'message' => $st['message'], 'count' => 0); }
     $html = wp_remote_retrieve_body($res);
+    if (!empty($args['sslcertificates'])) $chain_note = ' Chaîne de certificats de la source complétée automatiquement.';
   }
   $p = bdr_v16_fx_parse($html);
   $why = array('empty' => 'Page vide ou trop courte.', 'no_dom' => 'Extension PHP DOM absente.', 'no_table' => 'Aucun tableau de cours reconnu (page modifiée ou contenu chargé par JavaScript).', 'implausible' => 'Valeurs non plausibles : tableau non reconnu.');
@@ -256,6 +347,7 @@ function bdr_v16_fx_update($html = null) {
   $date = $p['date'] ? $p['date'] : wp_date('Y-m-d', null, new DateTimeZone('Africa/Algiers'));
   update_option('bdr_fx_auto', array('rows' => $p['rows'], 'date' => $date, 'date_found' => (bool)$p['date'], 'fetched' => time(), 'source' => bdr_v16_fx_source()), false);
   $msg = count($p['rows']) . ' devises enregistrées' . ($p['date'] ? ' (cours du ' . $date . ').' : ' (date non trouvée sur la page : date du jour utilisée).');
+  $msg .= $chain_note;
   bdr_v16_fx_set_status(true, $msg, count($p['rows']));
   bdr_v17_fx_purge_cache();
   return array('ok' => true, 'message' => $msg, 'count' => count($p['rows']));

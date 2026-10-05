@@ -1,4 +1,4 @@
-BDR Modern 17.4 — thème WordPress de la Banque de Développement Régional
+BDR Modern 17.5 — thème WordPress de la Banque de Développement Régional
 =====================================================================
 
 INSTALLATION (toujours sur un site de test d'abord)
@@ -40,6 +40,10 @@ TAUX DE CHANGE (mise à jour quotidienne)
 - En cas d'échec (site indisponible, page modifiée ou chargée par JavaScript) : derniers cours valides conservés ; état et bouton
   « Mettre à jour maintenant » dans Administration > Taux de change. Mode « manuel » disponible.
 - Recommandé sur o2switch : une vraie tâche cron toutes les 15 min vers wp-cron.php (voir la page d'administration).
+- v17.5 : « cURL error 60: unable to get local issuer certificate » : le serveur de la Banque d'Algérie n'envoie pas son
+  certificat intermédiaire. Le thème le récupère comme un navigateur (adresse « CA Issuers » du certificat), complète la
+  chaîne dans wp-content/uploads/bdr-fx/ca-bundle.pem (renouvelé tous les 30 jours) et garde la vérification TLS complète :
+  un intermédiaire qui ne serait pas signé par une autorité de confiance est refusé.
 - v17.4 : lecture du tableau de la Banque d'Algérie « une colonne par jour » (05-10-2026 | 02-10-2026 | …) : seule la colonne
   la plus récente est retenue, avec sa date. Yen publié pour 100 unités : valeur conservée, libellé « Yen (100) ».
   Légende : « Cours indicatifs du dinar algérien — <date des cours> — dernière publication de la Banque d'Algérie ».
