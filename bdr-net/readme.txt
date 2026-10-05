@@ -1,17 +1,17 @@
-=== BDR Espace Client (BDR-NET) ===
+=== BDR-NET ===
 Contributors: bdr
 Tags: espace client, messagerie, documents, dossiers, banque
 Requires at least: 5.8
-Tested up to: 6.6
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 
-Espace client privé « BDR-NET » : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire.
+BDR-NET, l'espace client privé de la BDR : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire.
 
 == Description ==
 
-* Dossiers clients : créés par la banque (menu « Espace client »), attribués à un client et à un conseiller, avec un statut
+* Dossiers clients : créés par la banque (menu « BDR-NET »), attribués à un client et à un conseiller, avec un statut
   (Ouvert, En cours de traitement, En attente de documents, Clôturé).
 * Messagerie privée par dossier entre le client et la banque, avec compteur de messages non lus.
 * Dépôt de documents (PDF, JPG, PNG) par le client et par la banque.
@@ -47,25 +47,39 @@ L'extension est traduite en français (langue d'origine), en anglais (en_US) et 
 * En arabe, la mise en page passe automatiquement de droite à gauche.
 * Messages, titres et noms de fichiers gardent leur propre sens d'écriture (un message en français reste lisible dans la page arabe).
 * Les e-mails sont envoyés dans la langue du destinataire (champ « Langue » de son profil utilisateur).
-* Pour modifier une traduction : fichiers languages/bdr-espace-client-ar.po et -en_US.po (éditables avec Poedit ou Loco Translate).
+* Pour modifier une traduction : fichiers languages/bdr-net-ar.po et -en_US.po (éditables avec Poedit ou Loco Translate).
 
 == Installation ==
 
-1. Extensions > Ajouter > Téléverser une extension, choisissez bdr-espace-client.zip, puis Activer.
+BDR-NET est une extension autonome : elle n'a pas besoin de « BDR Banque en ligne » ni d'aucune autre extension BDR.
+
+1. Extensions > Ajouter > Téléverser une extension, choisissez bdr-net.zip, puis Activer.
 2. Créez une page (ex. « BDR-NET ») contenant le shortcode [bdr_espace_client].
-3. Espace client > Réglages : sélectionnez cette page.
+3. BDR-NET > Réglages : sélectionnez cette page.
 4. Utilisateurs > Ajouter : créez chaque client avec le rôle « Client BDR » (il reçoit un e-mail pour choisir son mot de passe).
    Créez vos conseillers avec le rôle « Conseiller BDR ».
-5. Espace client > Nouveau dossier : donnez un titre, choisissez le client et le conseiller, puis Publier.
+5. BDR-NET > Nouveau dossier client : donnez un titre, choisissez le client et le conseiller, puis Publier.
 
 Le client se connecte sur la page BDR-NET, voit ses dossiers, écrit à son conseiller et dépose ses documents.
 Le conseiller répond depuis la même page (bouton « Répondre » sur la fiche du dossier dans l'administration).
+
+== Mise à jour depuis « BDR Espace Client » ==
+
+BDR-NET remplace l'ancienne extension « BDR Espace Client » et reprend automatiquement ses réglages,
+dossiers, messages et documents.
+1. Extensions : désactivez « BDR Espace Client ».
+2. Installez et activez BDR-NET.
+3. Supprimez « BDR Espace Client ». Les données sont conservées.
+Si les deux sont actives en même temps, BDR-NET reste inactive et affiche un message pour éviter tout conflit.
 
 == Désinstallation ==
 
 Seuls les réglages sont supprimés. Les dossiers, messages, documents et comptes clients sont conservés.
 
 == Changelog ==
+
+= 1.2.0 =
+* L'extension devient « BDR-NET » (nom, dossier, menu et réglages). Message de configuration limité aux écrans BDR-NET.
 
 = 1.1.0 =
 * Traductions anglaise et arabe, mise en page droite à gauche, dates localisées, e-mails dans la langue du destinataire.

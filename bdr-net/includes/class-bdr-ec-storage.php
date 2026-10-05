@@ -85,23 +85,23 @@ class BDR_EC_Storage {
 	 */
 	public static function store_upload( $file ) {
 		if ( ! is_array( $file ) || ! isset( $file['error'], $file['tmp_name'], $file['name'], $file['size'] ) ) {
-			return new WP_Error( 'bdr_ec_no_file', __( 'Aucun fichier reçu.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_no_file', __( 'Aucun fichier reçu.', 'bdr-net' ) );
 		}
 		if ( UPLOAD_ERR_INI_SIZE === $file['error'] || UPLOAD_ERR_FORM_SIZE === $file['error'] ) {
-			return new WP_Error( 'bdr_ec_too_big', __( 'Le fichier est trop volumineux.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_too_big', __( 'Le fichier est trop volumineux.', 'bdr-net' ) );
 		}
 		if ( UPLOAD_ERR_OK !== $file['error'] || ! is_uploaded_file( $file['tmp_name'] ) ) {
-			return new WP_Error( 'bdr_ec_upload', __( 'Le fichier n\'a pas pu être reçu. Veuillez réessayer.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_upload', __( 'Le fichier n\'a pas pu être reçu. Veuillez réessayer.', 'bdr-net' ) );
 		}
 		if ( (int) $file['size'] <= 0 || (int) $file['size'] > self::max_bytes() ) {
-			return new WP_Error( 'bdr_ec_too_big', __( 'Le fichier est trop volumineux.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_too_big', __( 'Le fichier est trop volumineux.', 'bdr-net' ) );
 		}
 
 		$original = sanitize_file_name( wp_basename( $file['name'] ) );
 		$ext      = strtolower( pathinfo( $original, PATHINFO_EXTENSION ) );
 		$allowed  = self::allowed_types();
 		if ( ! isset( $allowed[ $ext ] ) ) {
-			return new WP_Error( 'bdr_ec_type', __( 'Type de fichier non autorisé.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_type', __( 'Type de fichier non autorisé.', 'bdr-net' ) );
 		}
 
 		// Check the real content, not just the name.
@@ -111,17 +111,17 @@ class BDR_EC_Storage {
 			finfo_close( $finfo );
 		}
 		if ( $mime !== $allowed[ $ext ] ) {
-			return new WP_Error( 'bdr_ec_type', __( 'Le contenu du fichier ne correspond pas à son type.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_type', __( 'Le contenu du fichier ne correspond pas à son type.', 'bdr-net' ) );
 		}
 
 		if ( ! self::ensure_dir() ) {
-			return new WP_Error( 'bdr_ec_storage', __( 'Le stockage des documents n\'est pas disponible. Contactez la banque.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_storage', __( 'Le stockage des documents n\'est pas disponible. Contactez la banque.', 'bdr-net' ) );
 		}
 
 		$stored = bin2hex( random_bytes( 16 ) );
 		$target = self::path( $stored );
 		if ( ! move_uploaded_file( $file['tmp_name'], $target ) ) {
-			return new WP_Error( 'bdr_ec_storage', __( 'Le fichier n\'a pas pu être enregistré.', 'bdr-espace-client' ) );
+			return new WP_Error( 'bdr_ec_storage', __( 'Le fichier n\'a pas pu être enregistré.', 'bdr-net' ) );
 		}
 		chmod( $target, 0640 );
 

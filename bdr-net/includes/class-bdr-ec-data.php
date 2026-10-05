@@ -23,15 +23,15 @@ class BDR_EC_Data {
 			self::POST_TYPE,
 			array(
 				'labels'          => array(
-					'name'          => __( 'Dossiers clients', 'bdr-espace-client' ),
-					'singular_name' => __( 'Dossier client', 'bdr-espace-client' ),
-					'menu_name'     => __( 'Espace client', 'bdr-espace-client' ),
-					'all_items'     => __( 'Dossiers', 'bdr-espace-client' ),
-					'add_new'       => __( 'Nouveau dossier', 'bdr-espace-client' ),
-					'add_new_item'  => __( 'Nouveau dossier client', 'bdr-espace-client' ),
-					'edit_item'     => __( 'Dossier client', 'bdr-espace-client' ),
-					'search_items'  => __( 'Rechercher un dossier', 'bdr-espace-client' ),
-					'not_found'     => __( 'Aucun dossier.', 'bdr-espace-client' ),
+					'name'          => __( 'Dossiers clients', 'bdr-net' ),
+					'singular_name' => __( 'Dossier client', 'bdr-net' ),
+					'menu_name'     => BDR_EC_Admin::get( 'space_name' ),
+					'all_items'     => __( 'Dossiers', 'bdr-net' ),
+					'add_new'       => __( 'Nouveau dossier', 'bdr-net' ),
+					'add_new_item'  => __( 'Nouveau dossier client', 'bdr-net' ),
+					'edit_item'     => __( 'Dossier client', 'bdr-net' ),
+					'search_items'  => __( 'Rechercher un dossier', 'bdr-net' ),
+					'not_found'     => __( 'Aucun dossier.', 'bdr-net' ),
 				),
 				'public'          => false,
 				'show_ui'         => true,
@@ -51,10 +51,10 @@ class BDR_EC_Data {
 
 	public static function statuses() {
 		return array(
-			'ouvert'       => __( 'Ouvert', 'bdr-espace-client' ),
-			'en_cours'     => __( 'En cours de traitement', 'bdr-espace-client' ),
-			'attente_docs' => __( 'En attente de documents', 'bdr-espace-client' ),
-			'cloture'      => __( 'Clôturé', 'bdr-espace-client' ),
+			'ouvert'       => __( 'Ouvert', 'bdr-net' ),
+			'en_cours'     => __( 'En cours de traitement', 'bdr-net' ),
+			'attente_docs' => __( 'En attente de documents', 'bdr-net' ),
+			'cloture'      => __( 'Clôturé', 'bdr-net' ),
 		);
 	}
 
@@ -264,10 +264,10 @@ class BDR_EC_Data {
 		$is_client = self::client_id( $dossier_id ) === (int) $author_id;
 
 		if ( ! $is_client && ! self::is_staff( $viewer_id ) ) {
-			return __( 'Votre conseiller BDR', 'bdr-espace-client' );
+			return __( 'Votre conseiller BDR', 'bdr-net' );
 		}
 		$user = get_userdata( $author_id );
-		$name = $user ? $user->display_name : __( 'Utilisateur supprimé', 'bdr-espace-client' );
+		$name = $user ? $user->display_name : __( 'Utilisateur supprimé', 'bdr-net' );
 		return $is_client ? $name : $name . ' (BDR)';
 	}
 }

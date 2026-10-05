@@ -92,10 +92,10 @@ class BDR_EC_Install {
 
 	private static function add_roles() {
 		if ( ! get_role( 'bdr_client' ) ) {
-			add_role( 'bdr_client', __( 'Client BDR', 'bdr-espace-client' ), array( 'read' => true ) );
+			add_role( 'bdr_client', __( 'Client BDR', 'bdr-net' ), array( 'read' => true ) );
 		}
 		if ( ! get_role( 'bdr_conseiller' ) ) {
-			add_role( 'bdr_conseiller', __( 'Conseiller BDR', 'bdr-espace-client' ), array( 'read' => true, 'list_users' => true ) );
+			add_role( 'bdr_conseiller', __( 'Conseiller BDR', 'bdr-net' ), array( 'read' => true, 'list_users' => true ) );
 		}
 		foreach ( array( 'administrator', 'bdr_conseiller' ) as $role_name ) {
 			$role = get_role( $role_name );

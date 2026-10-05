@@ -1,63 +1,52 @@
-# Copyright (C) 2026 BDR
-# This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: BDR Espace Client 1.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/bdr-espace-client\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-05T19:31:38+00:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
-"X-Domain: bdr-espace-client\n"
-
-#. Plugin Name of the plugin
-#: bdr-espace-client.php
-msgid "BDR Espace Client"
-msgstr ""
+"POT-Creation-Date: 2026-10-05T19:48:50+00:00\n"
+"PO-Revision-Date: 2026-10-05T19:48:50+00:00\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: bdr-net\n"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
-#: bdr-espace-client.php
+#: bdr-net.php
 msgid "https://www.bdr-dz.com"
-msgstr ""
-
-#. Description of the plugin
-#: bdr-espace-client.php
-msgid "Espace client privé : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire."
-msgstr ""
+msgstr "https://www.bdr-dz.com"
 
 #. Author of the plugin
-#: bdr-espace-client.php
+#: bdr-net.php
 msgid "BDR"
-msgstr ""
+msgstr "BDR"
 
 #. translators: %d: minutes
 #: includes/class-bdr-ec-actions.php:58
 msgid "Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence."
-msgstr ""
+msgstr "Too many login attempts. For your security, please try again in %d minutes or contact your branch."
 
 #: includes/class-bdr-ec-actions.php:206
 msgid "Lien expiré. Retournez dans votre espace client et réessayez."
-msgstr ""
+msgstr "This link has expired. Go back to your client space and try again."
 
 #: includes/class-bdr-ec-actions.php:211
 #: includes/class-bdr-ec-actions.php:215
 msgid "Document introuvable."
-msgstr ""
+msgstr "Document not found."
 
 #. translators: %s: dossier title
 #: includes/class-bdr-ec-actions.php:258
 msgid "[Espace client] Nouveau document — %s"
-msgstr ""
+msgstr "[Client space] New document — %s"
 
 #. translators: %s: dossier title
 #: includes/class-bdr-ec-actions.php:260
 msgid "[Espace client] Nouveau message — %s"
-msgstr ""
+msgstr "[Client space] New message — %s"
 
 #. translators: 1: client name, 2: dossier title, 3: link
 #: includes/class-bdr-ec-actions.php:263
@@ -66,11 +55,14 @@ msgid ""
 "\n"
 "Consulter le dossier : %3$s"
 msgstr ""
+"%1$s added an item to the case “%2$s”.\n"
+"\n"
+"View the case: %3$s"
 
 #. translators: %s: name of the client space, e.g. BDR-NET
 #: includes/class-bdr-ec-actions.php:270
 msgid "%s — Nouvelle notification dans votre espace client"
-msgstr ""
+msgstr "%s — New notification in your client space"
 
 #. translators: 1: client name, 2: dossier title, 3: link
 #: includes/class-bdr-ec-actions.php:273
@@ -83,404 +75,423 @@ msgid ""
 "\n"
 "Pour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail."
 msgstr ""
+"Hello %1$s,\n"
+"\n"
+"Your advisor has added a new item to your case “%2$s”.\n"
+"\n"
+"To view it, log in to your client space: %3$s\n"
+"\n"
+"For your security, this message contains no personal information. BDR will never ask for your passwords or codes by e-mail."
 
-#: includes/class-bdr-ec-admin.php:45
-#: includes/class-bdr-ec-admin.php:86
-msgid "Réglages de l'espace client"
-msgstr ""
-
-#: includes/class-bdr-ec-admin.php:46
+#: includes/class-bdr-ec-admin.php:47
 msgid "Réglages"
-msgstr ""
+msgstr "Settings"
 
-#: includes/class-bdr-ec-admin.php:91
+#: includes/class-bdr-ec-admin.php:97
 msgid "Nom de l'espace"
-msgstr ""
+msgstr "Space name"
 
-#: includes/class-bdr-ec-admin.php:95
+#: includes/class-bdr-ec-admin.php:101
 msgid "Page de l'espace client"
-msgstr ""
+msgstr "Client space page"
 
-#: includes/class-bdr-ec-admin.php:103
+#: includes/class-bdr-ec-admin.php:109
 msgid "— Choisir une page —"
-msgstr ""
+msgstr "— Select a page —"
 
-#: includes/class-bdr-ec-admin.php:108
+#: includes/class-bdr-ec-admin.php:114
 msgid "La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion."
-msgstr ""
+msgstr "The page containing the [bdr_espace_client] shortcode. It is used for e-mail links and for the redirect after login."
 
-#: includes/class-bdr-ec-admin.php:112
+#: includes/class-bdr-ec-admin.php:118
 msgid "Taille maximale des documents (Mo)"
-msgstr ""
+msgstr "Maximum document size (MB)"
 
 #. translators: %s: server upload limit
-#: includes/class-bdr-ec-admin.php:118
-msgid "Limite du serveur : %s."
-msgstr ""
-
 #: includes/class-bdr-ec-admin.php:124
+msgid "Limite du serveur : %s."
+msgstr "Server limit: %s."
+
+#: includes/class-bdr-ec-admin.php:130
 msgid "E-mail de notification par défaut"
-msgstr ""
+msgstr "Default notification e-mail"
 
-#: includes/class-bdr-ec-admin.php:127
+#: includes/class-bdr-ec-admin.php:133
 msgid "Utilisé quand aucun conseiller n'est attribué au dossier."
-msgstr ""
+msgstr "Used when no advisor is assigned to the case."
 
-#: includes/class-bdr-ec-admin.php:134
+#: includes/class-bdr-ec-admin.php:140
 msgid "Stockage des documents"
-msgstr ""
-
-#: includes/class-bdr-ec-admin.php:136
-msgid "Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR)."
-msgstr ""
-
-#: includes/class-bdr-ec-admin.php:139
-msgid "Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :"
-msgstr ""
+msgstr "Document storage"
 
 #: includes/class-bdr-ec-admin.php:142
+msgid "Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR)."
+msgstr "Documents are stored outside the site's public folder (BDR_EC_STORAGE_DIR)."
+
+#: includes/class-bdr-ec-admin.php:145
+msgid "Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :"
+msgstr "Documents are stored in a protected folder in wp-content/uploads. For maximum security, ask your host to create a folder outside the site and add to wp-config.php:"
+
+#: includes/class-bdr-ec-admin.php:148
 msgid "Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable."
-msgstr ""
+msgstr "If your server uses Nginx, .htaccess files are ignored: this option is then essential."
 
-#: includes/class-bdr-ec-admin.php:154
-msgid "Espace client : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages."
-msgstr ""
-
-#: includes/class-bdr-ec-admin.php:156
+#: includes/class-bdr-ec-admin.php:168
 msgid "Ouvrir les réglages"
-msgstr ""
+msgstr "Open settings"
 
-#: includes/class-bdr-ec-admin.php:165
+#: includes/class-bdr-ec-admin.php:177
 msgid "Suivi du dossier"
-msgstr ""
+msgstr "Case follow-up"
 
-#: includes/class-bdr-ec-admin.php:166
+#: includes/class-bdr-ec-admin.php:178
 msgid "Échanges et documents"
-msgstr ""
+msgstr "Messages and documents"
 
-#: includes/class-bdr-ec-admin.php:183
-#: includes/class-bdr-ec-admin.php:275
+#: includes/class-bdr-ec-admin.php:195
+#: includes/class-bdr-ec-admin.php:287
 #: includes/class-bdr-ec-front.php:138
 msgid "Client"
-msgstr ""
+msgstr "Client"
 
-#: includes/class-bdr-ec-admin.php:184
+#: includes/class-bdr-ec-admin.php:196
 msgid "— Choisir —"
-msgstr ""
+msgstr "— Select —"
 
-#: includes/class-bdr-ec-admin.php:186
+#: includes/class-bdr-ec-admin.php:198
 msgid "Aucun client : créez d'abord un utilisateur avec le rôle « Client BDR »."
-msgstr ""
+msgstr "No clients yet: first create a user with the “BDR Client” role."
 
-#: includes/class-bdr-ec-admin.php:189
-#: includes/class-bdr-ec-admin.php:276
+#: includes/class-bdr-ec-admin.php:201
+#: includes/class-bdr-ec-admin.php:288
 msgid "Conseiller"
-msgstr ""
+msgstr "Advisor"
 
-#: includes/class-bdr-ec-admin.php:190
+#: includes/class-bdr-ec-admin.php:202
 msgid "— Aucun —"
-msgstr ""
+msgstr "— None —"
 
-#: includes/class-bdr-ec-admin.php:192
-#: includes/class-bdr-ec-admin.php:277
+#: includes/class-bdr-ec-admin.php:204
+#: includes/class-bdr-ec-admin.php:289
 #: includes/class-bdr-ec-front.php:140
 msgid "Statut"
-msgstr ""
+msgstr "Status"
 
-#: includes/class-bdr-ec-admin.php:226
+#: includes/class-bdr-ec-admin.php:238
 msgid "Publiez le dossier pour que le client puisse le voir et échanger avec vous."
-msgstr ""
+msgstr "Publish the case so the client can see it and exchange with you."
 
-#: includes/class-bdr-ec-admin.php:236
+#: includes/class-bdr-ec-admin.php:248
 msgid "Répondre / déposer un document dans l'espace client"
-msgstr ""
+msgstr "Reply / upload a document in the client space"
 
-#: includes/class-bdr-ec-admin.php:239
+#: includes/class-bdr-ec-admin.php:251
 #: includes/class-bdr-ec-front.php:181
 msgid "Messages"
-msgstr ""
+msgstr "Messages"
 
-#: includes/class-bdr-ec-admin.php:241
+#: includes/class-bdr-ec-admin.php:253
 msgid "Aucun message."
-msgstr ""
+msgstr "No messages."
 
-#: includes/class-bdr-ec-admin.php:252
+#: includes/class-bdr-ec-admin.php:264
 #: includes/class-bdr-ec-front.php:206
 msgid "Documents"
-msgstr ""
+msgstr "Documents"
 
-#: includes/class-bdr-ec-admin.php:254
+#: includes/class-bdr-ec-admin.php:266
 msgid "Aucun document."
-msgstr ""
+msgstr "No documents."
 
-#: includes/class-bdr-ec-admin.php:274
+#: includes/class-bdr-ec-admin.php:286
 #: includes/class-bdr-ec-front.php:136
 msgid "Dossier"
-msgstr ""
+msgstr "Case"
 
-#: includes/class-bdr-ec-admin.php:278
+#: includes/class-bdr-ec-admin.php:290
 msgid "Non lus"
-msgstr ""
+msgstr "Unread"
 
 #: includes/class-bdr-ec-data.php:26
 msgid "Dossiers clients"
-msgstr ""
+msgstr "Client cases"
 
 #: includes/class-bdr-ec-data.php:27
 #: includes/class-bdr-ec-data.php:32
 msgid "Dossier client"
-msgstr ""
-
-#: includes/class-bdr-ec-data.php:28
-msgid "Espace client"
-msgstr ""
+msgstr "Client case"
 
 #: includes/class-bdr-ec-data.php:29
 msgid "Dossiers"
-msgstr ""
+msgstr "Cases"
 
 #: includes/class-bdr-ec-data.php:30
 msgid "Nouveau dossier"
-msgstr ""
+msgstr "New case"
 
 #: includes/class-bdr-ec-data.php:31
 msgid "Nouveau dossier client"
-msgstr ""
+msgstr "New client case"
 
 #: includes/class-bdr-ec-data.php:33
 msgid "Rechercher un dossier"
-msgstr ""
+msgstr "Search cases"
 
 #: includes/class-bdr-ec-data.php:34
 msgid "Aucun dossier."
-msgstr ""
+msgstr "No cases."
 
 #: includes/class-bdr-ec-data.php:54
 msgid "Ouvert"
-msgstr ""
+msgstr "Open"
 
 #: includes/class-bdr-ec-data.php:55
 msgid "En cours de traitement"
-msgstr ""
+msgstr "In progress"
 
 #: includes/class-bdr-ec-data.php:56
 msgid "En attente de documents"
-msgstr ""
+msgstr "Awaiting documents"
 
 #: includes/class-bdr-ec-data.php:57
 msgid "Clôturé"
-msgstr ""
+msgstr "Closed"
 
 #: includes/class-bdr-ec-data.php:267
 msgid "Votre conseiller BDR"
-msgstr ""
+msgstr "Your BDR advisor"
 
 #: includes/class-bdr-ec-data.php:270
 msgid "Utilisateur supprimé"
-msgstr ""
+msgstr "Deleted user"
 
 #: includes/class-bdr-ec-front.php:46
 msgid "Votre message a été envoyé."
-msgstr ""
+msgstr "Your message has been sent."
 
 #: includes/class-bdr-ec-front.php:47
 msgid "Votre document a été déposé."
-msgstr ""
+msgstr "Your document has been uploaded."
 
 #: includes/class-bdr-ec-front.php:48
 msgid "La session a expiré. Veuillez réessayer."
-msgstr ""
+msgstr "Your session has expired. Please try again."
 
 #: includes/class-bdr-ec-front.php:49
 #: includes/class-bdr-ec-front.php:88
 msgid "Ce dossier n'est pas accessible."
-msgstr ""
+msgstr "This case is not accessible."
 
 #: includes/class-bdr-ec-front.php:50
 msgid "Ce dossier est clôturé : vous ne pouvez plus y ajouter de message ou de document."
-msgstr ""
+msgstr "This case is closed: you can no longer add messages or documents to it."
 
 #: includes/class-bdr-ec-front.php:51
 msgid "Le message est vide."
-msgstr ""
+msgstr "The message is empty."
 
 #: includes/class-bdr-ec-front.php:52
 msgid "Le message est trop long (5 000 caractères maximum)."
-msgstr ""
+msgstr "The message is too long (5,000 characters maximum)."
 
 #: includes/class-bdr-ec-front.php:53
 msgid "Trop d'envois en peu de temps. Veuillez patienter quelques minutes."
-msgstr ""
+msgstr "Too many submissions in a short time. Please wait a few minutes."
 
 #: includes/class-bdr-ec-front.php:54
 #: includes/class-bdr-ec-storage.php:91
 #: includes/class-bdr-ec-storage.php:97
 msgid "Le fichier est trop volumineux."
-msgstr ""
+msgstr "The file is too large."
 
 #: includes/class-bdr-ec-front.php:55
 msgid "Type de fichier non autorisé. Formats acceptés : PDF, JPG, PNG."
-msgstr ""
+msgstr "File type not allowed. Accepted formats: PDF, JPG, PNG."
 
 #: includes/class-bdr-ec-front.php:56
 msgid "Le fichier n'a pas pu être déposé. Veuillez réessayer."
-msgstr ""
+msgstr "The file could not be uploaded. Please try again."
 
 #: includes/class-bdr-ec-front.php:57
 msgid "Une erreur est survenue. Veuillez réessayer."
-msgstr ""
+msgstr "An error occurred. Please try again."
 
 #: includes/class-bdr-ec-front.php:80
 msgid "Votre compte n'a pas accès à l'espace client."
-msgstr ""
+msgstr "Your account does not have access to the client space."
 
 #. translators: %s: name of the client space, e.g. BDR-NET
 #: includes/class-bdr-ec-front.php:99
 msgid "Connexion à %s"
-msgstr ""
+msgstr "Log in to %s"
 
 #: includes/class-bdr-ec-front.php:100
 msgid "Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité."
-msgstr ""
+msgstr "Track your cases, upload your documents and communicate with your advisor in complete confidentiality."
 
 #: includes/class-bdr-ec-front.php:101
 msgid "Votre sécurité :"
-msgstr ""
+msgstr "Your security:"
 
 #: includes/class-bdr-ec-front.php:102
 msgid "connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte."
-msgstr ""
+msgstr "only log in from the official BDR website (check the address and the padlock). BDR will never ask for your password by e-mail, SMS or phone. Never share your card codes."
 
 #: includes/class-bdr-ec-front.php:107
 msgid "Identifiant ou e-mail"
-msgstr ""
+msgstr "Username or e-mail"
 
 #: includes/class-bdr-ec-front.php:108
 msgid "Mot de passe"
-msgstr ""
+msgstr "Password"
 
 #: includes/class-bdr-ec-front.php:109
 msgid "Rester connecté"
-msgstr ""
+msgstr "Stay logged in"
 
 #: includes/class-bdr-ec-front.php:110
 msgid "Se connecter"
-msgstr ""
+msgstr "Log in"
 
 #: includes/class-bdr-ec-front.php:114
 msgid "Mot de passe oublié ?"
-msgstr ""
+msgstr "Forgot your password?"
 
 #: includes/class-bdr-ec-front.php:115
 msgid "Pas encore d'accès ? Demandez-le à votre agence."
-msgstr ""
+msgstr "No access yet? Ask your branch."
 
 #. translators: %s: user display name
 #: includes/class-bdr-ec-front.php:122
 msgid "Bonjour %s"
-msgstr ""
+msgstr "Hello %s"
 
 #: includes/class-bdr-ec-front.php:124
 msgid "Se déconnecter"
-msgstr ""
+msgstr "Log out"
 
 #: includes/class-bdr-ec-front.php:129
 #: includes/class-bdr-ec-front.php:176
 msgid "Mes dossiers"
-msgstr ""
+msgstr "My cases"
 
 #: includes/class-bdr-ec-front.php:132
 msgid "Vous n'avez aucun dossier pour le moment. Votre conseiller en ouvrira un si nécessaire."
-msgstr ""
+msgstr "You don't have any cases yet. Your advisor will open one if needed."
 
 #: includes/class-bdr-ec-front.php:140
 msgid "Dernière activité"
-msgstr ""
+msgstr "Last activity"
 
 #. translators: %d: number of unread messages
 #: includes/class-bdr-ec-front.php:147
 msgid "%d nouveau"
 msgid_plural "%d nouveaux"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "%d new"
+msgstr[1] "%d new"
 
 #: includes/class-bdr-ec-front.php:183
 msgid "Aucun message pour le moment."
-msgstr ""
+msgstr "No messages yet."
 
 #: includes/class-bdr-ec-front.php:198
 msgid "Votre message"
-msgstr ""
+msgstr "Your message"
 
 #: includes/class-bdr-ec-front.php:200
 msgid "Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller."
-msgstr ""
+msgstr "Never share your passwords or card codes, not even with your advisor."
 
 #: includes/class-bdr-ec-front.php:201
 msgid "Envoyer"
-msgstr ""
+msgstr "Send"
 
 #: includes/class-bdr-ec-front.php:208
 msgid "Fichier"
-msgstr ""
+msgstr "File"
 
 #: includes/class-bdr-ec-front.php:208
 msgid "Déposé par"
-msgstr ""
+msgstr "Uploaded by"
 
 #: includes/class-bdr-ec-front.php:208
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: includes/class-bdr-ec-front.php:208
 msgid "Taille"
-msgstr ""
+msgstr "Size"
 
 #: includes/class-bdr-ec-front.php:217
 msgid "Aucun document pour le moment."
-msgstr ""
+msgstr "No documents yet."
 
 #: includes/class-bdr-ec-front.php:228
 msgid "Déposer un document"
-msgstr ""
+msgstr "Upload a document"
 
 #. translators: %s: max file size
 #: includes/class-bdr-ec-front.php:233
 msgid "Formats acceptés : PDF, JPG, PNG. Taille maximale : %s."
-msgstr ""
+msgstr "Accepted formats: PDF, JPG, PNG. Maximum size: %s."
 
 #: includes/class-bdr-ec-front.php:237
 msgid "Déposer"
-msgstr ""
+msgstr "Upload"
 
 #: includes/class-bdr-ec-install.php:95
 msgid "Client BDR"
-msgstr ""
+msgstr "BDR Client"
 
 #: includes/class-bdr-ec-install.php:98
 msgid "Conseiller BDR"
-msgstr ""
+msgstr "BDR Advisor"
 
 #: includes/class-bdr-ec-storage.php:88
 msgid "Aucun fichier reçu."
-msgstr ""
+msgstr "No file received."
 
 #: includes/class-bdr-ec-storage.php:94
 msgid "Le fichier n'a pas pu être reçu. Veuillez réessayer."
-msgstr ""
+msgstr "The file could not be received. Please try again."
 
 #: includes/class-bdr-ec-storage.php:104
 msgid "Type de fichier non autorisé."
-msgstr ""
+msgstr "File type not allowed."
 
 #: includes/class-bdr-ec-storage.php:114
 msgid "Le contenu du fichier ne correspond pas à son type."
-msgstr ""
+msgstr "The file content does not match its type."
 
 #: includes/class-bdr-ec-storage.php:118
 msgid "Le stockage des documents n'est pas disponible. Contactez la banque."
-msgstr ""
+msgstr "Document storage is unavailable. Please contact the bank."
 
 #: includes/class-bdr-ec-storage.php:124
 msgid "Le fichier n'a pas pu être enregistré."
-msgstr ""
+msgstr "The file could not be saved."
+
+#. Plugin Name of the plugin
+#: bdr-net.php
+msgid "BDR-NET"
+msgstr "BDR-NET"
+
+#. Description of the plugin
+#: bdr-net.php
+msgid "Espace client BDR-NET : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire."
+msgstr "BDR-NET client space: case tracking, document upload and secure messaging between clients and their advisor. No banking transactions."
+
+#: bdr-net.php:26
+msgid "BDR-NET : désactivez puis supprimez l'ancienne extension « BDR Espace Client ». BDR-NET la remplace et reprend ses dossiers, messages et documents."
+msgstr "BDR-NET: deactivate and delete the former “BDR Espace Client” plugin. BDR-NET replaces it and keeps its cases, messages and documents."
+
+#. translators: %s: name of the client space, e.g. BDR-NET
+#: includes/class-bdr-ec-admin.php:46
+#: includes/class-bdr-ec-admin.php:90
+msgid "Réglages %s"
+msgstr "%s settings"
+
+#. translators: %s: name of the client space, e.g. BDR-NET
+#: includes/class-bdr-ec-admin.php:166
+msgid "%s : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages."
+msgstr "%s: create a page containing [bdr_espace_client], then select it in the settings."
