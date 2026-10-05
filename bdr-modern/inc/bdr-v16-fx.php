@@ -31,7 +31,7 @@ function bdr_v16_fx_catalog() {
     'CHF' => array('fr' => 'Franc suisse', 'en' => 'Swiss franc', 'ar' => 'فرنك سويسري', 'alias' => array('franc suisse', 'swiss franc', 'فرنك سويسري', 'الفرنك السويسري')),
     'CAD' => array('fr' => 'Dollar canadien', 'en' => 'Canadian dollar', 'ar' => 'دولار كندي', 'alias' => array('dollar canadien', 'canadian dollar', 'دولار كندي', 'الدولار الكندي')),
     'CNY' => array('fr' => 'Yuan', 'en' => 'Yuan', 'ar' => 'يوان', 'alias' => array('yuan', 'renminbi', 'يوان', 'اليوان الصيني', 'اليوان')),
-    'JPY' => array('fr' => 'Yen', 'en' => 'Japanese yen', 'ar' => 'ين ياباني', 'alias' => array('yen', 'ين ياباني', 'الين الياباني', 'ين')),
+    'JPY' => array('fr' => 'Yen', 'en' => 'Japanese yen', 'ar' => 'ين ياباني', 'alias' => array('yen', 'yens', 'yen japonais', 'yens japonais', 'ين ياباني', 'الين الياباني', 'ين')),
     'AED' => array('fr' => 'Dirham des Émirats', 'en' => 'UAE dirham', 'ar' => 'درهم إماراتي', 'alias' => array('dirham des emirats', 'dirham emirati', 'uae dirham', 'درهم اماراتي', 'درهم إماراتي', 'الدرهم الاماراتي', 'الدرهم الإماراتي')),
     'SAR' => array('fr' => 'Riyal saoudien', 'en' => 'Saudi riyal', 'ar' => 'ريال سعودي', 'alias' => array('riyal saoudien', 'saudi riyal', 'ريال سعودي', 'الريال السعودي')),
     'TND' => array('fr' => 'Dinar tunisien', 'en' => 'Tunisian dinar', 'ar' => 'دينار تونسي', 'alias' => array('dinar tunisien', 'tunisian dinar', 'دينار تونسي', 'الدينار التونسي')),
@@ -129,7 +129,7 @@ function bdr_v16_fx_parse($html) {
   $xp = new DOMXPath($dom);
   foreach ($xp->query('//script|//style|//noscript') as $n) $n->parentNode->removeChild($n);
   $page_text = $dom->documentElement ? $dom->documentElement->textContent : '';
-  $best = array();
+  $best = array(); $best_table = null;
   foreach ($xp->query('//table') as $table) {
     $rows = array(); $cols = array('buy' => -1, 'sell' => -1, 'value' => -1, 'unit' => -1);
     foreach ($xp->query('.//tr', $table) as $tr) {
@@ -146,13 +146,21 @@ function bdr_v16_fx_parse($html) {
         elseif (preg_match('/^(unite|unit|nominal|وحدة|الوحدة)/u', $n)) { $tmp['unit'] = $i; $hdr++; }
       }
       if ($hdr >= 1 && bdr_v16_fx_num(end($cells)) === null && !preg_match('/\d/', implode('', $cells))) { $cols = $tmp; continue; }
-      $code = '';
-      foreach ($cells as $cell) { if (bdr_v16_fx_num($cell) !== null) continue; $code = bdr_v16_fx_detect($cell); if ($code) break; }
+      $code = ''; $name_unit = 1.0;
+      foreach ($cells as $cell) {
+        if (bdr_v16_fx_num($cell) !== null) continue;
+        $code = bdr_v16_fx_detect($cell);
+        if ($code) {
+          // Devise cotée par 10, 100 ou 1000 unités indiquée dans son libellé : « Yen (100) », « 100 Yens », « JPY x100 ».
+          if (preg_match('/\(\s*(10|100|1000)\s*\)|^\s*(10|100|1000)\s+\D|[x×]\s*(10|100|1000)\b/u', $cell, $um)) $name_unit = (float)max(array_slice($um, 1));
+          break;
+        }
+      }
       if (!$code) continue;
       $nums = array(); // index de cellule => valeur
       foreach ($cells as $i => $cell) { $v = bdr_v16_fx_num($cell); if ($v !== null && $v > 0.0001 && $v < 1000000) $nums[$i] = $v; }
       if (!$nums) continue;
-      $buy = $sell = $val = null; $unit = 1.0;
+      $buy = $sell = $val = null; $unit = $name_unit;
       if ($cols['buy'] >= 0 && isset($nums[$cols['buy']])) $buy = $nums[$cols['buy']];
       if ($cols['sell'] >= 0 && isset($nums[$cols['sell']])) $sell = $nums[$cols['sell']];
       if ($cols['value'] >= 0 && isset($nums[$cols['value']])) $val = $nums[$cols['value']];
@@ -167,7 +175,7 @@ function bdr_v16_fx_parse($html) {
       if ($unit > 1) { foreach (array('buy', 'sell', 'val') as $k) if ($$k !== null) $$k = $$k / $unit; }
       $rows[$code] = array('code' => $code, 'buy' => $buy, 'sell' => $sell, 'value' => $val !== null ? $val : ($sell !== null ? $sell : $buy));
     }
-    if (count($rows) > count($best)) $best = $rows;
+    if (count($rows) > count($best)) { $best = $rows; $best_table = $table; }
   }
   if (count($best) < 2) { $out['error'] = 'no_table'; return $out; }
   // Cours plausibles : 1 devise = entre 0,01 et 100 000 DZD (filtre les colonnes qui ne sont pas des cours).
@@ -185,7 +193,21 @@ function bdr_v16_fx_parse($html) {
       'value' => bdr_v16_fx_fmt($r['value']));
   }
   $out['rows'] = $rows;
-  $out['date'] = bdr_v16_fx_find_date(mb_substr($page_text, 0, 20000, 'UTF-8'));
+  // Date des cours : d'abord dans le tableau retenu et les éléments qui le précèdent (titre « Cours du … »),
+  // puis seulement dans le reste de la page (qui peut contenir d'autres dates : actualités, pied de page…).
+  $near = '';
+  if ($best_table) {
+    $near = $best_table->textContent;
+    foreach (array($best_table, $best_table->parentNode) as $node) {
+      $sib = $node ? $node->previousSibling : null;
+      for ($i = 0; $sib && $i < 6; $sib = $sib->previousSibling) {
+        if ($sib->nodeType !== XML_ELEMENT_NODE) continue;
+        $near = $sib->textContent . ' ' . $near; $i++;
+      }
+    }
+  }
+  $out['date'] = bdr_v16_fx_find_date(mb_substr($near, 0, 8000, 'UTF-8'));
+  if ($out['date'] === '') $out['date'] = bdr_v16_fx_find_date(mb_substr($page_text, 0, 20000, 'UTF-8'));
   return $out;
 }
 
@@ -217,11 +239,19 @@ function bdr_v16_fx_update($html = null) {
   $p = bdr_v16_fx_parse($html);
   $why = array('empty' => 'Page vide ou trop courte.', 'no_dom' => 'Extension PHP DOM absente.', 'no_table' => 'Aucun tableau de cours reconnu (page modifiée ou contenu chargé par JavaScript).', 'implausible' => 'Valeurs non plausibles : tableau non reconnu.');
   if ($p['error']) { $msg = isset($why[$p['error']]) ? $why[$p['error']] : 'Analyse impossible.'; bdr_v16_fx_set_status(false, $msg); return array('ok' => false, 'message' => $msg, 'count' => 0); }
-  $date = $p['date'] ? $p['date'] : gmdate('Y-m-d');
+  $date = $p['date'] ? $p['date'] : wp_date('Y-m-d', null, new DateTimeZone('Africa/Algiers'));
   update_option('bdr_fx_auto', array('rows' => $p['rows'], 'date' => $date, 'date_found' => (bool)$p['date'], 'fetched' => time(), 'source' => bdr_v16_fx_source()), false);
   $msg = count($p['rows']) . ' devises enregistrées' . ($p['date'] ? ' (cours du ' . $date . ').' : ' (date non trouvée sur la page : date du jour utilisée).');
   bdr_v16_fx_set_status(true, $msg, count($p['rows']));
+  bdr_v17_fx_purge_cache();
   return array('ok' => true, 'message' => $msg, 'count' => count($p['rows']));
+}
+
+/** Nouveaux cours : vider le cache des pages pour qu'ils s'affichent tout de suite (LiteSpeed sur o2switch, WP Rocket…). */
+function bdr_v17_fx_purge_cache() {
+  do_action('litespeed_purge_all');
+  if (function_exists('rocket_clean_domain')) rocket_clean_domain();
+  if (function_exists('wp_cache_clear_cache')) wp_cache_clear_cache();
 }
 
 /** Planification : une fois par jour (≈ 09 h 05, heure d'Alger) ; rattrapage discret si la tâche n'a pas tourné depuis plus de 30 h. */
