@@ -262,7 +262,7 @@ function bdr_v15_photo_map() {
     'epargne' => 'savings', 'epargne-disponible' => 'savings', 'epargne-projet' => 'family', 'epargne-jeune' => 'family', 'livrets-epargne' => 'savings',
     'placements' => 'savings', 'depot-terme' => 'savings', 'bons-caisse' => 'savings',
     'credits' => 'family', 'credit-immobilier' => 'family', 'credit-consommation' => 'customer-service', 'credit-auto' => 'algiers-coast',
-    'banque-en-ligne' => 'digital-banking', 'services-distance' => 'digital-banking', 'alertes-sms' => 'digital-banking', 'securite-digitale' => 'digital-banking', 'location-coffre' => 'headquarters',
+    'banque-en-ligne' => 'digital-banking', 'bdr-net' => 'digital-banking', 'services-distance' => 'digital-banking', 'alertes-sms' => 'digital-banking', 'securite-digitale' => 'digital-banking', 'location-coffre' => 'headquarters',
     'finance-islamique' => 'savings', 'finance-islamique-comptes' => 'customer-service', 'mourabaha' => 'family', 'mourabaha-consommation' => 'family',
     'mourabaha-travaux' => 'family', 'mourabaha-equipements' => 'business-consult', 'mourabaha-agriculture' => 'agriculture',
     'ijara' => 'business-consult', 'ijara-materiel-roulant' => 'commerce', 'ijara-medical' => 'business-consult', 'ijara-travaux-publics' => 'commerce',

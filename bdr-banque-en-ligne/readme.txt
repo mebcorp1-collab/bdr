@@ -4,7 +4,7 @@ Tags: banque en ligne, espace client, messagerie, documents, dossiers, faq, adh�
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 3.0.1
+Stable tag: 3.0.2
 License: GPLv2 or later
 
 Connexion BDR-NET (identifiant, mot de passe et code de sécurité) et espace client de www.bdr-dz.com : suivi des dossiers, dépôt de documents, messagerie sécurisée
@@ -68,7 +68,7 @@ Recommandations indispensables pour un site bancaire :
 
 == Thème bdr-modern ==
 
-La version 17.1 du thème contient la petite modification qui affiche cette connexion sur la page « Banque en ligne »
+La version 17.2 du thème contient la petite modification qui affiche cette connexion sur la page « Banque en ligne »
 (fichier inc/bdr-v16-login.php). Si l'extension est désactivée, le thème revient à son fonctionnement précédent.
 
 == Shortcodes ==
@@ -111,6 +111,9 @@ Le conseiller répond aux clients depuis la page de l'espace client (bouton « R
 Seuls les réglages sont supprimés. FAQ, demandes, dossiers, messages, documents et comptes clients sont conservés.
 
 == Changelog ==
+
+= 3.0.2 =
+* Le bouton « Espace client » du thème bdr-modern (17.2) mène à la page BDR-NET, présentée comme la connexion.
 
 = 3.0.1 =
 * La page de l'espace client « BDR-NET » est créée et sélectionnée automatiquement (activation ou mise à jour).

@@ -214,17 +214,7 @@ function bdr_v15_render_online_page($lang) {
       : $T('Connectez-vous à BDR-NET pour consulter vos comptes et effectuer vos opérations à distance, en toute sécurité.', 'Sign in to BDR-NET to view your accounts and carry out remote operations securely.', 'سجّل الدخول إلى BDR-NET للاطلاع على حساباتك وإجراء عملياتك عن بعد بأمان.'));
   echo '<section class="section login-section"><div class="container"><div class="login-shell">';
 
-  // Colonne d'information (sombre)
-  echo '<aside class="login-side"><span class="login-side-ic">' . bdr_v15_icon('lock', 'ic ic-lg') . '</span>';
-  echo '<h2>' . esc_html($bdr_net ? $T('Un accès protégé à votre espace client', 'Protected access to your customer area', 'دخول محمي إلى فضاء العميل') : $T('Un accès protégé, sur le portail officiel', 'Protected access, on the official portal', 'دخول محمي عبر البوابة الرسمية')) . '</h2>';
-  echo '<ul class="login-tips">';
-  foreach (array(
-    array($T('Vérifiez l’adresse', 'Check the address', 'تحقق من العنوان'), $T('Cadenas fermé et nom de domaine officiel dans la barre du navigateur.', 'Closed padlock and official domain name in the browser bar.', 'قفل مغلق واسم النطاق الرسمي في شريط المتصفح.')),
-    array($T('Ne partagez jamais vos codes', 'Never share your codes', 'لا تشارك رموزك أبداً'), $T('La BDR ne vous demandera jamais votre mot de passe ni un code SMS, par e-mail, téléphone ou message.', 'BDR will never ask for your password or an SMS code by email, phone or message.', 'لن يطلب منك BDR كلمة المرور أو رمز الرسائل القصيرة عبر البريد أو الهاتف أو الرسائل.')),
-    array($T('Déconnectez-vous', 'Sign out', 'سجّل الخروج'), $T('Fermez votre session après chaque utilisation, surtout sur un appareil partagé.', 'Close your session after each use, especially on a shared device.', 'أغلق جلستك بعد كل استخدام، خاصة على جهاز مشترك.')),
-  ) as $tip) echo '<li>' . bdr_v15_icon('check') . '<span><strong>' . esc_html($tip[0]) . '</strong> ' . esc_html($tip[1]) . '</span></li>';
-  echo '</ul><div class="login-side-links"><a href="' . esc_url(bdr_v11_url('securite-digitale', $lang)) . '">' . esc_html(bdr_v11_title('securite-digitale', $lang)) . ' ' . bdr_v15_icon('arrow', 'ic ic-arrow') . '</a>';
-  echo '<a href="' . esc_url(bdr_v11_url('ouvrir-un-compte', $lang)) . '">' . esc_html($T('Pas encore client ? Ouvrir un compte', 'Not a client yet? Open an account', 'لست عميلاً؟ افتح حساباً')) . ' ' . bdr_v15_icon('arrow', 'ic ic-arrow') . '</a></div></aside>';
+  bdr_v17_login_aside($lang, $bdr_net);
 
   // Formulaire
   echo '<div class="login-card">';
@@ -257,6 +247,41 @@ function bdr_v15_render_online_page($lang) {
   }
   echo '</div></div></div></section>';
   bdr_v16_login_after($lang, $u);
+}
+
+/** Colonne d'information (sombre) de la connexion, partagée par « Banque en ligne » et la page BDR-NET. */
+function bdr_v17_login_aside($lang, $bdr_net) {
+  $T = function ($fr, $en, $ar) use ($lang) { return bdr_v15_t($fr, $en, $ar, $lang); };
+  echo '<aside class="login-side"><span class="login-side-ic">' . bdr_v15_icon('lock', 'ic ic-lg') . '</span>';
+  echo '<h2>' . esc_html($bdr_net ? $T('Un accès protégé à votre espace client', 'Protected access to your customer area', 'دخول محمي إلى فضاء العميل') : $T('Un accès protégé, sur le portail officiel', 'Protected access, on the official portal', 'دخول محمي عبر البوابة الرسمية')) . '</h2>';
+  echo '<ul class="login-tips">';
+  foreach (array(
+    array($T('Vérifiez l’adresse', 'Check the address', 'تحقق من العنوان'), $T('Cadenas fermé et nom de domaine officiel dans la barre du navigateur.', 'Closed padlock and official domain name in the browser bar.', 'قفل مغلق واسم النطاق الرسمي في شريط المتصفح.')),
+    array($T('Ne partagez jamais vos codes', 'Never share your codes', 'لا تشارك رموزك أبداً'), $T('La BDR ne vous demandera jamais votre mot de passe ni un code SMS, par e-mail, téléphone ou message.', 'BDR will never ask for your password or an SMS code by email, phone or message.', 'لن يطلب منك BDR كلمة المرور أو رمز الرسائل القصيرة عبر البريد أو الهاتف أو الرسائل.')),
+    array($T('Déconnectez-vous', 'Sign out', 'سجّل الخروج'), $T('Fermez votre session après chaque utilisation, surtout sur un appareil partagé.', 'Close your session after each use, especially on a shared device.', 'أغلق جلستك بعد كل استخدام، خاصة على جهاز مشترك.')),
+  ) as $tip) echo '<li>' . bdr_v15_icon('check') . '<span><strong>' . esc_html($tip[0]) . '</strong> ' . esc_html($tip[1]) . '</span></li>';
+  echo '</ul><div class="login-side-links"><a href="' . esc_url(bdr_v11_url('securite-digitale', $lang)) . '">' . esc_html(bdr_v11_title('securite-digitale', $lang)) . ' ' . bdr_v15_icon('arrow', 'ic ic-arrow') . '</a>';
+  echo '<a href="' . esc_url(bdr_v11_url('ouvrir-un-compte', $lang)) . '">' . esc_html($T('Pas encore client ? Ouvrir un compte', 'Not a client yet? Open an account', 'لست عميلاً؟ افتح حساباً')) . ' ' . bdr_v15_icon('arrow', 'ic ic-arrow') . '</a></div></aside>';
+
+}
+
+/**
+ * Page de l'espace client BDR-NET (extension « BDR-NET Banque en ligne ») :
+ * visiteur → même présentation que la connexion « Banque en ligne » ; client connecté → son espace.
+ */
+function bdr_v17_render_bdr_net_page($lang) {
+  $T = function ($fr, $en, $ar) use ($lang) { return bdr_v15_t($fr, $en, $ar, $lang); };
+  bdr_page_hero($T('Espace client', 'Customer area', 'فضاء العميل'), 'BDR-NET',
+    $T('Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller, en toute sécurité.', 'Track your cases, upload your documents and talk to your advisor securely.', 'تابع ملفاتك وأودع وثائقك وتواصل مع مستشارك بأمان.'));
+  if (!is_user_logged_in()) {
+    echo '<section class="section login-section"><div class="container"><div class="login-shell">';
+    bdr_v17_login_aside($lang, true);
+    echo '<div class="login-card">' . bdr_net_login_card($lang) . '</div></div></div></section>';
+    return;
+  }
+  echo '<section class="section bdr-net-space"><div class="container">';
+  while (have_posts()) { the_post(); the_content(); }
+  echo '</div></section>';
 }
 
 function bdr_v16_login_after($lang, $u) {

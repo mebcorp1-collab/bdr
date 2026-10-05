@@ -29,7 +29,7 @@ function bdr_page_hero($eyebrow, $title, $intro, $dark = false, $cta = null) {
   $slug = bdr_v15_current_slug();
   $img = bdr_v15_image($slug);
   $u = bdr_v11_ui($lang);
-  $plain = in_array($slug, array('contact', 'agences', 'mentions-legales', 'donnees-personnelles', 'plan-du-site', 'taux-de-change', 'actualites', 'ouvrir-un-compte', 'banque-en-ligne'), true);
+  $plain = in_array($slug, array('contact', 'agences', 'mentions-legales', 'donnees-personnelles', 'plan-du-site', 'taux-de-change', 'actualites', 'ouvrir-un-compte', 'banque-en-ligne', 'bdr-net'), true);
   echo '<section class="page-hero" data-page="' . esc_attr($slug) . '"><div class="page-hero-grid"><div class="page-hero-panel"><div class="page-hero-copy">';
   if ($eyebrow !== '') {
     // Les libellés historiques sont en capitales : on les repasse en casse de phrase (hors arabe).

@@ -72,13 +72,18 @@ class BDR_NET_Login {
 	 * URLs
 	 * ------------------------------------------------------------------- */
 
-	/** The page that shows the login: the theme's online banking page, or the client space page. */
+	/** The BDR-NET page (client space page; it shows the login form to visitors). */
 	public static function page_url( $lang = null ) {
 		$lang = $lang ? $lang : self::lang();
-		if ( function_exists( 'bdr_v11_url' ) && function_exists( 'bdr_v15_render_online_page' ) ) {
-			return bdr_v11_url( 'banque-en-ligne', $lang );
+		if ( ! (int) BDR_EC_Admin::get( 'page_id' ) && function_exists( 'bdr_v11_url' ) ) {
+			return bdr_v11_url( 'banque-en-ligne', $lang ); // No client space page yet: theme's online banking page.
 		}
 		return BDR_EC_Front::space_url( 0, array(), $lang );
+	}
+
+	public static function is_space_page() {
+		$page_id = (int) BDR_EC_Admin::get( 'page_id' );
+		return $page_id && is_page( $page_id );
 	}
 
 	private static function current_url() {
@@ -89,7 +94,7 @@ class BDR_NET_Login {
 	}
 
 	public static function is_login_page() {
-		return function_exists( 'bdr_v16_is_online_route' ) && bdr_v16_is_online_route();
+		return ( function_exists( 'bdr_v16_is_online_route' ) && bdr_v16_is_online_route() ) || self::is_space_page();
 	}
 
 	public static function no_cache() {
@@ -303,8 +308,20 @@ class BDR_NET_Login {
 }
 
 /**
- * Template tag for the bdr-modern theme: inner HTML of the BDR-NET login card.
+ * Template tags for the bdr-modern theme.
  */
+
+/** URL of the BDR-NET client space page, in the given language (header « Espace client » button). */
+function bdr_net_space_url( $lang = null ) {
+	return BDR_NET_Login::page_url( $lang );
+}
+
+/** True on the BDR-NET client space page. */
+function bdr_net_is_space_page() {
+	return BDR_NET_Login::is_space_page();
+}
+
+/** Inner HTML of the BDR-NET login card. */
 function bdr_net_login_card( $lang = null ) {
 	return BDR_NET_Login::render_card( $lang );
 }

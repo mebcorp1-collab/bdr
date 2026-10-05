@@ -390,6 +390,8 @@ elseif($lang!=='fr' && isset($pages[$slug])){ $pages=bdr_v11_localize_pages($pag
     $p=bdr_v11_profile($slug,$lang); bdr_page_hero($p['eyebrow'],$p['title'],$p['intro']); bdr_section($p['title']); echo '<div class="feature-grid">'; foreach(bdr_v11_catalog() as $s=>$r){if($s==='')continue;echo '<a class="feature" href="'.esc_url(bdr_v11_url($s,$lang)).'"><strong>'.esc_html($r[$lang]).'</strong><span>Consulter la rubrique →</span></a>'; } echo '</div>'; bdr_close_section();
   }
 
+} elseif (function_exists('bdr_net_is_space_page') && bdr_net_is_space_page()) {
+  bdr_v17_render_bdr_net_page($lang); // Espace client BDR-NET (extension « BDR-NET Banque en ligne »)
 } else {
   bdr_page_hero('BDR',get_the_title(),'Retrouvez les informations et services de la Banque de Développement Régional.');
   bdr_section('Contenu'); echo '<div class="panel prose">'; while(have_posts()):the_post();the_content();endwhile; echo '</div>'; bdr_close_section();

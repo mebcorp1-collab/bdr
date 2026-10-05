@@ -41,7 +41,7 @@ function bdr_v11_parent_slug($slug){
       'commerce-exterieur'=>'entreprises','domiciliation'=>'commerce-exterieur','credit-documentaire'=>'commerce-exterieur','remise-documentaire'=>'commerce-exterieur','garanties-internationales'=>'commerce-exterieur','transfert-libre'=>'commerce-exterieur',
       'agriculture'=>'entreprises','financement-agriculture'=>'agriculture','financement-industrie'=>'agriculture','financement-peche-aquaculture'=>'agriculture',
       'finance-islamique'=>'particuliers','finance-islamique-comptes'=>'finance-islamique','livrets-epargne'=>'epargne','mourabaha'=>'finance-islamique','mourabaha-consommation'=>'mourabaha','mourabaha-travaux'=>'mourabaha','mourabaha-equipements'=>'mourabaha','mourabaha-agriculture'=>'mourabaha','ijara'=>'finance-islamique','ijara-materiel-roulant'=>'ijara','ijara-medical'=>'ijara','ijara-travaux-publics'=>'ijara',
-      'banque-en-ligne'=>'particuliers','services-distance'=>'banque-en-ligne','alertes-sms'=>'banque-en-ligne','location-coffre'=>'banque-en-ligne','securite-digitale'=>'banque-en-ligne',
+      'banque-en-ligne'=>'particuliers','bdr-net'=>'banque-en-ligne','services-distance'=>'banque-en-ligne','alertes-sms'=>'banque-en-ligne','location-coffre'=>'banque-en-ligne','securite-digitale'=>'banque-en-ligne',
       'algeriens-residents-etranger'=>'particuliers','institutionnels'=>'la-banque','recrutement'=>'la-banque','taux-de-change'=>'la-banque','agences'=>'la-banque','actualites'=>'la-banque','ouvrir-un-compte'=>'particuliers','contact'=>'la-banque',
       'mentions-legales'=>'','donnees-personnelles'=>'','plan-du-site'=>'',
     );
@@ -314,6 +314,7 @@ function bdr_v11_localized_breadcrumbs($slug,$lang){
   echo '</div></nav>';
 }
 function bdr_v11_title($slug,$lang){
+  if ($slug==='bdr-net') return 'BDR-NET';
   $c=bdr_v11_catalog(); return isset($c[$slug][$lang])?$c[$slug][$lang]:($c[$slug]['fr']??ucwords(str_replace('-',' ',$slug)));
 }
 

@@ -56,7 +56,10 @@ $langs = array('ar' => array('AR', 'العربية'), 'fr' => array('FR', 'Fran�
       </div>
     </div>
 
-    <a class="espace-client" href="<?php echo esc_url(bdr_v11_url('banque-en-ligne', $lang)); ?>"<?php echo $cur === 'banque-en-ligne' ? ' aria-current="page"' : ''; ?>>
+    <?php // Extension BDR-NET active : le bouton mène à l'espace client BDR-NET (/fr|en|ar/bdr-net/).
+    $ec_url = function_exists('bdr_net_space_url') ? bdr_net_space_url($lang) : bdr_v11_url('banque-en-ligne', $lang);
+    $ec_cur = function_exists('bdr_net_is_space_page') ? bdr_net_is_space_page() : $cur === 'banque-en-ligne'; ?>
+    <a class="espace-client" href="<?php echo esc_url($ec_url); ?>"<?php echo $ec_cur ? ' aria-current="page"' : ''; ?>>
       <?php echo bdr_v15_icon('lock', 'ic ic-lg'); ?>
       <span class="ec-text"><strong><?php echo esc_html(bdr_v15_t('Espace client', 'Customer area', 'فضاء العميل', $lang)); ?></strong><small><?php echo esc_html(bdr_v15_t('Connexion BDR-NET', 'Sign in to BDR-NET', 'دخول BDR-NET', $lang)); ?></small></span>
     </a>

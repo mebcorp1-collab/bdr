@@ -1,4 +1,4 @@
-BDR Modern 17.1 — thème WordPress de la Banque de Développement Régional
+BDR Modern 17.2 — thème WordPress de la Banque de Développement Régional
 =====================================================================
 
 INSTALLATION (toujours sur un site de test d'abord)
@@ -29,6 +29,9 @@ CONNEXION À L'ESPACE CLIENT AVEC L'EXTENSION « BDR-NET BANQUE EN LIGNE » (v17
   alors plus utilisés.
 - Modification limitée au fichier inc/bdr-v16-login.php (textes de la page + appel de bdr_net_login_card()).
   Extension désactivée : la page revient exactement au fonctionnement « portail » décrit ci-dessus.
+- v17.2 : le bouton « Espace client — Connexion BDR-NET » de l'en-tête mène à la page BDR-NET (/fr|en|ar/bdr-net/),
+  qui reprend la présentation de la connexion (bandeau « Espace client », colonne de conseils, carte de connexion) ;
+  une fois connecté, le client y voit son espace. Fil d'Ariane : Accueil › Particuliers › Banque en ligne › BDR-NET.
 - Après mise à jour : Réglages > Permaliens > Enregistrer, puis vider le cache LiteSpeed.
 
 
