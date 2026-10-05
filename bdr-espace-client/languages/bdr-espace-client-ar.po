@@ -1,0 +1,333 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Domain: bdr-espace-client\n"
+
+msgid "BDR Espace Client"
+msgstr "فضاء الزبون - BDR"
+
+msgid "https://www.bdr-dz.com"
+msgstr "https://www.bdr-dz.com"
+
+msgid "Espace client privé : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire."
+msgstr "فضاء خاص بالزبائن: متابعة الملفات، إيداع الوثائق ومراسلة آمنة بين الزبون ومستشاره. لا توجد أي عمليات مصرفية."
+
+msgid "BDR"
+msgstr "BDR"
+
+msgid "Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence."
+msgstr "محاولات دخول كثيرة جدًا. حفاظًا على أمنك، يرجى إعادة المحاولة بعد %d دقيقة أو الاتصال بوكالتك."
+
+msgid "Lien expiré. Retournez dans votre espace client et réessayez."
+msgstr "انتهت صلاحية الرابط. عد إلى فضاء الزبون وأعد المحاولة."
+
+msgid "Document introuvable."
+msgstr "الوثيقة غير موجودة."
+
+msgid "[Espace client] Nouveau document — %s"
+msgstr "[فضاء الزبون] وثيقة جديدة — %s"
+
+msgid "[Espace client] Nouveau message — %s"
+msgstr "[فضاء الزبون] رسالة جديدة — %s"
+
+msgid "%1$s a ajouté un élément au dossier « %2$s ».\n\nConsulter le dossier : %3$s"
+msgstr "أضاف %1$s عنصرًا إلى الملف «%2$s».\n\nالاطلاع على الملف: %3$s"
+
+msgid "%s — Nouvelle notification dans votre espace client"
+msgstr "%s — إشعار جديد في فضاء الزبون"
+
+msgid "Bonjour %1$s,\n\nVotre conseiller a ajouté un nouvel élément à votre dossier « %2$s ».\n\nPour le consulter, connectez-vous à votre espace client : %3$s\n\nPour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail."
+msgstr "مرحبًا %1$s،\n\nأضاف مستشارك عنصرًا جديدًا إلى ملفك «%2$s».\n\nللاطلاع عليه، سجّل الدخول إلى فضاء الزبون: %3$s\n\nحفاظًا على أمنك، لا تتضمن هذه الرسالة أي معلومات شخصية. لن يطلب منك بنك التنمية الجهوية أبدًا كلمات المرور أو الرموز عبر البريد الإلكتروني."
+
+msgid "Réglages de l'espace client"
+msgstr "إعدادات فضاء الزبون"
+
+msgid "Réglages"
+msgstr "الإعدادات"
+
+msgid "Nom de l'espace"
+msgstr "اسم الفضاء"
+
+msgid "Page de l'espace client"
+msgstr "صفحة فضاء الزبون"
+
+msgid "— Choisir une page —"
+msgstr "— اختر صفحة —"
+
+msgid "La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion."
+msgstr "الصفحة التي تحتوي على الرمز المختصر [bdr_espace_client]. تُستعمل في روابط الرسائل الإلكترونية وإعادة التوجيه بعد تسجيل الدخول."
+
+msgid "Taille maximale des documents (Mo)"
+msgstr "الحجم الأقصى للوثائق (ميغابايت)"
+
+msgid "Limite du serveur : %s."
+msgstr "حد الخادم: %s."
+
+msgid "E-mail de notification par défaut"
+msgstr "البريد الإلكتروني الافتراضي للإشعارات"
+
+msgid "Utilisé quand aucun conseiller n'est attribué au dossier."
+msgstr "يُستعمل عندما لا يكون أي مستشار معيّنًا للملف."
+
+msgid "Stockage des documents"
+msgstr "تخزين الوثائق"
+
+msgid "Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR)."
+msgstr "تُخزَّن الوثائق خارج المجلد العام للموقع (BDR_EC_STORAGE_DIR)."
+
+msgid "Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :"
+msgstr "تُخزَّن الوثائق في مجلد محمي داخل wp-content/uploads. لأقصى درجات الأمان، اطلب من مستضيف موقعك إنشاء مجلد خارج الموقع وأضف إلى ملف wp-config.php:"
+
+msgid "Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable."
+msgstr "إذا كان خادمك يستعمل Nginx، فإن ملفات .htaccess لا تُؤخذ بعين الاعتبار: هذا الخيار ضروري حينئذٍ."
+
+msgid "Espace client : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages."
+msgstr "فضاء الزبون: أنشئ صفحة تحتوي على [bdr_espace_client] ثم اخترها في الإعدادات."
+
+msgid "Ouvrir les réglages"
+msgstr "فتح الإعدادات"
+
+msgid "Suivi du dossier"
+msgstr "متابعة الملف"
+
+msgid "Échanges et documents"
+msgstr "المراسلات والوثائق"
+
+msgid "Client"
+msgstr "الزبون"
+
+msgid "— Choisir —"
+msgstr "— اختر —"
+
+msgid "Aucun client : créez d'abord un utilisateur avec le rôle « Client BDR »."
+msgstr "لا يوجد زبائن: أنشئ أولًا مستخدمًا بدور «زبون BDR»."
+
+msgid "Conseiller"
+msgstr "المستشار"
+
+msgid "— Aucun —"
+msgstr "— لا أحد —"
+
+msgid "Statut"
+msgstr "الحالة"
+
+msgid "Publiez le dossier pour que le client puisse le voir et échanger avec vous."
+msgstr "انشر الملف حتى يتمكن الزبون من رؤيته والتواصل معك."
+
+msgid "Répondre / déposer un document dans l'espace client"
+msgstr "الرد / إيداع وثيقة في فضاء الزبون"
+
+msgid "Messages"
+msgstr "الرسائل"
+
+msgid "Aucun message."
+msgstr "لا توجد رسائل."
+
+msgid "Documents"
+msgstr "الوثائق"
+
+msgid "Aucun document."
+msgstr "لا توجد وثائق."
+
+msgid "Dossier"
+msgstr "الملف"
+
+msgid "Non lus"
+msgstr "غير مقروءة"
+
+msgid "Dossiers clients"
+msgstr "ملفات الزبائن"
+
+msgid "Dossier client"
+msgstr "ملف زبون"
+
+msgid "Espace client"
+msgstr "فضاء الزبون"
+
+msgid "Dossiers"
+msgstr "الملفات"
+
+msgid "Nouveau dossier"
+msgstr "ملف جديد"
+
+msgid "Nouveau dossier client"
+msgstr "ملف زبون جديد"
+
+msgid "Rechercher un dossier"
+msgstr "البحث عن ملف"
+
+msgid "Aucun dossier."
+msgstr "لا توجد ملفات."
+
+msgid "Ouvert"
+msgstr "مفتوح"
+
+msgid "En cours de traitement"
+msgstr "قيد المعالجة"
+
+msgid "En attente de documents"
+msgstr "في انتظار الوثائق"
+
+msgid "Clôturé"
+msgstr "مغلق"
+
+msgid "Votre conseiller BDR"
+msgstr "مستشارك في BDR"
+
+msgid "Utilisateur supprimé"
+msgstr "مستخدم محذوف"
+
+msgid "Votre message a été envoyé."
+msgstr "تم إرسال رسالتك."
+
+msgid "Votre document a été déposé."
+msgstr "تم إيداع وثيقتك."
+
+msgid "La session a expiré. Veuillez réessayer."
+msgstr "انتهت صلاحية الجلسة. يرجى إعادة المحاولة."
+
+msgid "Ce dossier n'est pas accessible."
+msgstr "هذا الملف غير متاح."
+
+msgid "Ce dossier est clôturé : vous ne pouvez plus y ajouter de message ou de document."
+msgstr "هذا الملف مغلق: لم يعد بإمكانك إضافة رسائل أو وثائق إليه."
+
+msgid "Le message est vide."
+msgstr "الرسالة فارغة."
+
+msgid "Le message est trop long (5 000 caractères maximum)."
+msgstr "الرسالة طويلة جدًا (5000 حرف كحد أقصى)."
+
+msgid "Trop d'envois en peu de temps. Veuillez patienter quelques minutes."
+msgstr "عدد كبير من الإرسالات في وقت قصير. يرجى الانتظار بضع دقائق."
+
+msgid "Le fichier est trop volumineux."
+msgstr "الملف كبير جدًا."
+
+msgid "Type de fichier non autorisé. Formats acceptés : PDF, JPG, PNG."
+msgstr "نوع الملف غير مسموح به. الصيغ المقبولة: PDF وJPG وPNG."
+
+msgid "Le fichier n'a pas pu être déposé. Veuillez réessayer."
+msgstr "تعذّر إيداع الملف. يرجى إعادة المحاولة."
+
+msgid "Une erreur est survenue. Veuillez réessayer."
+msgstr "حدث خطأ. يرجى إعادة المحاولة."
+
+msgid "Votre compte n'a pas accès à l'espace client."
+msgstr "ليس لحسابك صلاحية الوصول إلى فضاء الزبون."
+
+msgid "Connexion à %s"
+msgstr "تسجيل الدخول إلى %s"
+
+msgid "Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité."
+msgstr "تابع ملفاتك، أودع وثائقك وتواصل مع مستشارك بكل سرية."
+
+msgid "Votre sécurité :"
+msgstr "أمانك:"
+
+msgid "connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte."
+msgstr "سجّل الدخول فقط من الموقع الرسمي لبنك التنمية الجهوية (تحقق من العنوان ومن رمز القفل). لن يطلب منك البنك أبدًا كلمة المرور عبر البريد الإلكتروني أو الرسائل القصيرة أو الهاتف. لا تُفصح أبدًا عن الرموز السرية لبطاقتك."
+
+msgid "Identifiant ou e-mail"
+msgstr "اسم المستخدم أو البريد الإلكتروني"
+
+msgid "Mot de passe"
+msgstr "كلمة المرور"
+
+msgid "Rester connecté"
+msgstr "تذكرني"
+
+msgid "Se connecter"
+msgstr "تسجيل الدخول"
+
+msgid "Mot de passe oublié ?"
+msgstr "نسيت كلمة المرور؟"
+
+msgid "Pas encore d'accès ? Demandez-le à votre agence."
+msgstr "لم تحصل بعد على حساب؟ اطلبه من وكالتك."
+
+msgid "Bonjour %s"
+msgstr "مرحبًا %s"
+
+msgid "Se déconnecter"
+msgstr "تسجيل الخروج"
+
+msgid "Mes dossiers"
+msgstr "ملفاتي"
+
+msgid "Vous n'avez aucun dossier pour le moment. Votre conseiller en ouvrira un si nécessaire."
+msgstr "ليس لديك أي ملف حاليًا. سيفتح مستشارك ملفًا عند الحاجة."
+
+msgid "Dernière activité"
+msgstr "آخر نشاط"
+
+msgid "%d nouveau"
+msgid_plural "%d nouveaux"
+msgstr[0] "جديدة: %d"
+msgstr[1] "جديدة: %d"
+msgstr[2] "جديدة: %d"
+msgstr[3] "جديدة: %d"
+msgstr[4] "جديدة: %d"
+msgstr[5] "جديدة: %d"
+
+msgid "Aucun message pour le moment."
+msgstr "لا توجد رسائل حاليًا."
+
+msgid "Votre message"
+msgstr "رسالتك"
+
+msgid "Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller."
+msgstr "لا تُفصح أبدًا عن كلمات المرور أو الرموز السرية لبطاقتك، حتى لمستشارك."
+
+msgid "Envoyer"
+msgstr "إرسال"
+
+msgid "Fichier"
+msgstr "الملف"
+
+msgid "Déposé par"
+msgstr "أودعه"
+
+msgid "Date"
+msgstr "التاريخ"
+
+msgid "Taille"
+msgstr "الحجم"
+
+msgid "Aucun document pour le moment."
+msgstr "لا توجد وثائق حاليًا."
+
+msgid "Déposer un document"
+msgstr "إيداع وثيقة"
+
+msgid "Formats acceptés : PDF, JPG, PNG. Taille maximale : %s."
+msgstr "الصيغ المقبولة: PDF وJPG وPNG. الحجم الأقصى: %s."
+
+msgid "Déposer"
+msgstr "إيداع"
+
+msgid "Client BDR"
+msgstr "زبون BDR"
+
+msgid "Conseiller BDR"
+msgstr "مستشار BDR"
+
+msgid "Aucun fichier reçu."
+msgstr "لم يتم استلام أي ملف."
+
+msgid "Le fichier n'a pas pu être reçu. Veuillez réessayer."
+msgstr "تعذّر استلام الملف. يرجى إعادة المحاولة."
+
+msgid "Type de fichier non autorisé."
+msgstr "نوع الملف غير مسموح به."
+
+msgid "Le contenu du fichier ne correspond pas à son type."
+msgstr "محتوى الملف لا يتوافق مع نوعه."
+
+msgid "Le stockage des documents n'est pas disponible. Contactez la banque."
+msgstr "تخزين الوثائق غير متاح. يرجى الاتصال بالبنك."
+
+msgid "Le fichier n'a pas pu être enregistré."
+msgstr "تعذّر حفظ الملف."

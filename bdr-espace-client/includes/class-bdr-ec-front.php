@@ -141,7 +141,7 @@ class BDR_EC_Front {
 
 		foreach ( $dossiers as $dossier ) {
 			$unread = BDR_EC_Data::unread_count( $dossier->ID );
-			$html  .= '<tr><td><a href="' . esc_url( self::space_url( $dossier->ID ) ) . '">' . esc_html( get_the_title( $dossier ) ) . '</a>';
+			$html  .= '<tr><td><a dir="auto" href="' . esc_url( self::space_url( $dossier->ID ) ) . '">' . esc_html( get_the_title( $dossier ) ) . '</a>';
 			if ( $unread ) {
 				/* translators: %d: number of unread messages */
 				$html .= ' <span class="bdr-ec-badge">' . esc_html( sprintf( _n( '%d nouveau', '%d nouveaux', $unread, 'bdr-espace-client' ), $unread ) ) . '</span>';
@@ -152,13 +152,16 @@ class BDR_EC_Front {
 				$html  .= '<td>' . esc_html( $client ? $client->display_name : '—' ) . '</td>';
 			}
 			$html .= '<td><span class="bdr-ec-status bdr-ec-status--' . esc_attr( BDR_EC_Data::status( $dossier->ID ) ) . '">' . esc_html( BDR_EC_Data::status_label( $dossier->ID ) ) . '</span></td>';
-			$html .= '<td>' . esc_html( get_post_modified_time( get_option( 'date_format' ) . ' H:i', false, $dossier, true ) ) . '</td></tr>';
+			$html .= '<td>' . self::format_date( $dossier->post_modified_gmt ) . '</td></tr>';
 		}
 		return $html . '</tbody></table>';
 	}
 
-	private static function format_date( $gmt ) {
-		return esc_html( get_date_from_gmt( $gmt, get_option( 'date_format' ) . ' H:i' ) );
+	/**
+	 * Localized date (month names follow the current language) from a GMT MySQL datetime.
+	 */
+	public static function format_date( $gmt ) {
+		return esc_html( wp_date( get_option( 'date_format' ) . ' H:i', strtotime( $gmt . ' UTC' ) ) );
 	}
 
 	private static function dossier( $dossier ) {
@@ -170,8 +173,8 @@ class BDR_EC_Front {
 
 		BDR_EC_Data::mark_read( $id );
 
-		$html  = '<p><a href="' . esc_url( self::space_url() ) . '">&larr; ' . esc_html__( 'Mes dossiers', 'bdr-espace-client' ) . '</a></p>';
-		$html .= '<div class="bdr-ec-head"><h2>' . esc_html( get_the_title( $dossier ) ) . '</h2>'
+		$html  = '<p><a href="' . esc_url( self::space_url() ) . '">' . ( is_rtl() ? '&rarr; ' : '&larr; ' ) . esc_html__( 'Mes dossiers', 'bdr-espace-client' ) . '</a></p>';
+		$html .= '<div class="bdr-ec-head"><h2 dir="auto">' . esc_html( get_the_title( $dossier ) ) . '</h2>'
 			. '<span class="bdr-ec-status bdr-ec-status--' . esc_attr( BDR_EC_Data::status( $id ) ) . '">' . esc_html( BDR_EC_Data::status_label( $id ) ) . '</span></div>';
 
 		// Messages.
@@ -183,7 +186,7 @@ class BDR_EC_Front {
 			$mine  = (int) $message->author_id === $me;
 			$html .= '<div class="bdr-ec-msg' . ( $mine ? ' bdr-ec-msg--mine' : '' ) . '">'
 				. '<div class="bdr-ec-msg__meta"><strong>' . esc_html( BDR_EC_Data::author_label( $message->author_id, $id ) ) . '</strong> · ' . self::format_date( $message->created_at ) . '</div>'
-				. '<div class="bdr-ec-msg__body">' . nl2br( esc_html( $message->body ) ) . '</div></div>';
+				. '<div class="bdr-ec-msg__body" dir="auto">' . nl2br( esc_html( $message->body ) ) . '</div></div>';
 		}
 		$html .= '</div>';
 
@@ -193,7 +196,7 @@ class BDR_EC_Front {
 				. '<input type="hidden" name="dossier" value="' . esc_attr( $id ) . '" />'
 				. wp_nonce_field( 'bdr_ec_message_' . $id, '_bdr_ec_nonce', false, false )
 				. '<label for="bdr-ec-message">' . esc_html__( 'Votre message', 'bdr-espace-client' ) . '</label>'
-				. '<textarea id="bdr-ec-message" name="message" rows="4" maxlength="5000" required></textarea>'
+				. '<textarea id="bdr-ec-message" name="message" dir="auto" rows="4" maxlength="5000" required></textarea>'
 				. '<p class="bdr-ec-small">' . esc_html__( 'Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller.', 'bdr-espace-client' ) . '</p>'
 				. '<button type="submit" class="bdr-ec-btn">' . esc_html__( 'Envoyer', 'bdr-espace-client' ) . '</button></form>';
 		}
@@ -204,7 +207,7 @@ class BDR_EC_Front {
 		if ( $docs ) {
 			$html .= '<table class="bdr-ec-table"><thead><tr><th>' . esc_html__( 'Fichier', 'bdr-espace-client' ) . '</th><th>' . esc_html__( 'Déposé par', 'bdr-espace-client' ) . '</th><th>' . esc_html__( 'Date', 'bdr-espace-client' ) . '</th><th>' . esc_html__( 'Taille', 'bdr-espace-client' ) . '</th></tr></thead><tbody>';
 			foreach ( $docs as $doc ) {
-				$html .= '<tr><td><a href="' . esc_url( BDR_EC_Actions::download_url( $doc->id ) ) . '">' . esc_html( $doc->original_name ) . '</a></td>'
+				$html .= '<tr><td><a dir="auto" href="' . esc_url( BDR_EC_Actions::download_url( $doc->id ) ) . '">' . esc_html( $doc->original_name ) . '</a></td>'
 					. '<td>' . esc_html( BDR_EC_Data::author_label( $doc->uploader_id, $id ) ) . '</td>'
 					. '<td>' . self::format_date( $doc->created_at ) . '</td>'
 					. '<td>' . esc_html( size_format( $doc->size, 1 ) ) . '</td></tr>';

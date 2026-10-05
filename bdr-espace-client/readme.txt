@@ -4,7 +4,7 @@ Tags: espace client, messagerie, documents, dossiers, banque
 Requires at least: 5.8
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 
 Espace client privé « BDR-NET » : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire.
@@ -38,6 +38,17 @@ Recommandations indispensables pour un site bancaire :
 5. Sauvegardes régulières chiffrées de la base de données et du dossier de documents.
 6. Faire valider le dispositif par le responsable sécurité / conformité (loi 18-07 sur les données personnelles).
 
+== Langues ==
+
+L'extension est traduite en français (langue d'origine), en anglais (en_US) et en arabe (ar).
+* La langue suit celle du site. Avec Polylang ou WPML, chaque version linguistique de la page BDR-NET
+  s'affiche dans sa langue : créez la page dans chaque langue avec le shortcode [bdr_espace_client]
+  et sélectionnez la page principale dans les réglages.
+* En arabe, la mise en page passe automatiquement de droite à gauche.
+* Messages, titres et noms de fichiers gardent leur propre sens d'écriture (un message en français reste lisible dans la page arabe).
+* Les e-mails sont envoyés dans la langue du destinataire (champ « Langue » de son profil utilisateur).
+* Pour modifier une traduction : fichiers languages/bdr-espace-client-ar.po et -en_US.po (éditables avec Poedit ou Loco Translate).
+
 == Installation ==
 
 1. Extensions > Ajouter > Téléverser une extension, choisissez bdr-espace-client.zip, puis Activer.
@@ -55,6 +66,9 @@ Le conseiller répond depuis la même page (bouton « Répondre » sur la fiche 
 Seuls les réglages sont supprimés. Les dossiers, messages, documents et comptes clients sont conservés.
 
 == Changelog ==
+
+= 1.1.0 =
+* Traductions anglaise et arabe, mise en page droite à gauche, dates localisées, e-mails dans la langue du destinataire.
 
 = 1.0.0 =
 * Première version.

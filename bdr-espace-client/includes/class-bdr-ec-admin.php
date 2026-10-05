@@ -229,7 +229,6 @@ class BDR_EC_Admin {
 
 		$messages = BDR_EC_Data::messages( $post->ID );
 		$docs     = BDR_EC_Data::documents( $post->ID );
-		$format   = get_option( 'date_format' ) . ' H:i';
 
 		printf(
 			'<p><a class="button button-primary" href="%s" target="_blank" rel="noopener">%s</a></p>',
@@ -243,9 +242,9 @@ class BDR_EC_Admin {
 		}
 		foreach ( $messages as $message ) {
 			printf(
-				'<div style="border-left:3px solid #2271b1;padding:4px 10px;margin-bottom:10px"><strong>%s</strong> · %s<br />%s</div>',
+				'<div style="border-inline-start:3px solid #2271b1;padding:4px 10px;margin-bottom:10px"><strong>%s</strong> · %s<div dir="auto">%s</div></div>',
 				esc_html( BDR_EC_Data::author_label( $message->author_id, $post->ID ) ),
-				esc_html( get_date_from_gmt( $message->created_at, $format ) ),
+				BDR_EC_Front::format_date( $message->created_at ),
 				nl2br( esc_html( $message->body ) )
 			);
 		}
@@ -262,7 +261,7 @@ class BDR_EC_Admin {
 				esc_url( BDR_EC_Actions::download_url( $doc->id ) ),
 				esc_html( $doc->original_name ),
 				esc_html( BDR_EC_Data::author_label( $doc->uploader_id, $post->ID ) ),
-				esc_html( get_date_from_gmt( $doc->created_at, $format ) ),
+				BDR_EC_Front::format_date( $doc->created_at ),
 				esc_html( size_format( $doc->size, 1 ) )
 			);
 		}

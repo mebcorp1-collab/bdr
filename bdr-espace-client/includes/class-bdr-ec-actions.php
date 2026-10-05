@@ -232,19 +232,27 @@ class BDR_EC_Actions {
 	}
 
 	/**
-	 * E-mail the other side. The e-mail never contains the message or the document: only a link to log in.
+	 * E-mail the other side, in the recipient's language (profile setting).
+	 * The e-mail never contains the message or the document: only a link to log in.
 	 */
 	private static function notify( $dossier_id, $what ) {
 		$dossier = get_post( $dossier_id );
-		$author  = get_current_user_id();
 		$client  = BDR_EC_Data::client_id( $dossier_id );
+		$to_bank = get_current_user_id() === $client;
 
-		if ( $author === $client ) {
-			$advisor = get_userdata( BDR_EC_Data::advisor_id( $dossier_id ) );
-			$to      = $advisor ? $advisor->user_email : BDR_EC_Admin::get( 'notify_email' );
-			if ( ! is_email( $to ) ) {
-				$to = get_option( 'admin_email' );
-			}
+		$recipient = $to_bank ? get_userdata( BDR_EC_Data::advisor_id( $dossier_id ) ) : get_userdata( $client );
+		if ( $recipient ) {
+			$to = $recipient->user_email;
+		} elseif ( $to_bank ) {
+			$to = BDR_EC_Admin::get( 'notify_email' );
+			$to = is_email( $to ) ? $to : get_option( 'admin_email' );
+		} else {
+			return;
+		}
+
+		$switched = $recipient ? switch_to_locale( get_user_locale( $recipient ) ) : false;
+
+		if ( $to_bank ) {
 			$subject = 'document' === $what
 				/* translators: %s: dossier title */
 				? sprintf( __( '[Espace client] Nouveau document — %s', 'bdr-espace-client' ), $dossier->post_title )
@@ -258,20 +266,19 @@ class BDR_EC_Actions {
 				BDR_EC_Front::space_url( $dossier_id )
 			);
 		} else {
-			$user = get_userdata( $client );
-			if ( ! $user ) {
-				return;
-			}
-			$to      = $user->user_email;
 			/* translators: %s: name of the client space, e.g. BDR-NET */
 			$subject = sprintf( __( '%s — Nouvelle notification dans votre espace client', 'bdr-espace-client' ), BDR_EC_Admin::get( 'space_name' ) );
 			$body    = sprintf(
 				/* translators: 1: client name, 2: dossier title, 3: link */
 				__( "Bonjour %1\$s,\n\nVotre conseiller a ajouté un nouvel élément à votre dossier « %2\$s ».\n\nPour le consulter, connectez-vous à votre espace client : %3\$s\n\nPour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail.", 'bdr-espace-client' ),
-				$user->display_name,
+				$recipient->display_name,
 				$dossier->post_title,
 				BDR_EC_Front::space_url()
 			);
+		}
+
+		if ( $switched ) {
+			restore_previous_locale();
 		}
 		wp_mail( $to, $subject, $body );
 	}

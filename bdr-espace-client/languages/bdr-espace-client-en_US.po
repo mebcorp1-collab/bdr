@@ -1,0 +1,329 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Domain: bdr-espace-client\n"
+
+msgid "BDR Espace Client"
+msgstr "BDR Client Space"
+
+msgid "https://www.bdr-dz.com"
+msgstr "https://www.bdr-dz.com"
+
+msgid "Espace client privé : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire."
+msgstr "Private client space: case tracking, document upload and secure messaging between clients and their advisor. No banking transactions."
+
+msgid "BDR"
+msgstr "BDR"
+
+msgid "Trop de tentatives de connexion. Pour votre sécurité, réessayez dans %d minutes ou contactez votre agence."
+msgstr "Too many login attempts. For your security, please try again in %d minutes or contact your branch."
+
+msgid "Lien expiré. Retournez dans votre espace client et réessayez."
+msgstr "This link has expired. Go back to your client space and try again."
+
+msgid "Document introuvable."
+msgstr "Document not found."
+
+msgid "[Espace client] Nouveau document — %s"
+msgstr "[Client space] New document — %s"
+
+msgid "[Espace client] Nouveau message — %s"
+msgstr "[Client space] New message — %s"
+
+msgid "%1$s a ajouté un élément au dossier « %2$s ».\n\nConsulter le dossier : %3$s"
+msgstr "%1$s added an item to the case “%2$s”.\n\nView the case: %3$s"
+
+msgid "%s — Nouvelle notification dans votre espace client"
+msgstr "%s — New notification in your client space"
+
+msgid "Bonjour %1$s,\n\nVotre conseiller a ajouté un nouvel élément à votre dossier « %2$s ».\n\nPour le consulter, connectez-vous à votre espace client : %3$s\n\nPour votre sécurité, ce message ne contient aucune information personnelle. La BDR ne vous demandera jamais vos mots de passe ou codes par e-mail."
+msgstr "Hello %1$s,\n\nYour advisor has added a new item to your case “%2$s”.\n\nTo view it, log in to your client space: %3$s\n\nFor your security, this message contains no personal information. BDR will never ask for your passwords or codes by e-mail."
+
+msgid "Réglages de l'espace client"
+msgstr "Client space settings"
+
+msgid "Réglages"
+msgstr "Settings"
+
+msgid "Nom de l'espace"
+msgstr "Space name"
+
+msgid "Page de l'espace client"
+msgstr "Client space page"
+
+msgid "— Choisir une page —"
+msgstr "— Select a page —"
+
+msgid "La page qui contient le shortcode [bdr_espace_client]. Elle sert aux liens des e-mails et à la redirection après connexion."
+msgstr "The page containing the [bdr_espace_client] shortcode. It is used for e-mail links and for the redirect after login."
+
+msgid "Taille maximale des documents (Mo)"
+msgstr "Maximum document size (MB)"
+
+msgid "Limite du serveur : %s."
+msgstr "Server limit: %s."
+
+msgid "E-mail de notification par défaut"
+msgstr "Default notification e-mail"
+
+msgid "Utilisé quand aucun conseiller n'est attribué au dossier."
+msgstr "Used when no advisor is assigned to the case."
+
+msgid "Stockage des documents"
+msgstr "Document storage"
+
+msgid "Les documents sont stockés en dehors du dossier public du site (BDR_EC_STORAGE_DIR)."
+msgstr "Documents are stored outside the site's public folder (BDR_EC_STORAGE_DIR)."
+
+msgid "Les documents sont stockés dans un dossier protégé de wp-content/uploads. Pour une sécurité maximale, demandez à votre hébergeur de créer un dossier hors du site et ajoutez dans wp-config.php :"
+msgstr "Documents are stored in a protected folder in wp-content/uploads. For maximum security, ask your host to create a folder outside the site and add to wp-config.php:"
+
+msgid "Si votre serveur utilise Nginx, les fichiers .htaccess ne sont pas pris en compte : cette option est alors indispensable."
+msgstr "If your server uses Nginx, .htaccess files are ignored: this option is then essential."
+
+msgid "Espace client : créez une page contenant [bdr_espace_client], puis sélectionnez-la dans les réglages."
+msgstr "Client space: create a page containing [bdr_espace_client], then select it in the settings."
+
+msgid "Ouvrir les réglages"
+msgstr "Open settings"
+
+msgid "Suivi du dossier"
+msgstr "Case follow-up"
+
+msgid "Échanges et documents"
+msgstr "Messages and documents"
+
+msgid "Client"
+msgstr "Client"
+
+msgid "— Choisir —"
+msgstr "— Select —"
+
+msgid "Aucun client : créez d'abord un utilisateur avec le rôle « Client BDR »."
+msgstr "No clients yet: first create a user with the “BDR Client” role."
+
+msgid "Conseiller"
+msgstr "Advisor"
+
+msgid "— Aucun —"
+msgstr "— None —"
+
+msgid "Statut"
+msgstr "Status"
+
+msgid "Publiez le dossier pour que le client puisse le voir et échanger avec vous."
+msgstr "Publish the case so the client can see it and exchange with you."
+
+msgid "Répondre / déposer un document dans l'espace client"
+msgstr "Reply / upload a document in the client space"
+
+msgid "Messages"
+msgstr "Messages"
+
+msgid "Aucun message."
+msgstr "No messages."
+
+msgid "Documents"
+msgstr "Documents"
+
+msgid "Aucun document."
+msgstr "No documents."
+
+msgid "Dossier"
+msgstr "Case"
+
+msgid "Non lus"
+msgstr "Unread"
+
+msgid "Dossiers clients"
+msgstr "Client cases"
+
+msgid "Dossier client"
+msgstr "Client case"
+
+msgid "Espace client"
+msgstr "Client space"
+
+msgid "Dossiers"
+msgstr "Cases"
+
+msgid "Nouveau dossier"
+msgstr "New case"
+
+msgid "Nouveau dossier client"
+msgstr "New client case"
+
+msgid "Rechercher un dossier"
+msgstr "Search cases"
+
+msgid "Aucun dossier."
+msgstr "No cases."
+
+msgid "Ouvert"
+msgstr "Open"
+
+msgid "En cours de traitement"
+msgstr "In progress"
+
+msgid "En attente de documents"
+msgstr "Awaiting documents"
+
+msgid "Clôturé"
+msgstr "Closed"
+
+msgid "Votre conseiller BDR"
+msgstr "Your BDR advisor"
+
+msgid "Utilisateur supprimé"
+msgstr "Deleted user"
+
+msgid "Votre message a été envoyé."
+msgstr "Your message has been sent."
+
+msgid "Votre document a été déposé."
+msgstr "Your document has been uploaded."
+
+msgid "La session a expiré. Veuillez réessayer."
+msgstr "Your session has expired. Please try again."
+
+msgid "Ce dossier n'est pas accessible."
+msgstr "This case is not accessible."
+
+msgid "Ce dossier est clôturé : vous ne pouvez plus y ajouter de message ou de document."
+msgstr "This case is closed: you can no longer add messages or documents to it."
+
+msgid "Le message est vide."
+msgstr "The message is empty."
+
+msgid "Le message est trop long (5 000 caractères maximum)."
+msgstr "The message is too long (5,000 characters maximum)."
+
+msgid "Trop d'envois en peu de temps. Veuillez patienter quelques minutes."
+msgstr "Too many submissions in a short time. Please wait a few minutes."
+
+msgid "Le fichier est trop volumineux."
+msgstr "The file is too large."
+
+msgid "Type de fichier non autorisé. Formats acceptés : PDF, JPG, PNG."
+msgstr "File type not allowed. Accepted formats: PDF, JPG, PNG."
+
+msgid "Le fichier n'a pas pu être déposé. Veuillez réessayer."
+msgstr "The file could not be uploaded. Please try again."
+
+msgid "Une erreur est survenue. Veuillez réessayer."
+msgstr "An error occurred. Please try again."
+
+msgid "Votre compte n'a pas accès à l'espace client."
+msgstr "Your account does not have access to the client space."
+
+msgid "Connexion à %s"
+msgstr "Log in to %s"
+
+msgid "Suivez vos dossiers, déposez vos documents et échangez avec votre conseiller en toute confidentialité."
+msgstr "Track your cases, upload your documents and communicate with your advisor in complete confidentiality."
+
+msgid "Votre sécurité :"
+msgstr "Your security:"
+
+msgid "connectez-vous uniquement depuis le site officiel de la BDR (vérifiez l'adresse et le cadenas). La BDR ne vous demandera jamais votre mot de passe par e-mail, SMS ou téléphone. Ne communiquez jamais vos codes de carte."
+msgstr "only log in from the official BDR website (check the address and the padlock). BDR will never ask for your password by e-mail, SMS or phone. Never share your card codes."
+
+msgid "Identifiant ou e-mail"
+msgstr "Username or e-mail"
+
+msgid "Mot de passe"
+msgstr "Password"
+
+msgid "Rester connecté"
+msgstr "Stay logged in"
+
+msgid "Se connecter"
+msgstr "Log in"
+
+msgid "Mot de passe oublié ?"
+msgstr "Forgot your password?"
+
+msgid "Pas encore d'accès ? Demandez-le à votre agence."
+msgstr "No access yet? Ask your branch."
+
+msgid "Bonjour %s"
+msgstr "Hello %s"
+
+msgid "Se déconnecter"
+msgstr "Log out"
+
+msgid "Mes dossiers"
+msgstr "My cases"
+
+msgid "Vous n'avez aucun dossier pour le moment. Votre conseiller en ouvrira un si nécessaire."
+msgstr "You don't have any cases yet. Your advisor will open one if needed."
+
+msgid "Dernière activité"
+msgstr "Last activity"
+
+msgid "%d nouveau"
+msgid_plural "%d nouveaux"
+msgstr[0] "%d new"
+msgstr[1] "%d new"
+
+msgid "Aucun message pour le moment."
+msgstr "No messages yet."
+
+msgid "Votre message"
+msgstr "Your message"
+
+msgid "Ne communiquez jamais vos mots de passe ou codes de carte, même à votre conseiller."
+msgstr "Never share your passwords or card codes, not even with your advisor."
+
+msgid "Envoyer"
+msgstr "Send"
+
+msgid "Fichier"
+msgstr "File"
+
+msgid "Déposé par"
+msgstr "Uploaded by"
+
+msgid "Date"
+msgstr "Date"
+
+msgid "Taille"
+msgstr "Size"
+
+msgid "Aucun document pour le moment."
+msgstr "No documents yet."
+
+msgid "Déposer un document"
+msgstr "Upload a document"
+
+msgid "Formats acceptés : PDF, JPG, PNG. Taille maximale : %s."
+msgstr "Accepted formats: PDF, JPG, PNG. Maximum size: %s."
+
+msgid "Déposer"
+msgstr "Upload"
+
+msgid "Client BDR"
+msgstr "BDR Client"
+
+msgid "Conseiller BDR"
+msgstr "BDR Advisor"
+
+msgid "Aucun fichier reçu."
+msgstr "No file received."
+
+msgid "Le fichier n'a pas pu être reçu. Veuillez réessayer."
+msgstr "The file could not be received. Please try again."
+
+msgid "Type de fichier non autorisé."
+msgstr "File type not allowed."
+
+msgid "Le contenu du fichier ne correspond pas à son type."
+msgstr "The file content does not match its type."
+
+msgid "Le stockage des documents n'est pas disponible. Contactez la banque."
+msgstr "Document storage is unavailable. Please contact the bank."
+
+msgid "Le fichier n'a pas pu être enregistré."
+msgstr "The file could not be saved."

@@ -3,7 +3,7 @@
  * Plugin Name:       BDR Espace Client
  * Plugin URI:        https://www.bdr-dz.com
  * Description:       Espace client privé : suivi des dossiers, dépôt de documents et messagerie sécurisée entre le client et son conseiller. Aucune opération bancaire.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Requires at least: 5.8
  * Requires PHP:      7.4
  * Author:            BDR
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'BDR_EC_VERSION', '1.0.0' );
+define( 'BDR_EC_VERSION', '1.1.0' );
 define( 'BDR_EC_FILE', __FILE__ );
 define( 'BDR_EC_DIR', plugin_dir_path( __FILE__ ) );
 define( 'BDR_EC_URL', plugin_dir_url( __FILE__ ) );
